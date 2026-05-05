@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inibos Creations — Linda Lee Visser</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --earth: #5c3d1e;
+    --sand: #c9a96e;
+    --cream: #f5efe4;
+    --warm-white: #fdf8f0;
+    --sage: #7a8c6e;
+    --rust: #9b4a1f;
+    --dark: #2c1a0e;
+    --light-sage: #e8ede4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--warm-white); color: var(--dark); font-family: 'Lora', Georgia, serif; overflow-x: hidden; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 70% 30%, rgba(156,74,31,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(122,140,110,0.18) 0%, transparent 55%),
+                linear-gradient(160deg, #2c1a0e 0%, #5c3d1e 45%, #7a5535 100%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 60px 24px; position: relative; overflow: hidden;
+  }
+  .hero-badge { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--sand); font-size: 0.88rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 9vw, 6rem); font-weight: 700; color: var(--cream); line-height: 1.05; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero h1 em { font-style: italic; color: var(--sand); }
+  .hero-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: rgba(245,239,228,0.7); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-tagline { max-width: 580px; font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: rgba(245,239,228,0.88); line-height: 1.82; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 0.8s 1s forwards; }
+  .btn-primary { background: var(--sand); color: var(--dark); padding: 15px 34px; border-radius: 2px; font-family: 'Libre Baskerville', serif; font-size: 0.88rem; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; border: 2px solid var(--sand); transition: all 0.3s; font-weight: bold; }
+  .btn-primary:hover { background: transparent; color: var(--sand); }
+  .btn-secondary { border: 2px solid rgba(245,239,228,0.4); color: var(--cream); padding: 15px 34px; border-radius: 2px; font-family: 'Libre Baskerville', serif; font-size: 0.88rem; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; transition: all 0.3s; }
+  .btn-secondary:hover { border-color: var(--sand); color: var(--sand); }
+
+  /* ABOUT */
+  .about { background: var(--cream); padding: 100px 24px; }
+  .about-inner { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 150px 1fr; gap: 56px; align-items: center; }
+  .about-accent { text-align: center; }
+  .about-icon { font-size: 5rem; line-height: 1; margin-bottom: 14px; display: block; }
+  .about-label { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--sage); font-size: 0.82rem; letter-spacing: 0.07em; line-height: 1.65; }
+  .section-tag { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--rust); font-size: 0.84rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; display: block; }
+  .about h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--earth); line-height: 1.2; margin-bottom: 22px; }
+  .about p { font-size: 1.04rem; line-height: 1.88; color: #4a3525; margin-bottom: 16px; }
+
+  /* DIVIDER */
+  .divider { text-align: center; padding: 18px 0; color: var(--sand); font-size: 1.2rem; letter-spacing: 0.6em; background: var(--warm-white); }
+
+  /* BOOKS */
+  .books { background: var(--warm-white); padding: 90px 24px; }
+  .books-header { text-align: center; max-width: 620px; margin: 0 auto 64px; }
+  .books-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); color: var(--earth); margin-bottom: 14px; line-height: 1.15; }
+  .books-header p { color: #6b5040; line-height: 1.75; font-style: italic; font-size: 1.04rem; }
+  .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; max-width: 1120px; margin: 0 auto; }
+  .book-card { background: var(--cream); border-radius: 3px; overflow: hidden; border: 1px solid rgba(92,61,30,0.12); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+  .book-card:hover { transform: translateY(-7px); box-shadow: 0 20px 48px rgba(92,61,30,0.16); }
+  .book-cover { height: 128px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+  .book-cover.c1 { background: linear-gradient(135deg, #8b7355, #5c4a2a); }
+  .book-cover.c2 { background: linear-gradient(135deg, #5c3d1e, #8b6040); }
+  .book-cover.c3 { background: linear-gradient(135deg, #7a5c3a, #4a3020); }
+  .book-cover.c4 { background: linear-gradient(135deg, #6b8c7a, #3a5c4a); }
+  .book-cover.c5 { background: linear-gradient(135deg, #7a8c6e, #4a6040); }
+  .book-cover.c6 { background: linear-gradient(135deg, #9b4a1f, #c47a3a); }
+  .book-cover.c7 { background: linear-gradient(135deg, #9b7a4a, #6b4a20); }
+  .book-cover.c8 { background: linear-gradient(135deg, #c9a96e, #a07840); }
+  .book-price { position: absolute; top: 10px; right: 10px; background: rgba(44,26,14,0.72); color: var(--sand); font-family: 'Libre Baskerville', serif; font-size: 0.73rem; padding: 4px 9px; border-radius: 2px; }
+  .book-info { padding: 20px 22px 22px; flex: 1; display: flex; flex-direction: column; }
+  .book-category { font-size: 0.69rem; font-family: 'Libre Baskerville', serif; letter-spacing: 0.13em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+  .book-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; color: var(--earth); line-height: 1.35; margin-bottom: 10px; font-weight: 700; }
+  .book-desc { font-size: 0.86rem; color: #6b5040; line-height: 1.68; flex: 1; margin-bottom: 18px; }
+  .book-link { display: inline-block; font-family: 'Libre Baskerville', serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rust); text-decoration: none; border-bottom: 1px solid var(--sand); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; align-self: flex-start; }
+  .book-link:hover { color: var(--earth); border-color: var(--earth); }
+
+  /* QUOTE */
+  .quote-section { background: linear-gradient(140deg, #2c1a0e, #5c3d1e); padding: 90px 24px; text-align: center; position: relative; overflow: hidden; }
+  .quote-bg { font-family: 'Playfair Display', serif; font-size: 14rem; color: rgba(201,169,110,0.07); position: absolute; top: -40px; left: 50%; transform: translateX(-50%); line-height: 1; pointer-events: none; user-select: none; }
+  .quote-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.3rem, 3.5vw, 2.1rem); color: var(--cream); max-width: 740px; margin: 0 auto 28px; line-height: 1.6; position: relative; }
+  .quote-attr { font-family: 'Libre Baskerville', serif; color: var(--sand); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; position: relative; }
+
+  /* CONNECT */
+  .connect { background: var(--light-sage); padding: 90px 24px; text-align: center; }
+  .connect h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--earth); margin-bottom: 14px; }
+  .connect p { color: #4a5a40; max-width: 540px; margin: 0 auto 36px; line-height: 1.8; font-style: italic; font-size: 1.04rem; }
+  .connect-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .connect-link { background: var(--earth); color: var(--cream); padding: 14px 30px; border-radius: 2px; text-decoration: none; font-family: 'Libre Baskerville', serif; font-size: 0.87rem; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--earth); transition: all 0.3s; }
+  .connect-link:hover { background: var(--dark); border-color: var(--dark); }
+  .connect-link.outline { background: transparent; color: var(--earth); }
+  .connect-link.outline:hover { background: var(--earth); color: var(--cream); }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(245,239,228,0.5); text-align: center; padding: 44px 24px; font-size: 0.84rem; line-height: 1.75; }
+  footer a { color: var(--sand); text-decoration: none; }
+  footer strong { color: var(--cream); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 640px) {
+    .about-inner { grid-template-columns: 1fr; }
+    .about-accent { display: none; }
+    .books-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  }
+  @media (max-width: 420px) { .books-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <p class="hero-badge">Rooidam Farm · South Africa · Kalahari Heart Rescue</p>
+  <h1>Inibos <em>Creations</em></h1>
+  <p class="hero-sub">by Linda Lee Visser</p>
+  <p class="hero-tagline">Stories rooted in red earth and wide skies — written for anyone who has ever loved an animal, walked a hard road, or found grace in the ordinary moments of a farming life.</p>
+  <div class="hero-cta">
+    <a href="https://payhip.com/InibosCreations" target="_blank" class="btn-primary">Browse All Books</a>
+    <a href="#books" class="btn-secondary">See the Collection</a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-accent">
+      <span class="about-icon">🐴</span>
+      <p class="about-label">Farmer · Author<br>Donkey Keeper<br>Rescue Worker</p>
+    </div>
+    <div>
+      <span class="section-tag">About Linda</span>
+      <h2>Where the stories come from</h2>
+      <p>I live on Rooidam farm in South Africa, surrounded by donkeys, dusty mornings, and the kind of beauty that only makes sense once you've also survived the heartbreak. My companions — Dixie, Luna, and Klaradyn — have taught me more than any book ever could.</p>
+      <p>For seven years I ran Kalahari Heart Rescue in the Northern Cape and Limpopo, giving everything to creatures who could only ask for help with their eyes. These books carry those stories — the mud and the miracles, the grief and the grace.</p>
+      <p>Whether you keep donkeys, love them from afar, or simply need a quiet space to write and reflect — there is something here for you.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<section class="books" id="books">
+  <div class="books-header">
+    <span class="section-tag">The Collection</span>
+    <h2>Books for every reader</h2>
+    <p>From children's journals to rescue toolkits and true memoirs — each book is a piece of the farm, offered with an open hand.</p>
+  </div>
+  <div class="books-grid">
+
+    <a class="book-card" href="https://payhip.com/b/Krtfs" target="_blank">
+      <div class="book-cover c1">🌅<span class="book-price">ZAR 80</span></div>
+      <div class="book-info">
+        <span class="book-category">True Memoir · Rescue</span>
+        <p class="book-title">The Heart of the Kalahari</p>
+        <p class="book-desc">A true story that begins on a dirt road in the Northern Cape. Seven years of love, heartbreak, red dust and impossible vet bills — including the story of little Chance, who had ears too big for his body and a spirit too fierce for this world.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/8xEGc" target="_blank">
+      <div class="book-cover c2">🐴<span class="book-price">ZAR 120</span></div>
+      <div class="book-info">
+        <span class="book-category">Reference · Donkey Care</span>
+        <p class="book-title">Long Ears & Big Hearts — A Complete Guide to Donkey Care, Rescue & Welfare</p>
+        <p class="book-desc">Written from 30+ years of rescue experience. Covers body condition, pain recognition, nutrition, toxic plants, reproduction, foaling, behaviour and community outreach. South Africa's essential donkey manual.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/xpZD5" target="_blank">
+      <div class="book-cover c3">🛟<span class="book-price">ZAR 50+</span></div>
+      <div class="book-info">
+        <span class="book-category">Resource · Rescue Organisations</span>
+        <p class="book-title">Long Ears & Big Hearts — Complete Rescue Toolkit & Legal Forms</p>
+        <p class="book-desc">All 21 official forms, NPO registration guidance, SPCA legal framework and key contacts for every animal welfare organisation in SA. Built from seven years in the field so you don't have to start from scratch.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/N6T7X" target="_blank">
+      <div class="book-cover c4">🙏<span class="book-price">ZAR 120</span></div>
+      <div class="book-info">
+        <span class="book-category">Devotional · Guided Journal</span>
+        <p class="book-title">Faithful Hooves — A Donkey Keeper's Diary of Grace, Love & Devotion</p>
+        <p class="book-desc">A 159-page guided journal with scripture verses, inspirational quotes, weekly planning pages and gratitude sections. A quiet space to slow down, reflect and find grace — for keepers and animal lovers alike.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/AuoMk" target="_blank">
+      <div class="book-cover c5">✝️<span class="book-price">ZAR 120</span></div>
+      <div class="book-info">
+        <span class="book-category">Devotional · Diary</span>
+        <p class="book-title">Journey of Love Faith & Inspiration</p>
+        <p class="book-desc">More than a diary — a devotional keepsake for everyone who has ever loved an animal with their whole heart. 153 pages with weekly planning, gratitude reflections, scripture quotes and Linda's personal introduction, A Word From the Heart.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/msKH6" target="_blank">
+      <div class="book-cover c6">🌿<span class="book-price">ZAR 120</span></div>
+      <div class="book-info">
+        <span class="book-category">Journal · Farm Life</span>
+        <p class="book-title">My Farm Journal — A Diary of Life with the Animals</p>
+        <p class="book-desc">A serene, beautifully designed 256-page daily companion for farmers, smallholders and animal lovers. Weekly planning pages, daily notes, gratitude sections and space to record the moments — big and small — that make life with animals so rich and real.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/Uvsdz" target="_blank">
+      <div class="book-cover c7">🌻<span class="book-price">ZAR 80</span></div>
+      <div class="book-info">
+        <span class="book-category">Children's · Journal</span>
+        <p class="book-title">My Farm Friends — A Children's Farm Journal of Adventures!</p>
+        <p class="book-desc">A bright and cheerful 155-page journal for young animal lovers. Space to write, draw and capture the magical moments of growing up with animals. Includes a "This journal belongs to" page — the perfect gift! 🎁</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+    <a class="book-card" href="https://payhip.com/b/aENrs" target="_blank">
+      <div class="book-cover c8">📓<span class="book-price">ZAR 60</span></div>
+      <div class="book-info">
+        <span class="book-category">Notebook · Donkey Keeper</span>
+        <p class="book-title">A Donkey Care Notebook</p>
+        <p class="book-desc">A practical A5 notebook with 29 pages of note space and beautiful printable donkey posters. Whether you are writing, dreaming, or simply breathing — may these pages bring you peace, love and connection.</p>
+        <span class="book-link">Get this book →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="quote-bg">"</div>
+  <p class="quote-text">"We could not appreciate all the good if we didn't face the bad."</p>
+  <p class="quote-attr">— Linda Lee Visser</p>
+</section>
+
+<section class="connect" id="connect">
+  <span class="section-tag">Stay Connected</span>
+  <h2>Walk the farm with me</h2>
+  <p>Follow along on Facebook for stories straight from the farm, news about new books, and the honest, unfiltered life of a donkey keeper in South Africa.</p>
+  <div class="connect-links">
+    <a href="https://payhip.com/InibosCreations" target="_blank" class="connect-link">Shop All Books</a>
+    <a href="https://www.facebook.com/share/1BQU8ARyW8/" target="_blank" class="connect-link outline">Find me on Facebook</a>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Inibos Creations</strong> &nbsp;·&nbsp; Linda Lee Visser &nbsp;·&nbsp; Rooidam Farm, South Africa</p>
+  <p style="margin-top:10px;">
+    All books at <a href="https://payhip.com/InibosCreations" target="_blank">payhip.com/InibosCreations</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:lindaleevisser@gmail.com">lindaleevisser@gmail.com</a>
+  </p>
+  <p style="margin-top:18px; font-size:0.77rem; opacity:0.5;">© 2025 Linda Lee Visser · Inibos Creations · All rights reserved</p>
+</footer>
+
+</body>
+</html>
