@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA Healing Plants — Master Database · Inibos Creations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --deep:    #1a3d2b;
+  --forest:  #2d6a4f;
+  --leaf:    #52b788;
+  --sage:    #d8f3dc;
+  --cream:   #fefae0;
+  --gold:    #c9922a;
+  --sgold:   #f0c060;
+  --earth:   #6b4226;
+  --warn:    #e6a817;
+  --danger:  #c0392b;
+  --bg:      #f4f8f5;
+  --white:   #ffffff;
+  --muted:   #666;
+  --border:  rgba(45,106,79,0.12);
+}
+html { scroll-behavior:smooth; }
+body { font-family:'Lato',sans-serif; background:var(--bg); color:#1e1e1e; }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--deep);
+  padding: 0 40px;
+  position: sticky; top:0; z-index:200;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.header-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  height: 64px;
+}
+.brand { display:flex; align-items:center; gap:12px; }
+.brand-icon { font-size:26px; }
+.brand-name {
+  font-family:'Dancing Script',cursive;
+  font-size:22px; color:var(--sgold);
+}
+.brand-sub {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(254,250,224,0.45); margin-top:2px;
+}
+.header-stats {
+  display:flex; gap:24px;
+}
+.stat { text-align:center; }
+.stat-num { font-size:22px; font-weight:900; color:var(--leaf); line-height:1; }
+.stat-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(254,250,224,0.5); }
+
+/* ── HERO BAND ── */
+.hero-band {
+  background: linear-gradient(135deg, var(--forest) 0%, var(--deep) 100%);
+  padding: 50px 40px 40px;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.hero-band::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(82,183,136,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(201,146,42,0.08) 0%, transparent 60%);
+}
+.hero-band h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px; font-weight:700;
+  color:var(--cream); position:relative;
+  line-height:1.1; margin-bottom:8px;
+}
+.hero-band h1 span { color:var(--sgold); }
+.hero-band p {
+  font-size:15px; color:rgba(254,250,224,0.65);
+  position:relative; max-width:600px; margin:0 auto 24px;
+  line-height:1.6;
+}
+.book-tags {
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  position:relative;
+}
+.book-tag {
+  background:rgba(82,183,136,0.15);
+  border:1px solid rgba(82,183,136,0.3);
+  border-radius:20px; padding:5px 16px;
+  font-size:12px; color:var(--sage); letter-spacing:0.5px;
+  cursor:pointer; transition:all 0.2s;
+}
+.book-tag:hover, .book-tag.active {
+  background:var(--leaf); color:var(--deep); border-color:var(--leaf);
+  font-weight:700;
+}
+
+/* ── CONTROLS ── */
+.controls {
+  background:white;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 40px;
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+  position:sticky; top:64px; z-index:100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.search-wrap {
+  position:relative; flex:1; min-width:200px;
+}
+.search-icon {
+  position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  color:var(--forest); font-size:16px;
+}
+.search-input {
+  width:100%; padding:10px 16px 10px 42px;
+  border:1.5px solid var(--border); border-radius:30px;
+  font-size:14px; font-family:'Lato',sans-serif;
+  background:#f9fdf9; outline:none; transition:all 0.2s;
+}
+.search-input:focus { border-color:var(--leaf); background:white; }
+
+.filter-select {
+  padding:10px 16px; border:1.5px solid var(--border);
+  border-radius:30px; font-size:13px; font-family:'Lato',sans-serif;
+  background:#f9fdf9; outline:none; cursor:pointer; color:#333;
+  transition:all 0.2s;
+}
+.filter-select:focus { border-color:var(--leaf); }
+
+.results-count {
+  font-size:12px; color:var(--muted); white-space:nowrap;
+  letter-spacing:0.5px;
+}
+
+/* ── MAIN LAYOUT ── */
+.main { display:flex; gap:0; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width:260px; min-width:260px;
+  background:white;
+  border-right:1px solid var(--border);
+  height:calc(100vh - 130px);
+  overflow-y:auto; position:sticky; top:130px;
+  padding: 20px 0;
+}
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-track { background:#f0f0f0; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--leaf); border-radius:2px; }
+
+.sidebar-section { margin-bottom:8px; }
+.sidebar-section-title {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--leaf); font-weight:700;
+  padding:12px 20px 6px;
+}
+.sidebar-item {
+  display:flex; align-items:center; gap:10px;
+  padding:8px 20px; cursor:pointer;
+  transition:all 0.15s; font-size:13px; color:#333;
+  border-left:3px solid transparent;
+  text-decoration:none;
+}
+.sidebar-item:hover { background:var(--sage); color:var(--deep); border-left-color:var(--leaf); }
+.sidebar-item.active { background:var(--sage); color:var(--deep); border-left-color:var(--forest); font-weight:700; }
+.sidebar-count {
+  margin-left:auto; background:var(--sage);
+  color:var(--forest); font-size:10px; font-weight:700;
+  padding:2px 7px; border-radius:10px;
+}
+
+/* ── PLANT GRID ── */
+.grid-area { flex:1; padding:30px 40px; overflow-x:hidden; }
+
+.chapter-header {
+  display:flex; align-items:center; gap:16px;
+  margin-bottom:20px; margin-top:10px;
+  padding-bottom:12px;
+  border-bottom:2px solid var(--leaf);
+}
+.chapter-header:not(:first-child) { margin-top:50px; }
+.chapter-icon { font-size:32px; }
+.chapter-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px; font-weight:700; color:var(--deep);
+}
+.chapter-sub { font-size:12px; color:var(--muted); letter-spacing:1px; margin-top:2px; }
+.chapter-count {
+  margin-left:auto; background:var(--deep); color:var(--cream);
+  font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px;
+  letter-spacing:1px;
+}
+
+.plant-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap:16px; margin-bottom:10px;
+}
+
+/* ── PLANT CARD ── */
+.plant-card {
+  background:white; border-radius:14px;
+  border:1px solid var(--border);
+  padding:20px; cursor:pointer;
+  transition:all 0.2s;
+  position:relative; overflow:hidden;
+}
+.plant-card:hover {
+  border-color:var(--leaf);
+  box-shadow:0 4px 20px rgba(45,106,79,0.12);
+  transform:translateY(-2px);
+}
+.plant-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+}
+.plant-card.book1::before { background:linear-gradient(to right,var(--forest),var(--leaf)); }
+.plant-card.book2::before { background:linear-gradient(to right,#7b4f2e,#c9922a); }
+.plant-card.book3::before { background:linear-gradient(to right,#1a3d6b,#3a7bd5); }
+.plant-card.book4::before { background:linear-gradient(to right,#2d4a1e,#52b788); }
+.plant-card.book5::before { background:linear-gradient(to right,#7b1e1e,#c0392b); }
+
+.card-top {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:10px;
+}
+.card-names { flex:1; }
+.card-en {
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px; font-weight:700; color:var(--deep);
+  line-height:1.2;
+}
+.card-af {
+  font-family:'Dancing Script',cursive;
+  font-size:14px; color:var(--gold); margin-top:2px;
+}
+.card-sci {
+  font-size:11px; font-style:italic; color:var(--muted); margin-top:3px;
+}
+.card-emoji { font-size:32px; margin-left:10px; }
+
+.card-tags {
+  display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;
+}
+.card-tag {
+  font-size:10px; padding:2px 8px; border-radius:10px;
+  font-weight:700; letter-spacing:0.5px;
+}
+.tag-use { background:#e8f5e9; color:#2d6a4f; }
+.tag-habitat { background:#fff8e1; color:#8a5e00; }
+.tag-book { background:var(--deep); color:var(--cream); }
+
+.card-uses {
+  font-size:12.5px; color:#444; line-height:1.6; margin-bottom:12px;
+}
+
+/* ANIMAL SAFETY ROW */
+.animal-row {
+  display:flex; gap:4px; flex-wrap:wrap;
+}
+.animal-pip {
+  display:flex; align-items:center; gap:3px;
+  font-size:10px; padding:3px 7px; border-radius:8px;
+  font-weight:700;
+}
+.pip-safe { background:#d8f3dc; color:#1a3d2b; }
+.pip-caution { background:#fff3cd; color:#7a4500; }
+.pip-toxic { background:#fde8e8; color:#7a1515; }
+
+.card-bottom {
+  margin-top:12px; padding-top:10px;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.card-book-label {
+  font-size:10px; color:var(--muted); letter-spacing:1px;
+}
+.card-status {
+  font-size:10px; font-weight:700; padding:3px 10px;
+  border-radius:10px; letter-spacing:0.5px;
+}
+.status-planned { background:#f0f0f0; color:#999; }
+.status-draft { background:#fff3cd; color:#8a5e00; }
+.status-done { background:#d8f3dc; color:#1a3d2b; }
+
+/* ── MODAL / DETAIL ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.6); z-index:500;
+  align-items:flex-start; justify-content:center;
+  padding:40px 20px; overflow-y:auto;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:white; border-radius:20px;
+  max-width:700px; width:100%;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  animation:slideUp 0.25s ease;
+}
+@keyframes slideUp {
+  from { transform:translateY(30px); opacity:0; }
+  to   { transform:translateY(0);    opacity:1; }
+}
+.modal-header {
+  background:var(--deep); padding:30px 36px;
+  position:relative;
+}
+.modal-close {
+  position:absolute; top:16px; right:16px;
+  background:rgba(255,255,255,0.1); border:none; color:white;
+  width:32px; height:32px; border-radius:50%; cursor:pointer;
+  font-size:16px; display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+}
+.modal-close:hover { background:rgba(255,255,255,0.2); }
+.modal-en {
+  font-family:'Cormorant Garamond',serif;
+  font-size:40px; font-weight:700; color:var(--cream); line-height:1;
+}
+.modal-af {
+  font-family:'Dancing Script',cursive;
+  font-size:24px; color:var(--sgold); margin:6px 0 4px;
+}
+.modal-sci { font-size:13px; font-style:italic; color:rgba(82,183,136,0.8); }
+.modal-body { padding:30px 36px; }
+
+.modal-section { margin-bottom:24px; }
+.modal-section h4 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; font-weight:700; color:var(--deep);
+  border-bottom:2px solid var(--leaf); padding-bottom:6px; margin-bottom:12px;
+}
+.modal-section p, .modal-section li {
+  font-size:13.5px; line-height:1.8; color:#333;
+}
+.modal-section ul { padding-left:20px; }
+.modal-section li { margin-bottom:4px; }
+
+.modal-animal-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+}
+.modal-animal {
+  border-radius:10px; padding:10px; text-align:center;
+}
+.modal-animal .emoji { font-size:22px; }
+.modal-animal .name { font-size:11px; font-weight:700; margin:4px 0 2px; display:block; }
+.modal-animal .note { font-size:10.5px; line-height:1.4; }
+.modal-animal.safe { background:#d8f3dc; }
+.modal-animal.safe .name { color:#1a3d2b; }
+.modal-animal.safe .note { color:#2d6a4f; }
+.modal-animal.caution { background:#fff3cd; }
+.modal-animal.caution .name { color:#7a4500; }
+.modal-animal.caution .note { color:#8a5200; }
+.modal-animal.toxic { background:#fde8e8; }
+.modal-animal.toxic .name { color:#7a1515; }
+.modal-animal.toxic .note { color:#8a1a1a; }
+
+/* ── LEGEND ── */
+.legend {
+  background:var(--deep); border-radius:12px;
+  padding:16px 24px; margin:0 40px 30px;
+  display:flex; gap:24px; align-items:center; flex-wrap:wrap;
+}
+.legend-title { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(254,250,224,0.5); }
+.legend-items { display:flex; gap:16px; flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; }
+.legend-dot { width:10px; height:10px; border-radius:50%; }
+.legend-dot.safe { background:#52b788; }
+.legend-dot.caution { background:#e6a817; }
+.legend-dot.toxic { background:#c0392b; }
+.legend-text { color:rgba(254,250,224,0.7); }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align:center; padding:60px 20px; color:var(--muted);
+}
+.empty-state .empty-icon { font-size:48px; margin-bottom:16px; }
+.empty-state p { font-size:15px; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background:var(--deep); color:rgba(254,250,224,0.5);
+  text-align:center; padding:30px 40px; font-size:12px; line-height:1.8;
+  margin-top:60px;
+}
+.site-footer strong { color:var(--sgold); }
+
+@media(max-width:768px) {
+  .sidebar { display:none; }
+  .controls { padding:16px 20px; }
+  .grid-area { padding:20px; }
+  .hero-band h1 { font-size:32px; }
+  .plant-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🌿</div>
+      <div>
+        <div class="brand-name">Inibos Creations</div>
+        <div class="brand-sub">SA Natural Wisdom Series</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat"><div class="stat-num" id="totalPlants">0</div><div class="stat-label">Plants</div></div>
+      <div class="stat"><div class="stat-num" id="totalBooks">5</div><div class="stat-label">Books</div></div>
+      <div class="stat"><div class="stat-num" id="totalChapters">0</div><div class="stat-label">Chapters</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero-band">
+  <h1>SA Natural Wisdom<br><span>Master Plant Database</span></h1>
+  <p>The complete reference for all five books in the Inibos Creations series — every indigenous plant, herb, and tree, with uses, animal safety, and book assignment.</p>
+  <div class="book-tags">
+    <div class="book-tag active" onclick="filterBook('all',this)">📚 All Books</div>
+    <div class="book-tag" onclick="filterBook('book1',this)">🌿 Book 1 · Healing Plants</div>
+    <div class="book-tag" onclick="filterBook('book2',this)">🌱 Book 2 · Herbs</div>
+    <div class="book-tag" onclick="filterBook('book3',this)">🐾 Book 3 · Animal Healing</div>
+    <div class="book-tag" onclick="filterBook('book4',this)">🌳 Book 4 · Healing Trees</div>
+    <div class="book-tag" onclick="filterBook('book5',this)">⚠️ Book 5 · Toxic Plants</div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="Search by plant name, Afrikaans name, use, or ailment..." oninput="filterPlants()">
+  </div>
+  <select class="filter-select" id="habitatFilter" onchange="filterPlants()">
+    <option value="">🌍 All Habitats</option>
+    <option value="veld">🌾 Veld & Grassland</option>
+    <option value="wetland">💧 Wetland & Riverbank</option>
+    <option value="mountain">⛰️ Mountain & Fynbos</option>
+    <option value="forest">🌲 Forest & Bush</option>
+    <option value="desert">🏜️ Karoo & Desert</option>
+    <option value="garden">🏡 Garden & Widespread</option>
+    <option value="coastal">🌊 Coastal</option>
+  </select>
+  <select class="filter-select" id="safetyFilter" onchange="filterPlants()">
+    <option value="">🐾 All Safety Levels</option>
+    <option value="safe">✅ Safe for Animals</option>
+    <option value="caution">⚠️ Caution</option>
+    <option value="toxic">🚫 Toxic to Animals</option>
+  </select>
+  <select class="filter-select" id="useFilter" onchange="filterPlants()">
+    <option value="">🎯 All Uses</option>
+    <option value="digestive">🫃 Digestive</option>
+    <option value="respiratory">🫁 Respiratory</option>
+    <option value="skin">🩹 Skin & Wounds</option>
+    <option value="fever">🌡️ Fever & Infection</option>
+    <option value="pain">💊 Pain Relief</option>
+    <option value="immune">🛡️ Immune Support</option>
+    <option value="women">👩 Women's Health</option>
+    <option value="mental">🧠 Mental & Stress</option>
+    <option value="liver">🫀 Liver & Kidney</option>
+    <option value="anti-parasitic">🪱 Anti-Parasitic</option>
+  </select>
+  <div class="results-count" id="resultsCount">Loading...</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-title">Animal Safety:</span>
+  <div class="legend-items">
+    <div class="legend-item"><div class="legend-dot safe"></div><span class="legend-text">Safe</span></div>
+    <div class="legend-item"><div class="legend-dot caution"></div><span class="legend-text">Caution / Small amounts</span></div>
+    <div class="legend-item"><div class="legend-dot toxic"></div><span class="legend-text">Toxic / Avoid</span></div>
+  </div>
+  <span class="legend-title" style="margin-left:auto">Animals: 🐴Horse 🐄Cattle 🐑Sheep 🐐Goat 🐕Dog 🐈Cat 🐔Chicken 🐷Pig 👤Human</span>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Book 1 · Healing Plants</div>
+      <div class="sidebar-item active" onclick="jumpChapter('ch-groundplants')">🌿 Ground Plants <span class="sidebar-count" id="cnt-groundplants">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-succulents')">🌵 Succulents & Aloes <span class="sidebar-count" id="cnt-succulents">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-wetland')">💧 Wetland Plants <span class="sidebar-count" id="cnt-wetland">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-fynbos')">🌸 Fynbos & Cape <span class="sidebar-count" id="cnt-fynbos">0</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Book 2 · Herbs</div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-culinary')">🍃 Culinary Herbs <span class="sidebar-count" id="cnt-culinary">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-medicinalherbs')">💊 Medicinal Herbs <span class="sidebar-count" id="cnt-medicinalherbs">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-aromatic')">🌸 Aromatic & Teas <span class="sidebar-count" id="cnt-aromatic">0</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Book 3 · Animal Healing</div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-animalherbs')">🐾 Animal Remedies <span class="sidebar-count" id="cnt-animalherbs">0</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Book 4 · Healing Trees</div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-trees')">🌳 Indigenous Trees <span class="sidebar-count" id="cnt-trees">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-shrubs')">🌿 Shrubs & Bushes <span class="sidebar-count" id="cnt-shrubs">0</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Book 5 · Toxic Plants</div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-toxic')">⚠️ Toxic to Animals <span class="sidebar-count" id="cnt-toxic">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-toxichuman')">🚫 Toxic to Humans <span class="sidebar-count" id="cnt-toxichuman">0</span></div>
+      <div class="sidebar-item" onclick="jumpChapter('ch-podtrees')">🫘 Pod Trees <span class="sidebar-count" id="cnt-podtrees">0</span></div>
+    </div>
+  </aside>
+
+  <!-- GRID -->
+  <div class="grid-area" id="gridArea"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-en" id="mEn"></div>
+      <div class="modal-af" id="mAf"></div>
+      <div class="modal-sci" id="mSci"></div>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <strong>Inibos Creations · Linda Visser</strong> · SA Natural Wisdom Series<br>
+  Master Plant Database — Working Document · © 2025<br>
+  <span style="font-size:11px">This database is a planning tool for the book series. Information is for educational purposes only.
+  <div style="margin-top:16px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+    <a href="https://www.facebook.com/share/g/1CnqWeMp6F/" target="_blank" style="color:rgba(240,192,96,0.7);text-decoration:none;font-size:13px;">📘 Facebook Group</a>
+    <a href="https://www.tiktok.com/@lindainibos" target="_blank" style="color:rgba(240,192,96,0.7);text-decoration:none;font-size:13px;">🎵 @lindainibos</a>
+    <a href="https://www.instagram.com/InibosCreations" target="_blank" style="color:rgba(240,192,96,0.7);text-decoration:none;font-size:13px;">📸 @InibosCreations</a>
+    <a href="mailto:lindaleevisser@gmail.com" style="color:rgba(240,192,96,0.7);text-decoration:none;font-size:13px;">📧 lindaleevisser@gmail.com</a>
+  </div></span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  MASTER PLANT DATA
+// ═══════════════════════════════════════════════════════
+const PLANTS = [
+
+// ─── BOOK 1 · GROUND PLANTS ───────────────────────────
+{en:"Wild Mint",af:"Wildemint / Kruisement",sci:"Mentha longifolia",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"wetland",
+ uses:["digestive","respiratory","fever","mental","skin"],
+ useText:"Colds & flu, digestion, fever, headaches, stress, skin irritation",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Lacks enzymes for menthol — avoid large doses",dog:"Weak tea fine; avoid peppermint oil"},
+ status:"done"},
+
+{en:"African Wormwood",af:"Wilde-als / Alsem",sci:"Artemisia afra",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["respiratory","fever","immune","digestive","anti-parasitic"],
+ useText:"Coughs, flu, malaria, worms, digestive complaints, skin infections",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Thujone toxic to cats — avoid entirely",horse:"Small amounts only; large doses toxic",human:"Avoid in pregnancy — stimulates uterus"},
+ status:"draft"},
+
+{en:"Wild Cardamom",af:"Wildekardemom",sci:"Aframomum angustifolium",emoji:"🌱",
+ book:"book1",chapter:"ch-groundplants",habitat:"forest",
+ uses:["digestive","respiratory","pain","mental"],
+ useText:"Digestion, nausea, coughs, headaches, general tonic",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Very small amounts only"},
+ status:"planned"},
+
+{en:"Cancer Bush",af:"Kankerbos / Unwele",sci:"Lessertia frutescens",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["immune","liver","digestive","mental"],
+ useText:"Immune support, cancer adjunct, liver disease, stress, wasting disease",
+ animals:{horse:"caution",cattle:"caution",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Not studied — avoid",horse:"Use under guidance only; may interact with medications",human:"Do not combine with immunosuppressants"},
+ status:"planned"},
+
+{en:"Bulbine",af:"Geelkatstert / Rankkopieva",sci:"Bulbine frutescens",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["skin","pain","digestive","women"],
+ useText:"Burns, wounds, rashes, eczema, cracked lips, mouth ulcers",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Gel application fine; avoid oral ingestion",dog:"Topical use safe; not for consumption"},
+ status:"planned"},
+
+{en:"Wild Dagga",af:"Wildedagga / Lebombo",sci:"Leonotis leonurus",emoji:"🌺",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["respiratory","skin","pain","fever","mental"],
+ useText:"Coughs, skin conditions, fever, snake bite, mild sedative",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{human:"Mild sedative — do not drive after use; avoid in pregnancy"},
+ status:"planned"},
+
+{en:"Devil's Claw",af:"Duiwelsklou / Grapple Plant",sci:"Harpagophytum procumbens",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"desert",
+ uses:["pain","digestive","liver"],
+ useText:"Arthritis, back pain, indigestion, liver complaints, gout",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Small amounts only",horse:"Excellent for joint pain — widely used in equine care",dog:"Good for arthritis — available as supplement"},
+ status:"planned"},
+
+{en:"Sour Fig",af:"Suurvy / Hottentotsvy",sci:"Carpobrotus edulis",emoji:"🌸",
+ book:"book1",chapter:"ch-groundplants",habitat:"coastal",
+ uses:["skin","digestive","respiratory","pain"],
+ useText:"Sore throat, mouth ulcers, sunburn, skin infections, diarrhoea",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+{en:"African Potato",af:"Gifbol / Inkomfe",sci:"Hypoxis hemerocallidea",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["immune","liver","digestive","women"],
+ useText:"Immune boosting, prostate, UTI, benign tumours — widely used in traditional medicine",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"caution",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{horse:"Causes serious photosensitisation — toxic",cattle:"Can cause hepatogenous photosensitivity",human:"Do NOT combine with ARVs — dangerous interaction; seek medical advice"},
+ status:"planned"},
+
+{en:"Spekboom",af:"Spekboom / Porkbush",sci:"Portulacaria afra",emoji:"🌵",
+ book:"book1",chapter:"ch-succulents",habitat:"desert",
+ uses:["digestive","skin","immune"],
+ useText:"Sore throat, mouth ulcers, skin rashes, exhaustion, thirst — extraordinary carbon sponge plant",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent drought fodder — nutritious",goat:"A favourite browse plant — highly nutritious"},
+ status:"planned"},
+
+// ─── BOOK 1 · SUCCULENTS & ALOES ─────────────────────
+{en:"Aloe Ferox",af:"Bitteraalwyn / Cape Aloe",sci:"Aloe ferox",emoji:"🌵",
+ book:"book1",chapter:"ch-succulents",habitat:"veld",
+ uses:["skin","digestive","liver","immune","pain"],
+ useText:"Burns, wounds, constipation, arthritis, skin conditions, liver cleanse",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Anthraquinones toxic to cats",dog:"Small amounts gel fine; bitter latex causes vomiting — avoid",horse:"Bitter latex is a strong purgative — caution with dosage",human:"Avoid oral latex during pregnancy; gel is safe topically"},
+ status:"planned"},
+
+{en:"Aloe Vera",af:"Aalwyn",sci:"Aloe barbadensis",emoji:"🌵",
+ book:"book1",chapter:"ch-succulents",habitat:"garden",
+ uses:["skin","digestive","immune","women"],
+ useText:"Burns, wounds, eczema, digestion, immune support",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Toxic — saponins and anthraquinones",dog:"Gel topically safe; do not feed plant material"},
+ status:"planned"},
+
+{en:"Quiver Tree",af:"Kokerboom",sci:"Aloidendron dichotomum",emoji:"🌵",
+ book:"book1",chapter:"ch-succulents",habitat:"desert",
+ uses:["pain","digestive","fever"],
+ useText:"San people used sap for fever, pain, and stomach ailments — culturally significant",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+// ─── BOOK 1 · WETLAND PLANTS ──────────────────────────
+{en:"Cape Reed",af:"Matjiesgoed",sci:"Cyperus textilis",emoji:"🌾",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["digestive","skin","women"],
+ useText:"Rhizomes used for digestive complaints and wound healing in traditional practice",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+{en:"Water Hyacinth",af:"Waterasint",sci:"Eichhornia crassipes",emoji:"💜",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["skin","digestive","liver"],
+ useText:"Traditional use for skin conditions and digestive complaints — invasive but medicinally used",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{horse:"Can accumulate toxins from polluted water — source carefully"},
+ status:"planned"},
+
+{en:"Papyrus",af:"Papirus / Waterriet",sci:"Cyperus papyrus",emoji:"🌾",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["digestive","skin"],
+ useText:"Root preparations used for digestive complaints; cultural and practical uses across Africa",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+// ─── BOOK 1 · FYNBOS & CAPE ───────────────────────────
+{en:"Buchu",af:"Boegoe / Buchu",sci:"Agathosma betulina",emoji:"🌿",
+ book:"book1",chapter:"ch-fynbos",habitat:"mountain",
+ uses:["liver","digestive","pain","women"],
+ useText:"Urinary tract infections, kidney support, digestive complaints, anti-inflammatory",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Volatile oils may irritate — avoid",human:"Avoid during pregnancy — stimulates uterus"},
+ status:"planned"},
+
+{en:"Rooibos",af:"Rooibos",sci:"Aspalathus linearis",emoji:"🍂",
+ book:"book1",chapter:"ch-fynbos",habitat:"mountain",
+ uses:["immune","digestive","mental","skin","women"],
+ useText:"Antioxidant, colic in infants, eczema, sleep, immune support, anti-ageing",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent antioxidant tonic — add cooled tea to water",dog:"Safe — good for skin conditions and digestion",cat:"Safe — one of few teas safe for cats"},
+ status:"planned"},
+
+{en:"Honeybush",af:"Heuningbos",sci:"Cyclopia intermedia",emoji:"🌼",
+ book:"book1",chapter:"ch-fynbos",habitat:"mountain",
+ uses:["immune","respiratory","women","mental","digestive"],
+ useText:"Menopause symptoms, coughs, immune support, antioxidant, anxiety",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{human:"Good for menopausal women — phyto-oestrogens"},
+ status:"planned"},
+
+{en:"Cape Snowbush",af:"Slangbos / Kapokbos",sci:"Eriocephalus africanus",emoji:"🌸",
+ book:"book1",chapter:"ch-fynbos",habitat:"mountain",
+ uses:["digestive","respiratory","women","mental"],
+ useText:"Indigestion, colic, chest complaints, stress, traditional Cape remedy",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Essential oils may irritate",human:"Safe as tea — pleasant chamomile-like flavour"},
+ status:"planned"},
+
+{en:"Pelargonium",af:"Malvarossie / Rabassam",sci:"Pelargonium sidoides",emoji:"🌸",
+ book:"book1",chapter:"ch-fynbos",habitat:"veld",
+ uses:["respiratory","immune","skin"],
+ useText:"Active ingredient in Umckaloabo — chest infections, bronchitis, sinusitis",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Limited data — avoid"},
+ status:"planned"},
+
+// ─── BOOK 2 · CULINARY HERBS ──────────────────────────
+{en:"Wild Rosemary",af:"Wilderosmaryn / Kapokbossie",sci:"Eriocephalus punctulatus",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"veld",
+ uses:["digestive","respiratory","mental","pain"],
+ useText:"Cooking herb, digestion, coughs, stress relief, headaches — SA's answer to rosemary",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Aromatic oils — small exposure fine; don't concentrate"},
+ status:"planned"},
+
+{en:"Wild Basil",af:"Wildebasilie",sci:"Ocimum americanum",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","respiratory","skin","mental"],
+ useText:"Cooking, digestion, insect repellent, coughs, stress — similar to garden basil but indigenous",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Essential oil toxic to cats — avoid"},
+ status:"planned"},
+
+{en:"Moringa",af:"Moringa / Peulboom",sci:"Moringa oleifera",emoji:"🌳",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["immune","digestive","skin","women","liver","pain"],
+ useText:"Superfood — protein, vitamins, minerals; malnutrition, immune support, milk production in lactating mothers",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent supplement — add leaves to feed",cattle:"Boosts milk production in dairy cows",chicken:"Adds to feed — improves egg quality",human:"One of world's most nutritious plants — safe for all ages"},
+ status:"planned"},
+
+{en:"Lemon Verbena",af:"Lemoengras / Suurlemoenbossie",sci:"Aloysia citrodora",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","mental","respiratory"],
+ useText:"Calming tea, digestion, coughs, fevers, flavouring — widely grown in SA gardens",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Mild irritant in large amounts"},
+ status:"planned"},
+
+{en:"Lemongrass",af:"Suurlemoengras / Sereh",sci:"Cymbopogon citratus",emoji:"🌾",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","pain","fever","mental","anti-parasitic"],
+ useText:"Digestion, fever, headaches, anxiety, insect repellent — popular in SA cooking",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Essential oils toxic — avoid entirely",dog:"Small amounts of weak tea fine; avoid oil"},
+ status:"planned"},
+
+// ─── BOOK 2 · MEDICINAL HERBS ─────────────────────────
+{en:"Valerian",af:"Baldriaan",sci:"Valeriana officinalis",emoji:"🌸",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["mental","pain","women"],
+ useText:"Sleep disorders, anxiety, menstrual cramps, stress — widely available in SA",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Used for nervous horses — calming effect",dog:"Effective for anxiety in dogs",cat:"Interestingly attractive to cats — may be stimulant not sedative in cats"},
+ status:"planned"},
+
+{en:"St John's Wort",af:"Johanneskruid",sci:"Hypericum perforatum",emoji:"🌼",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["mental","pain","skin","women"],
+ useText:"Mild to moderate depression, anxiety, nerve pain, wound healing",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"caution",cat:"caution",chicken:"toxic",pig:"caution",human:"safe"},
+ animalNotes:{horse:"Causes severe photosensitisation — toxic in grazing animals",cattle:"Well documented photosensitivity — keep away from pastures",human:"Interacts with many medications including contraceptives and ARVs — check with doctor"},
+ status:"planned"},
+
+{en:"Echinacea",af:"Echinacea / Keëlblom",sci:"Echinacea purpurea",emoji:"🌸",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["immune","respiratory","skin"],
+ useText:"Cold and flu prevention, immune boosting, wound healing — one of SA's most popular supplements",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Good immune support — especially post-illness",dog:"Widely used — effective for immune support"},
+ status:"planned"},
+
+{en:"Lavender",af:"Laventel",sci:"Lavandula angustifolia",emoji:"💜",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["mental","skin","pain","respiratory","women"],
+ useText:"Anxiety, sleep, headaches, burns, skin conditions — one of most versatile herbs",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Essential oil toxic; dried flowers in modest amounts fine",horse:"Calming — used in stables for nervous horses",dog:"Calming scent — safe in small amounts"},
+ status:"planned"},
+
+{en:"Chamomile",af:"Kamille",sci:"Matricaria chamomilla",emoji:"🌼",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["digestive","mental","skin","women","pain"],
+ useText:"Anxiety, sleep, colic, eczema, menstrual cramps, indigestion — gentle and safe",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent digestive — safe for foals",dog:"Gentle remedy for anxiety and skin problems",cat:"One of few herbs genuinely safe for cats"},
+ status:"planned"},
+
+{en:"Peppermint",af:"Pepermunt",sci:"Mentha piperita",emoji:"🌿",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["digestive","respiratory","pain","mental"],
+ useText:"Digestion, IBS, headaches, nausea, colds — stronger than wild mint",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Menthol toxic to cats — avoid entirely",dog:"Weak tea fine; never use essential oil on dogs"},
+ status:"planned"},
+
+// ─── BOOK 3 · ANIMAL HERBS ────────────────────────────
+{en:"Garlic",af:"Knoffel",sci:"Allium sativum",emoji:"🧄",
+ book:"book3",chapter:"ch-animalherbs",habitat:"garden",
+ uses:["immune","anti-parasitic","respiratory","digestive"],
+ useText:"Natural antibiotic, worm control, respiratory health — widely used in farm animal management",
+ animals:{horse:"safe",cattle:"safe",sheep:"caution",goat:"caution",dog:"toxic",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{dog:"Toxic — causes haemolytic anaemia; even small amounts dangerous",cat:"Toxic — far more sensitive than dogs",sheep:"Large amounts cause haemolytic anaemia",horse:"Small amounts safe — traditional worm deterrent; not for foals"},
+ status:"planned"},
+
+{en:"Neem",af:"Neem / Indiese Sering",sci:"Azadirachta indica",emoji:"🌳",
+ book:"book3",chapter:"ch-animalherbs",habitat:"garden",
+ uses:["anti-parasitic","skin","immune","digestive"],
+ useText:"Natural insect repellent, tick control, skin conditions, deworming — widely used on farms",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Concentrated neem oil toxic — dilute well for topical use",horse:"Excellent tick repellent — diluted leaf wash"},
+ status:"planned"},
+
+{en:"Comfrey",af:"Smeerwortel / Konsol",sci:"Symphytum officinale",emoji:"🌿",
+ book:"book3",chapter:"ch-animalherbs",habitat:"garden",
+ uses:["skin","pain","digestive"],
+ useText:"Wound healing, bone fractures, bruising, joint pain — topical use only for animals",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"caution"},
+ animalNotes:{human:"Do not take orally — pyrrolizidine alkaloids toxic to liver; topical use only",horse:"Excellent poultice for sprains and swollen joints"},
+ status:"planned"},
+
+{en:"Calendula",af:"Gousblom / Calendula",sci:"Calendula officinalis",emoji:"🌼",
+ book:"book3",chapter:"ch-animalherbs",habitat:"garden",
+ uses:["skin","digestive","immune","women"],
+ useText:"Wound healing, skin rashes, digestive complaints, eye wash — gentle and very safe",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Add petals to feed — gentle tonic",chicken:"Add to feed — improves egg yolk colour naturally"},
+ status:"planned"},
+
+{en:"Plantain",af:"Weegbree",sci:"Plantago major",emoji:"🌿",
+ book:"book3",chapter:"ch-animalherbs",habitat:"garden",
+ uses:["skin","respiratory","digestive","immune"],
+ useText:"Wound healing, coughs, digestive tonic — common garden weed with extraordinary healing properties",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Nutritious grazing — good for gut health",chicken:"Excellent addition to diet — high in nutrients"},
+ status:"planned"},
+
+// ─── BOOK 4 · TREES ───────────────────────────────────
+{en:"Marula",af:"Maroela",sci:"Sclerocarya birrea",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","immune","pain","women"],
+ useText:"Bark for dysentery and diarrhoea, oil for skin, fruit extremely nutritious — iconic African tree",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Fruit relished — nutritious; fermented fruit can cause mild intoxication",elephant:"Famous for elephants eating fermented fruit — wildlife magnet"},
+ status:"planned"},
+
+{en:"Wild Fig",af:"Wildevy / Umkhiwane",sci:"Ficus species",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"forest",
+ uses:["digestive","skin","women","immune","pain"],
+ useText:"Bark and latex for diarrhoea, wounds, ringworm, toothache — multiple species all medicinally used",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Fruit and leaves eaten — nutritious",goat:"Good browse — relished"},
+ status:"planned"},
+
+{en:"Shepherd's Tree",af:"Witgat",sci:"Boscia albitrunca",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"desert",
+ uses:["digestive","immune","pain","fever","women"],
+ useText:"Roots for coffee substitute, berries edible, leaves medicinal — sacred tree of Kalahari",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{goat:"Important drought browse — very nutritious",cattle:"Good fodder tree in drought"},
+ status:"planned"},
+
+{en:"Fever Tree",af:"Koorsboom",sci:"Vachellia xanthophloea",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"wetland",
+ uses:["fever","pain","skin","digestive"],
+ useText:"Bark traditionally used for malaria and fever — the original quinine tree of SA folklore",
+ animals:{horse:"safe",cattle:"safe",sheep:"caution",goat:"caution",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{sheep:"Tannins in pods can cause problems in large quantities",goat:"Moderate browsing fine"},
+ status:"planned"},
+
+{en:"Monkey Orange",af:"Kafferpruim / Wildelemoen",sci:"Strychnos spinosa",emoji:"🍊",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","fever","skin","immune"],
+ useText:"Fruit for nutrition and digestive health, bark for fever and malaria, roots for toothache",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{dog:"Seeds contain strychnos alkaloids — remove seeds from fruit",cat:"Seeds toxic — avoid"},
+ status:"planned"},
+
+{en:"Cape Willow",af:"Salix / Treurwilger",sci:"Salix capensis",emoji:"🌿",
+ book:"book4",chapter:"ch-trees",habitat:"wetland",
+ uses:["pain","fever","digestive"],
+ useText:"Bark contains salicin — original aspirin; fever, pain, inflammation, arthritis",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Salicylates toxic to cats",dog:"Very small amounts only — salicylate sensitivity"},
+ status:"planned"},
+
+{en:"Wild Olive",af:"Olienhout / Wildeolien",sci:"Olea europaea subsp. africana",emoji:"🫒",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","immune","pain","liver","skin"],
+ useText:"Leaves for fever, high blood pressure, diabetes; bark for wounds; fruit edible",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+{en:"Buffalo Thorn",af:"Blinkblaar-wag-'n-bietjie",sci:"Ziziphus mucronata",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","immune","women","mental"],
+ useText:"Leaves for wounds, bark for dysentery, root for coughs — deeply significant culturally in SA",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Nutritious browse — fruit eaten",goat:"Excellent browse plant"},
+ status:"planned"},
+
+{en:"Sausage Tree",af:"Worsboom",sci:"Kigelia africana",emoji:"🌳",
+ book:"book4",chapter:"ch-shrubs",habitat:"veld",
+ uses:["skin","immune","women","pain"],
+ useText:"Fruit extract for skin conditions including skin cancer — basis of popular commercial skin creams",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{horse:"Raw unripe fruit toxic — only use prepared extract",human:"Raw fruit toxic — do not eat; use only commercial preparations or seek herbal guidance"},
+ status:"planned"},
+
+{en:"Leadwood",af:"Hardekool",sci:"Combretum imberbe",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","pain","fever"],
+ useText:"Bark for diarrhoea and dysentery, ash used as toothpowder, leaves for wounds",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+// ─── BOOK 4 · SHRUBS ──────────────────────────────────
+{en:"Saltbush",af:"Soutslaai / Brakbos",sci:"Atriplex species",emoji:"🌿",
+ book:"book4",chapter:"ch-shrubs",habitat:"desert",
+ uses:["digestive","immune","skin"],
+ useText:"Rich in minerals, drought fodder, traditional digestive remedy",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cattle:"Excellent drought fodder",sheep:"Important for sheep farming in Karoo"},
+ status:"planned"},
+
+{en:"Num-Num",af:"Noemnoem",sci:"Carissa macrocarpa",emoji:"🌸",
+ book:"book4",chapter:"ch-shrubs",habitat:"coastal",
+ uses:["immune","digestive","skin"],
+ useText:"Berries nutritious and edible, bark and roots used medicinally, roots for fever",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Latex in stems may irritate — stick to ripe fruit only"},
+ status:"planned"},
+
+{en:"Camphor Bush",af:"Kanferblaar / Wildesalie",sci:"Tarchonanthus camphoratus",emoji:"🌿",
+ book:"book4",chapter:"ch-shrubs",habitat:"veld",
+ uses:["respiratory","pain","skin","mental"],
+ useText:"Headaches, coughs, rheumatism, skin infections — leaves smell strongly of camphor",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Camphor irritates cats — avoid",dog:"Strong camphor can irritate respiratory tract"},
+ status:"planned"},
+
+{en:"Blombos",af:"Blombos",sci:"Metalasia muricata",emoji:"🌸",
+ book:"book4",chapter:"ch-shrubs",habitat:"mountain",
+ uses:["respiratory","digestive","skin"],
+ useText:"Traditional Cape remedy for coughs, chest complaints, and skin conditions",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+// ─── BOOK 5 · TOXIC ───────────────────────────────────
+{en:"Tulip Tree",af:"Tulp / Kafferboom",sci:"Homeria species",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"NO medicinal use — extremely toxic. Causes heart failure in livestock",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{horse:"Fatal — causes cardiac arrest even in small amounts",cattle:"Major cause of livestock death in Western Cape",human:"All parts toxic — do not touch"},
+ status:"planned"},
+
+{en:"Lantana",af:"Lantana / Wildeprivet",sci:"Lantana camara",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:[],
+ useText:"One of the world's most ecologically and economically destructive invasive plants — and one of SA's most serious livestock hazards. Lantadene compounds cause liver damage, photosensitisation and death. IMPORTANT: Horses can become addicted to lantana and actively seek it out even when good grazing is available. First sign is often photosensitisation (sunburn) on white markings — easily misdiagnosed as biliary fever. No antidote.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{
+   horse:"Liver failure and photosensitisation — white markings most affected. Horses can become addicted and seek it out along fences and under trees. Paints and Appaloosas especially vulnerable. Misdiagnosis as biliary fever is common.",
+   cattle:"Major SA livestock killer — 10 out of 91 animals died in one documented SA outbreak. Signs: anorexia, black soft faeces, yellow mucous membranes, jaundice.",
+   sheep:"Toxic — photosensitisation and liver failure; somewhat less commonly affected than cattle",
+   goat:"Relatively more resistant than cattle and sheep but still toxic in quantity",
+   dog:"Toxic — liver damage; avoid all exposure",
+   human:"Berries toxic especially to children — remove plant from garden if children present. Toxicity not destroyed by drying — contaminated hay also dangerous."},
+ status:"planned"},
+
+{en:"Inkberry",af:"Tintelbessie / Sambokbessie",sci:"Cestrum laevigatum",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:[],
+ useText:"Highly toxic — causes liver and kidney failure. Important to identify and remove from farms",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{cattle:"Very toxic — a serious farming hazard",human:"All parts toxic — berries may attract children"},
+ status:"planned"},
+
+{en:"Gifblaar",af:"Gifblaar",sci:"Dichapetalum cymosum",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"One of the most toxic plants in SA — causes sudden death in livestock",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{cattle:"A single mouthful can kill — monofluoroacetate poison",horse:"Extremely dangerous — keep away from all equines",human:"Avoid all contact"},
+ status:"planned"},
+
+{en:"Boekenhout",af:"Gifappel / Stramonium",sci:"Datura stramonium",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:[],
+ useText:"Highly toxic — all parts. Used historically for asthma but extremely dangerous without expert preparation",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Causes hallucinations, respiratory failure — multiple deaths in SA"},
+ status:"planned"},
+
+// ─── BOOK 5 · TOXIC TO HUMANS ─────────────────────────
+{en:"Poison Bulb",af:"Seeroogblom / Gifui",sci:"Boophone disticha",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxichuman",habitat:"veld",
+ uses:[],
+ useText:"Toxic to humans and most animals — traditional use by San for arrow poison",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Alkaloids cause respiratory failure — do not ingest any part"},
+ status:"planned"},
+
+{en:"Cape Lilac",af:"Seringboom / Sering",sci:"Melia azedarach",emoji:"🌸",
+ book:"book5",chapter:"ch-toxichuman",habitat:"garden",
+ uses:[],
+ useText:"Beautiful but toxic — berries and bark cause vomiting, seizures, death in livestock and children",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Berries attract children — keep away from playgrounds",cattle:"A common garden tree but a real livestock hazard"},
+ status:"planned"},
+
+// ─── LINDA'S ADDITIONS — BOOK 1 ───────────────────────
+{en:"Cannabis / Dagga",af:"Dagga / Intsango",sci:"Cannabis sativa",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"garden",
+ uses:["pain","mental","skin","immune","women"],
+ useText:"Pain relief, anxiety, nausea, inflammation, epilepsy — medicinally significant; legal status complex in SA",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"toxic",cat:"toxic",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{dog:"THC toxic to dogs — can cause tremors, seizures, coma",cat:"THC toxic to cats — very sensitive",horse:"CBD oil (no THC) used for pain and anxiety in horses — never feed plant material",human:"Decriminalised in SA for personal use; medicinal use under prescription; avoid during pregnancy"},
+ status:"planned"},
+
+{en:"Slaapbossie / Slagroos",af:"Slaapbossie / Wilde Slaapmiddel",sci:"Datura ferox / Solanum species",emoji:"🌸",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Known as 'sleep bush' — causes extreme sedation, hallucinations, and death. A dangerous weed found on disturbed ground across SA",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Ingestion causes delirium, heart failure — associated with criminal poisoning in SA",cattle:"Causes death — remove from pastures urgently",horse:"All parts highly toxic — fatal"},
+ status:"planned"},
+
+{en:"Gifappel / Thorn Apple",af:"Gifappel / Stinkblaar",sci:"Datura stramonium",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:[],
+ useText:"Highly toxic tropane alkaloids — all parts deadly. Causes hallucinations, respiratory failure, death. Occasionally misused recreationally with fatal consequences",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Multiple deaths in SA annually — do not handle or ingest any part",cattle:"Seeds in grain silage have caused mass livestock poisoning",horse:"All parts fatal — spiny seed pods distinctive — remove from paddocks"},
+ status:"planned"},
+
+{en:"Khakibos",af:"Khakibos / Kakiebos",sci:"Tagetes minuta",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["anti-parasitic","skin","digestive","respiratory"],
+ useText:"Powerful insect and tick repellent, nematode control, digestive complaints — strongly aromatic weed with real medicinal value",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{dog:"Strong essential oils — topical repellent fine; don't feed",cat:"Avoid concentrated oil",horse:"Excellent tick repellent — rub crushed leaves on legs",human:"Good insect repellent — rub on skin; tea used for gut worms"},
+ status:"planned"},
+
+{en:"Blackjacks",af:"Swartjacks / Knapsekerel",sci:"Bidens pilosa",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["immune","digestive","skin","anti-parasitic","fever"],
+ useText:"One of Africa's most used medicinal weeds — anti-malarial, wound healing, diabetes management, anti-bacterial. Leaves edible as spinach",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Nutritious grazing — high in minerals",chicken:"Add young leaves to feed — nutritious",human:"Young leaves cooked as spinach — nutritious; widely eaten across Africa"},
+ status:"planned"},
+
+{en:"Poppy",af:"Papawer / Slaappapawer",sci:"Papaver somniferum",emoji:"🌸",
+ book:"book5",chapter:"ch-toxichuman",habitat:"garden",
+ uses:["pain","mental"],
+ useText:"Source of morphine and codeine — powerful pain relief in controlled medical use. Garden poppies dangerous if processed. Illegal to grow opium poppy in SA",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{horse:"Opiate toxicity — respiratory depression and death",cattle:"Fatal — avoid all Papaver species in pastures",human:"Medical derivatives safe under prescription; raw plant toxic — illegal to process"},
+ status:"planned"},
+
+{en:"Field Poppy",af:"Klaproos / Rooi Papawer",sci:"Papaver rhoeas",emoji:"🌺",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:["mental","pain"],
+ useText:"Mild sedative properties — less toxic than opium poppy but still causes problems in livestock. Petals used in traditional cough remedies",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{human:"Petal tea in very small amounts — traditional; avoid large doses",cattle:"Can cause sedation and digestive upset in large quantities"},
+ status:"planned"},
+
+{en:"Sunflower",af:"Sonneblom",sci:"Helianthus annuus",emoji:"🌻",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","skin","immune","women"],
+ useText:"Seeds highly nutritious — protein, vitamin E, healthy fats; flower heads medicinal for fever and inflammation; leaves used as fodder",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Seeds excellent supplement — good for coat condition",chicken:"Sunflower seeds a favourite — excellent for feather condition",cattle:"Whole plant used as fodder — nutritious"},
+ status:"planned"},
+
+{en:"Wild Sunflower / Rankgousblom",af:"Rankgousblom / Wildesonneblom",sci:"Tithonia diversifolia",emoji:"🌻",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["digestive","immune","anti-parasitic","skin"],
+ useText:"Traditional fever remedy, anti-malarial, digestive tonic, wound healing — fast-growing medicinal shrub",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cattle:"Sesquiterpene lactones — large amounts toxic; moderate amounts used as fodder",human:"Tea from leaves for fever and malaria — widely used in Africa"},
+ status:"planned"},
+
+{en:"Ox-eye Daisy / Gousblom",af:"Gansogies / Botterblom",sci:"Osteospermum / Dimorphotheca",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["skin","digestive","fever"],
+ useText:"Indigenous daisies used in skin preparations, wound healing, and fever management — vast family of SA yellow flowers",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Common grazing plant — nutritious"},
+ status:"planned"},
+
+{en:"Inkblom / Cape Marigold",af:"Botterblom / Inkblom",sci:"Arctotis / Gazania species",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["skin","digestive"],
+ useText:"Orange and yellow veld flowers — traditional uses for skin complaints and mild digestive issues across SA",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+{en:"Dandelion",af:"Perdeblom / Pissabed",sci:"Taraxacum officinale",emoji:"🌼",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["liver","digestive","immune","women","skin"],
+ useText:"Liver and kidney tonic, digestive bitter, diuretic, rich in vitamins A, C, K — entire plant edible and medicinal",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent liver tonic — add leaves to feed",chicken:"Nutritious addition to diet",dog:"Good liver and kidney support",human:"Leaves in salad; roots as coffee substitute; rich in minerals"},
+ status:"planned"},
+
+{en:"Soetdoring / Sweet Thorn",af:"Soetdoring",sci:"Vachellia karroo",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","respiratory","immune"],
+ useText:"Bark for diarrhoea and dysentery, gum edible and medicinal, pods nutritious fodder — one of SA's most common and useful trees",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Pods relished — excellent nutrition",cattle:"Important browse and fodder tree",goat:"A favourite — browse and pods both nutritious"},
+ status:"planned"},
+
+// ─── NIGHTSHADES ──────────────────────────────────────
+{en:"Black Nightshade",af:"Nastergal / Mnxeba",sci:"Solanum nigrum",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:["skin","digestive","pain"],
+ useText:"Complex plant — ripe berries eaten in some cultures, unripe berries toxic. Leaves used medicinally in parts of Africa but contain solanine. Use with extreme caution",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{human:"Ripe berries edible when cooked in some traditions — unripe berries toxic; leaves toxic raw",cattle:"Causes nervous system depression and death",horse:"All nightshade species — avoid entirely"},
+ status:"planned"},
+
+{en:"Bitter Apple / Bitter Nightshade",af:"Bitterappel / Perdebossie",sci:"Solanum incanum",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:["skin"],
+ useText:"Fruit used topically in traditional medicine for skin conditions and ringworm — NOT for internal use. Toxic if ingested",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{human:"External use only — topical for skin; never ingest",cattle:"Toxic — causes muscle tremors and death"},
+ status:"planned"},
+
+{en:"Tomato / Wild Tomato",af:"Tamatie / Wilde Tamatie",sci:"Solanum lycopersicum / S. retroflexum",emoji:"🍅",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:["immune","digestive","skin"],
+ useText:"Ripe fruit nutritious and safe — leaves and stems toxic (solanine). Wild tomato (morogo) is a traditional SA food plant",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Solanine in leaves and stems toxic",dog:"Ripe fruit fine; leaves and stems cause GI distress",horse:"Ripe fruit safe; never feed green tomatoes or plant material"},
+ status:"planned"},
+
+// ─── PIGWEED & AMARANTHS ──────────────────────────────
+{en:"Pigweed / Misbredie",af:"Misbredie / Waterblommetjie",sci:"Amaranthus hybridus",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","immune","skin","women"],
+ useText:"One of Africa's oldest food plants — leaves highly nutritious (protein, iron, calcium), seeds edible, traditional wound healing remedy",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cattle:"Large amounts cause nitrate poisoning — especially in drought conditions or after rain on stressed plants",horse:"Occasional grazing fine; don't allow gorging",human:"Cook leaves — excellent spinach substitute; seeds ground into flour"},
+ status:"planned"},
+
+{en:"Spinach / Wild Spinach",af:"Wildespinasie / Imfino",sci:"Amaranthus cruentus / A. tricolor",emoji:"🥬",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","immune","women","skin"],
+ useText:"Traditional leafy vegetable across SA — nutritious, rich in iron, folate, calcium. Widely used in township gardens and rural communities",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cattle:"Excellent fodder — but same nitrate caution as pigweed in drought"},
+ status:"planned"},
+
+// ─── THISTLES ─────────────────────────────────────────
+{en:"Scotch Thistle",af:"Wouddissel / Skaapdissel",sci:"Onopordum acanthium",emoji:"🌸",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:["liver","digestive"],
+ useText:"Invasive thistle — seeds contain silymarin (same as milk thistle) with liver-protective properties. Mainly a livestock pest and weed",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"safe",cat:"safe",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{horse:"Spines cause mouth injuries — rarely grazed voluntarily",cattle:"Will eat when hungry — spines cause problems",human:"Young leaves edible if spines removed; seeds medicinally similar to milk thistle"},
+ status:"planned"},
+
+{en:"Milk Thistle",af:"Melkdissel / Mariedissel",sci:"Silybum marianum",emoji:"🌸",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["liver","digestive","immune","women"],
+ useText:"Silymarin — world's best-studied liver protectant. Used for liver disease, hepatitis, mushroom poisoning, hangover, chemotherapy support",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Excellent liver support — especially post-illness or medication",dog:"Good for liver disease — widely used in veterinary medicine",cat:"One of few liver herbs safe for cats"},
+ status:"planned"},
+
+{en:"Spear Thistle",af:"Gewone Dissel",sci:"Cirsium vulgare",emoji:"🌸",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Invasive weed — mainly a livestock management problem. Spines cause mouth and digestive tract injuries in animals",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{horse:"Spines cause mouth ulcers and colic",cattle:"Will eat in desperation — injuries result"},
+ status:"planned"},
+
+// ─── FERNS ────────────────────────────────────────────
+{en:"Bracken Fern",af:"Arend Varing / Adelaarsvaring",sci:"Pteridium aquilinum",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"mountain",
+ uses:[],
+ useText:"Highly toxic to livestock — thiaminase enzyme destroys Vitamin B1, causing progressive neurological disease. Confirmed present in SA (Pretoria district samples tested). CRITICAL: Thiaminase is NOT destroyed by drying — contaminated hay is equally dangerous as fresh plant. One of SA's most dangerous pasture plants.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{
+   horse:"'Bracken staggers' — progressive weakness, incoordination, recumbency. Horses fed hay with 20%+ bracken develop signs within 30 days. Treatable with thiamine injections if caught early.",
+   cattle:"Enzootic haematuria — bloody urine, bone marrow suppression, immune failure, bladder tumours with long-term exposure. No cure once established.",
+   chicken:"Bone marrow suppression compounds — not primarily thiaminase. Fatal with regular exposure.",
+   sheep:"Toxic but less commonly affected than horses and cattle",
+   human:"Young fiddleheads eaten in some cultures — carcinogenic ptaquiloside present. Partially reduced by boiling but not fully eliminated — not recommended."},
+ status:"planned"},
+
+{en:"Maidenhair Fern",af:"Venushaar / Vrouehaar",sci:"Adiantum capillus-veneris",emoji:"🌿",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["respiratory","women","skin","digestive"],
+ useText:"Traditional remedy for coughs, bronchitis, hair loss, dandruff — a gentle medicinal fern used in folk medicine globally",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{human:"Tea for coughs and bronchitis — gentle and safe"},
+ status:"planned"},
+
+{en:"River Fern",af:"Riviervaring",sci:"Asplenium species",emoji:"🌿",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["skin","digestive","women"],
+ useText:"Various Asplenium ferns used in traditional SA medicine for wounds, digestive complaints, and fertility rituals",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+// ─── MORE YELLOW FLOWERS ──────────────────────────────
+{en:"Suring / Sorrel",af:"Suring / Wildestamvrug",sci:"Oxalis species",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["digestive","skin","immune"],
+ useText:"Edible sour leaves rich in Vitamin C — traditional anti-scurvy plant. Flowers and leaves used in salads and medicinal teas across SA",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{horse:"Oxalic acid in large quantities causes calcium deficiency and kidney damage",cattle:"Small grazing fine; large quantities dangerous",human:"Leaves in small amounts nutritious; large quantities cause kidney stones over time"},
+ status:"planned"},
+
+{en:"Cape Weed / Servetjie",af:"Servetjie / Perdepis",sci:"Arctotheca calendula",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["skin","digestive"],
+ useText:"Common yellow daisy weed — mild medicinal uses for skin conditions and digestive complaints; good lawn alternative groundcover",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Common grazing plant — nutritious",sheep:"Widely grazed — no issues"},
+ status:"planned"},
+
+{en:"Senecio / Ragwort",af:"Kruiskruid / Gifbossie",sci:"Senecio species",emoji:"🌼",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Extremely toxic — pyrrolizidine alkaloids cause irreversible liver damage. Over 100 Senecio species in SA — some of the most dangerous plants on farms. Animals rarely eat willingly but contaminated hay is the real danger",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{horse:"Causes Molteno disease / Dunsiekte — progressive liver failure, neurological signs, death",cattle:"Contaminated hay is the main risk — damage cumulative and irreversible",human:"Pyrrolizidine alkaloids carcinogenic — do not consume any Senecio species"},
+ status:"planned"},
+
+{en:"Marigold / Afrikaaner",af:"Afrikaaner / Kalkoentjie",sci:"Gladiolus / Sparaxis species",emoji:"🌺",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["skin","digestive"],
+ useText:"Indigenous gladiolus species used for skin conditions and digestive complaints — corms edible in some species",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{dog:"Some gladiolus species mildly toxic — vomiting and lethargy",cat:"Same caution as dogs"},
+ status:"planned"},
+
+// ─── MORE IMPORTANT ADDITIONS ─────────────────────────
+{en:"Waterblommetjie",af:"Waterblommetjie",sci:"Aponogeton distachyos",emoji:"💧",
+ book:"book2",chapter:"ch-culinary",habitat:"wetland",
+ uses:["digestive","immune"],
+ useText:"Uniquely Cape — edible aquatic plant, the base of waterblommetjiebredie. Nutritious, delicious, and a cultural treasure of the Western Cape",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{human:"Flowers and young pods eaten — cook in stew; rich in nutrients"},
+ status:"planned"},
+
+{en:"Wild Garlic / Snotbossie",af:"Snotbossie / Wildeknoffel",sci:"Tulbaghia violacea",emoji:"🧄",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["immune","anti-parasitic","respiratory","digestive","skin"],
+ useText:"SA's indigenous garlic — anti-fungal, anti-bacterial, tick repellent, immune boosting. Milder than cultivated garlic but still potent",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{dog:"Allium family — same caution as garlic; small amounts only",cat:"Allium compounds toxic to cats — avoid",horse:"Safe and beneficial — tick repellent when fed small amounts"},
+ status:"planned"},
+
+{en:"Imphepho",af:"Imphepho / Hottentotstee",sci:"Helichrysum species",emoji:"🌼",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["respiratory","mental","skin","immune","women"],
+ useText:"Sacred plant in Zulu and Xhosa tradition — used in ancestral ceremonies, and medicinally for coughs, wounds, anxiety, and to induce vivid dreams",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{human:"Smoked or burned as incense traditionally; tea for coughs and anxiety"},
+ status:"planned"},
+
+{en:"Umhlonyane",af:"Umhlonyane / Wilde-als",sci:"Artemisia afra var.",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["fever","respiratory","digestive","women","anti-parasitic"],
+ useText:"Zulu name for African wormwood — widely used across all SA cultures for colds, flu, fever, worms, stomach complaints. One of SA's most important traditional medicines",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"toxic",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{cat:"Thujone toxic — avoid",human:"Avoid during pregnancy; safe for short-term use in adults"},
+ status:"planned"},
+
+{en:"Umdlebe / Poison Rope",af:"Gifboom / Melkboom",sci:"Synadenium cupulare",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Milky latex extremely toxic — causes severe skin burns, blindness if in eyes, internal bleeding if ingested. A common ornamental plant dangerous on farms",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Latex causes chemical burns — wash eyes immediately with water if exposed",cattle:"Fatal if ingested — avoid planting near pastures"},
+ status:"planned"},
+
+{en:"Euphorbia / Melkbos",af:"Melkbos / Naboom",sci:"Euphorbia species",emoji:"🌵",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:["skin"],
+ useText:"Many Euphorbia species in SA — all produce caustic milky latex. Some traditional medicinal uses (wart removal, skin conditions) but highly dangerous if misused",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{human:"Latex causes severe burns — wart removal use only with extreme care",cattle:"Ingestion causes blistering of mouth and digestive tract — fatal in quantity",horse:"Avoid all Euphorbia species in paddocks"},
+ status:"planned"},
+
+{en:"Stinkblaar / Jimsonweed",af:"Stinkblaar / Olieboom",sci:"Datura innoxia",emoji:"⚠️",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:[],
+ useText:"Related to Gifappel — equally toxic. Distinctive white trumpet flowers, unpleasant smell. All parts toxic — scopolamine and atropine cause delirium and death",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Delirium, hallucinations, heart failure — associated with deliberate and accidental poisoning",cattle:"Seeds in grain — a serious contamination risk"},
+ status:"planned"},
+
+{en:"Pom-pom Weed",af:"Pompomwiet / Fynbossie",sci:"Campuloclinium macrocephalum",emoji:"🌸",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Invasive pink pompom weed taking over SA grasslands — toxic to animals and suppresses indigenous plants. A serious agricultural problem",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"caution",cat:"caution",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{cattle:"Toxic — avoid",horse:"Toxic sesquiterpene lactones"},
+ status:"planned"},
+
+{en:"Cocklebur",af:"Kankerroos / Kankerbossie",sci:"Xanthium strumarium",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Spiny burrs cause mechanical injury to animals; seedlings highly toxic — carboxyatractyloside causes liver failure in livestock",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"caution",cat:"caution",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{cattle:"Seedlings toxic — especially after rain following dry period",pig:"Historically one of the most common pig poisons in SA",horse:"Burrs cause injury; seedlings toxic — remove from pastures"},
+ status:"planned"},
+
+{en:"Koringblom / Blue Weed",af:"Koringblom / Bloublom",sci:"Echium plantagineum",emoji:"💜",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:[],
+ useText:"Pretty purple-blue invasive weed — pyrrolizidine alkaloids accumulate in liver causing Pictou disease in horses and cattle",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{horse:"Chronic liver damage — one of the main PPA poisoning plants in SA",cattle:"Photosensitisation and liver failure"},
+ status:"planned"},
+
+{en:"Inkbossie / Inkweed",af:"Inkbossie / Wildejohannesbessie",sci:"Phytolacca octandra",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:["skin"],
+ useText:"Dark purple berries used as ink — toxic to livestock but traditionally used for skin complaints. Birds eat berries and spread seeds widely",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"caution",pig:"toxic",human:"toxic"},
+ animalNotes:{human:"Berries and roots toxic — causes vomiting, respiratory depression",cattle:"Causes progressive muscle weakness and death"},
+ status:"planned"},
+
+{en:"Suurknol / Wild Cucumber",af:"Suurknol / Wilde-agurk",sci:"Cucumis africanus",emoji:"🥒",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["digestive","skin","anti-parasitic"],
+ useText:"Indigenous cucumber relative — traditional use for digestive complaints, skin conditions, and as a purgative. Fruit used medicinally",
+ animals:{horse:"caution",cattle:"caution",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"caution"},
+ animalNotes:{human:"Bitter compounds — use small medicinal doses only; large amounts cause severe diarrhoea"},
+ status:"planned"},
+
+{en:"Mopane",af:"Mopanie",sci:"Colophospermum mopane",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","immune","pain"],
+ useText:"Iconic bushveld tree — bark for diarrhoea and dysentery, leaves for wounds, mopane worm (caterpillar) a protein-rich food source",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Leaves and pods relished",cattle:"Major browse and fodder tree in Limpopo and Mpumalanga"},
+ status:"planned"},
+
+{en:"Rooiwortel / Red Root",af:"Rooiwortel",sci:"Gunnera perpensa",emoji:"🌿",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["women","digestive","immune","pain"],
+ useText:"Important Zulu and Xhosa medicine for menstrual problems, fertility, and childbirth. One of SA's most culturally significant women's herbs",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{human:"Powerful uterine stimulant — NOT for use during pregnancy; used under traditional healer guidance only"},
+ status:"planned"},
+
+{en:"Umckaloabo",af:"Umckaloabo / Pelargonium",sci:"Pelargonium reniforme",emoji:"🌸",
+ book:"book1",chapter:"ch-fynbos",habitat:"veld",
+ uses:["respiratory","immune","digestive"],
+ useText:"South Africa's gift to the world — basis of the commercial chest infection remedy. Clinically proven for acute bronchitis and sinusitis",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Limited data — avoid",human:"Well-studied and safe — available as EPs 7630 extract globally"},
+ status:"planned"},
+
+{en:"Fever Tea / Koorsbossie",af:"Koorsbossie / Heuningtee",sci:"Lippia javanica",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["fever","respiratory","digestive","skin","anti-parasitic"],
+ useText:"One of SA's most popular traditional fever remedies — anti-malarial properties studied scientifically. Also used as insect repellent and for coughs",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Safe — used traditionally for horse fever",human:"Widely drunk as tea for fever across SA cultures — pleasant taste"},
+ status:"planned"},
+
+{en:"Willow Herb",af:"Wilgeblom",sci:"Epilobium species",emoji:"🌸",
+ book:"book1",chapter:"ch-wetland",habitat:"wetland",
+ uses:["women","digestive","immune","liver"],
+ useText:"Prostate health, urinary complaints, anti-inflammatory — gaining scientific recognition for benign prostatic hyperplasia",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{},
+ status:"planned"},
+
+{en:"Stinging Nettle",af:"Brandnetel",sci:"Urtica species",emoji:"🌿",
+ book:"book2",chapter:"ch-medicinalherbs",habitat:"garden",
+ uses:["digestive","immune","women","pain","liver","skin"],
+ useText:"Sting feared, benefits huge — iron, folate, protein; arthritis, hay fever, prostate, iron deficiency, lactation support. Sting harmless once cooked or dried",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{horse:"Nutritious — high in iron and minerals; dried in hay is excellent",cattle:"Dried or cooked — good mineral supplement",chicken:"Add dried to feed — improves health and egg production",human:"Cook like spinach — sting completely neutralised; one of the most nutritious plants available"},
+ status:"planned"},
+
+{en:"Wild Asparagus",af:"Wildeaspersie / Katdoring",sci:"Asparagus species",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["liver","digestive","immune","women"],
+ useText:"Multiple indigenous asparagus species across SA — roots and young shoots medicinal and edible; important in traditional medicine for liver and kidney support",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{cat:"Some Asparagus species mildly toxic to cats — observe carefully",human:"Young shoots edible — delicious; root tea for kidney and liver health"},
+ status:"planned"},
+
+// ════════════════════════════════════════════════════════
+// POD TREES — A CHAPTER OF THEIR OWN
+// Critical knowledge: GREEN pods vs BROWN/RIPE pods
+// This distinction saves animal lives
+// ════════════════════════════════════════════════════════
+
+{en:"Honey Mesquite / Suidwesdoring",af:"Suidwesdoringboom / Prosopis",sci:"Prosopis glandulosa",emoji:"🌳",
+ book:"book5",chapter:"ch-podtrees",habitat:"veld",
+ uses:["digestive"],
+ useText:"⚠️ DROUGHT DANGER: Ripe brown pods = fair livestock forage. GREEN pods consumed heavily = fatal. Worst in drought years when trees carry massive pod loads and grazing is scarce — the very conditions that drive animals to eat heavily. Donkeys, cattle and horses most at risk. A devastating trap.",
+ animals:{horse:"caution",cattle:"toxic",sheep:"safe",goat:"caution",dog:"caution",cat:"caution",chicken:"safe",pig:"caution",human:"safe"},
+ animalNotes:{
+   horse:"Impaction colic — stands humped, kicks at belly. Green pods ferment in gut causing blockage. Fatal if untreated.",
+   cattle:"Jaw and tongue paralysis after 2+ months. Salivation, continuous chewing, tongue protrudes 1–4 inches, bulging eyes, rapid weight loss. 10–25% die even with treatment.",
+   sheep:"Reportedly resistant — can graze alongside cattle to reduce cattle losses",
+   goat:"Less affected than cattle but monitor heavy consumption",
+   human:"Ripe pods ground into flour — nutritious. Pods brewed into a drink. Seeds edible. Only the GREEN pod in large quantities is the danger.",
+   dog:"Gut impaction if gorging on fallen pods — monitor"},
+ status:"done"},
+
+{en:"Black Wattle",af:"Swartwattel",sci:"Acacia mearnsii",emoji:"🌳",
+ book:"book5",chapter:"ch-podtrees",habitat:"veld",
+ uses:["skin","digestive"],
+ useText:"Invasive wattle — bark used medicinally for diarrhoea and wounds (tannins). Pods and seeds problematic in large quantities. Leaves and green pods can cause prussic acid (cyanide) poisoning in stressed plants",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{
+   cattle:"Prussic acid in wilted or stressed leaves — causes sudden death; gasping, blue gums",
+   horse:"Same prussic acid risk — avoid wilted or frost-damaged wattle leaves",
+   human:"Bark tea in small amounts — traditional; high tannins cause constipation in large doses"},
+ status:"planned"},
+
+{en:"Erythrina / Lucky Bean Tree",af:"Koraalboom / Transvaalse Koraalboom",sci:"Erythrina lysistemon",emoji:"🌺",
+ book:"book5",chapter:"ch-podtrees",habitat:"veld",
+ uses:["pain","skin"],
+ useText:"Iconic red flowering tree — seeds (lucky beans) highly toxic. Bark used medicinally for pain and inflammation. The beautiful red seeds cause children to handle them — serious poisoning risk",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{
+   horse:"Erythrina alkaloids cause paralysis and respiratory failure",
+   cattle:"Pods and seeds — fatal; bark in small amounts used traditionally for livestock wounds",
+   human:"Lucky beans NEVER to be chewed or swallowed — even one seed dangerous to a child; teach children immediately",
+   dog:"Seed ingestion — vomiting, collapse, paralysis"},
+ status:"planned"},
+
+{en:"Wild Laburnum / Geelkeur",af:"Geelkeur / Geel Basterels",sci:"Calpurnia aurea",emoji:"🌼",
+ book:"book5",chapter:"ch-podtrees",habitat:"veld",
+ uses:["skin","anti-parasitic"],
+ useText:"Yellow-flowered pod tree related to laburnum — all parts toxic, especially seeds. Traditionally used externally for skin parasites and lice. Internal use dangerous.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{
+   horse:"Alkaloid poisoning — colic, muscle tremors, death",
+   cattle:"Seeds most toxic; leaves and pods also cause problems",
+   human:"External use only for lice and skin conditions; never ingest any part"},
+ status:"planned"},
+
+{en:"Weeping Boerboon",af:"Huilboerboon",sci:"Schotia brachypetala",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","immune","pain"],
+ useText:"Beautiful iconic SA tree — pods edible and nutritious when ripe and roasted. Bark used medicinally. Seeds fermented for traditional beer. Nectar-rich flowers beloved by birds and sunbirds",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Ripe pods relished — nutritious",
+   cattle:"Good browse — pods and leaves eaten",
+   human:"Seeds roasted and eaten — nutty flavour; bark tea for digestive complaints"},
+ status:"planned"},
+
+{en:"Jacaranda",af:"Jakaranda",sci:"Jacaranda mimosifolia",emoji:"💜",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:[],
+ useText:"SA's most beloved purple street tree. CORRECTED: According to the ASPCA, Jacaranda mimosifolia is classified as NON-TOXIC to horses, dogs and cats. The main danger is MECHANICAL — the hard woody pods can cause choking and gut obstruction if swallowed whole, not chemical poisoning. Flowers edible. Move away from paddocks as a precaution.",
+ animals:{horse:"caution",cattle:"caution",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Not chemically toxic — but hard pods can cause impaction colic if swallowed whole. Rake fallen pods from paddocks as precaution.",
+   cattle:"Same mechanical risk — pods can cause physical gut obstruction",
+   dog:"Pods can cause choking or gut obstruction — not chemical toxicity",
+   cat:"Same mechanical risk — not chemically toxic",
+   human:"Flowers eaten in fritters and salads — safe. No chemical toxicity in any part."},
+ status:"planned"},
+
+{en:"Flamboyant Tree",af:"Flambojant / Vlamdeboom",sci:"Delonix regia",emoji:"🌺",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:[],
+ useText:"Spectacular red flowering tree — large woody pods contain seeds with toxic compounds. Horses and cattle that eat fallen pods risk serious digestive and neurological problems",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{
+   horse:"Pods cause colic and neurological symptoms — remove fallen pods from paddocks",
+   cattle:"Seed toxicity — keep out of reach of livestock",
+   human:"Seeds reportedly eaten in some countries after processing — not recommended without expert preparation"},
+ status:"planned"},
+
+{en:"Syringa / Serингбoom",af:"Seringboom / Sering",sci:"Melia azedarach",emoji:"🌸",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:[],
+ useText:"One of SA's most dangerous common garden trees. Berries, bark, leaves all toxic — tetranortriterpenes cause vomiting, diarrhoea, convulsions, respiratory depression and death. A common cause of livestock and child poisoning.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{
+   horse:"Berries and leaves — rapid onset; convulsions, paralysis, death",
+   cattle:"A leading cause of livestock poisoning where tree is common",
+   pig:"Pigs historically most severely affected — berries at foraging height",
+   dog:"Berries — vomiting, weakness, seizures; can be fatal",
+   human:"Children attracted to yellow berries — 6–8 berries potentially fatal to a child; seek emergency treatment immediately",
+   chicken:"Berries accessible at ground level — avoid planting near poultry"},
+ status:"planned"},
+
+{en:"Oak Tree / Akkerboom",af:"Akkerboom / Eikeboom",sci:"Quercus robur / Q. palustris",emoji:"🌳",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:["digestive","skin"],
+ useText:"⚠️ CUMULATIVE TOXICITY: Acorns and young oak leaves contain gallotannins that accumulate over weeks to months. Horses and cattle that snack on acorns daily build up toxicity until sudden catastrophic kidney and gut failure. By the time symptoms appear, damage may be irreversible. Bark (in very small amounts) has traditional medicinal uses — astringent for diarrhoea.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"safe",human:"caution"},
+ animalNotes:{
+   horse:"Classic slow poisoning — weeks of acorn snacking then sudden colic, bloody diarrhoea, kidney failure. Owner may also be exposed to excreted toxins through handling — wash hands and avoid urine/faeces contact without gloves. Remove horses from oak paddocks immediately.",
+   cattle:"Young spring leaves especially dangerous — gallotannin poisoning causes haemorrhagic gastroenteritis and kidney failure",
+   sheep:"Less sensitive than cattle — can tolerate moderate amounts",
+   goat:"More resistant than cattle — moderate consumption generally tolerated",
+   pig:"Historically fattened on acorns in Europe — resistant to gallotannins; safe",
+   dog:"Large quantities of acorns — vomiting, kidney damage; moderate risk",
+   human:"Acorns bitter raw (tannins) — leached and ground into flour traditionally; bark tea very small amounts for diarrhoea"},
+ status:"planned"},
+
+{en:"Karee / Wild Currant",af:"Karee / Rooikaree",sci:"Searsia lancea",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","skin","fever","immune"],
+ useText:"Graceful indigenous willow-like tree — bark for diarrhoea and fever, berries fermented into traditional beer, excellent shade and windbreak tree. One of SA's toughest indigenous trees.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Good shade tree — no toxicity concerns; leaves occasionally browsed",
+   cattle:"Bark and leaves sometimes browsed — no known toxicity",
+   human:"Berries fermented — traditional beer; bark tea for fever and diarrhoea"},
+ status:"planned"},
+
+{en:"Poison Pod / Umzane",af:"Gifpeul",sci:"Dichrostachys cinerea",emoji:"🌳",
+ book:"book5",chapter:"ch-podtrees",habitat:"veld",
+ uses:[],
+ useText:"Sickle bush — pods and seeds contain compounds causing neurological symptoms in livestock. Distinctive pink and yellow flower heads. Invasive in disturbed areas.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"caution"},
+ animalNotes:{
+   horse:"Seed ingestion — jaw rigidity, difficulty swallowing, weight loss",
+   cattle:"Pods cause 'sickle bush disease' — head shaking, jaw problems similar to Prosopis poisoning"},
+ status:"planned"},
+
+{en:"Wisteria",af:"Blourëen / Wisteria",sci:"Wisteria sinensis",emoji:"💜",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:[],
+ useText:"Popular garden climber with beautiful purple flowers — all parts toxic, especially seeds and pods. A common suburban garden danger to children and animals.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{
+   horse:"Seeds and pods — colic, vomiting (where possible), collapse",
+   dog:"As few as 3–4 seeds cause severe vomiting, diarrhoea, collapse",
+   human:"Seeds and pods — nausea, vomiting, collapse; children especially at risk"},
+ status:"planned"},
+
+{en:"Sweet Pea / Lathyrus",af:"Ertjieblom / Soetertjie",sci:"Lathyrus odoratus / L. sativus",emoji:"🌸",
+ book:"book5",chapter:"ch-podtrees",habitat:"garden",
+ uses:[],
+ useText:"Beautiful garden climber — seeds of Lathyrus species cause lathyrism: irreversible paralysis of hindquarters in horses and cattle. A serious farming hazard if seeds contaminate feed.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"toxic"},
+ animalNotes:{
+   horse:"Lathyrism — progressive irreversible hindquarter paralysis; no cure once established",
+   cattle:"Same paralysis syndrome — ODAP neurotoxin",
+   human:"Grass pea (L. sativus) consumed in famine causes same paralysis in humans — historical record across Africa"},
+ status:"planned"},
+
+// ════════════════════════════════════════════════════════
+// NEWLY ADDED — VERIFIED BATCH
+// ════════════════════════════════════════════════════════
+
+// ─── BOOK 5 · SERIOUSLY TOXIC SA TREES ───────────────
+{en:"Tamboti",af:"Tambotie / Umthombothi",sci:"Spirostachys africana",emoji:"🌳",
+ book:"book5",chapter:"ch-toxic",habitat:"veld",
+ uses:["pain","digestive"],
+ useText:"PROTECTED SA tree — extraordinarily beautiful wood, extraordinarily dangerous tree. Milky latex toxic to all. Smoke from burning wood causes headaches, nausea and contaminates food grilled over it. Sawdust harms eyes and can cause blindness. Limited traditional medicinal use — single drop of latex on toothache only. Do NOT use as firewood. Ever.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{
+   horse:"Latex and leaves toxic — avoid all contact",
+   cattle:"Latex used traditionally as fish poison and arrow poison — highly toxic internally",
+   human:"One drop of fresh latex on toothache — traditional painkiller only. Bark tea for stomach in tiny amounts. Smoke from fire TOXIC — never braai over tamboti wood. Sawdust causes eye damage — wear protection when working the wood.",
+   dog:"Latex causes severe skin and eye irritation — keep away"},
+ status:"planned"},
+
+{en:"Arum Lily / Varkoor",af:"Wit Varkoor / Varkoorgonna",sci:"Zantedeschia aethiopica",emoji:"🌸",
+ book:"book5",chapter:"ch-toxic",habitat:"wetland",
+ uses:["skin","pain"],
+ useText:"Iconic white SA flower — all parts toxic due to calcium oxalate crystals. Causes severe mouth swelling, drooling, vomiting, difficulty swallowing. Leaves used as poultice for sores and rheumatism in Xhosa tradition — external only. Tubers boiled and fed to pigs historically (hence 'pig lily') but not recommended.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"caution",human:"caution"},
+ animalNotes:{
+   horse:"Calcium oxalate crystals — severe oral and gut irritation; avoid",
+   cattle:"Toxic if grazed — causes mouth blistering and digestive upset",
+   dog:"Mouth swelling, drooling, vomiting — vet immediately if ingested",
+   cat:"Same as dogs — toxic",
+   pig:"Tubers boiled historically as pig food — raw tubers cause mouth irritation",
+   human:"External use: warmed leaves as poultice for sores, boils, gout, rheumatism — safe topically. Never eat raw — severe mouth and throat irritation."},
+ status:"planned"},
+
+// ─── BOOK 1 · GROUND PLANTS — NEW ADDITIONS ──────────
+{en:"Prickly Pear",af:"Turksvy / Doringvy",sci:"Opuntia ficus-indica",emoji:"🌵",
+ book:"book1",chapter:"ch-succulents",habitat:"veld",
+ uses:["digestive","immune","skin","women","pain"],
+ useText:"One of SA's most complex plants — invasive pest AND valuable medicine AND drought fodder. Fruit eaten, pads used medicinally. Scientifically confirmed: anti-diabetic, anti-inflammatory, antioxidant, lowers cholesterol, digestive complaints. Drought fodder for livestock when spines removed. Category 1 invasive in SA — do not propagate.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Spineless pads — excellent drought fodder; spiny varieties must have spines singed off first",
+   cattle:"Documented drought survival fodder — sheep survived 250 days on prickly pear alone in 1920s SA study",
+   sheep:"Highly resistant — used as drought fodder across Karoo",
+   human:"Fruit eaten fresh, jams, wine, syrup; pads cooked as vegetable; medicinally for diabetes, hangover, cholesterol — remove glochids carefully"},
+ status:"planned"},
+
+{en:"Wild Ginger",af:"Wildegemmer / Indungulo",sci:"Siphonochilus aethiopicus",emoji:"🌿",
+ book:"book1",chapter:"ch-groundplants",habitat:"veld",
+ uses:["respiratory","digestive","pain","women","immune"],
+ useText:"SA's own indigenous ginger — roots used for coughs, colds, asthma, malaria, stomach complaints, menstrual pain. One of SA's most important traditional medicines. Now rare due to over-harvesting — buy cultivated only.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Safe — root decoction used traditionally for respiratory complaints in horses",
+   cat:"Ginger family compounds — small amounts only",
+   human:"Root tea or chewed raw — excellent for colds, flu, nausea. Increasingly rare — use sparingly and buy cultivated."},
+ status:"planned"},
+
+{en:"Cape Honeysuckle",af:"Trompetters / Kaperse Kanferfoelie",sci:"Tecoma capensis",emoji:"🌺",
+ book:"book1",chapter:"ch-shrubs",habitat:"veld",
+ uses:["immune","skin","digestive","women"],
+ useText:"Brilliant orange-red flowers beloved by sunbirds — leaves and bark used in traditional medicine for skin conditions, fever, and as a general tonic. One of SA's most garden-friendly indigenous shrubs.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Leaves occasionally browsed — no known toxicity",
+   human:"Leaf tea for general health — widely used in traditional practice"},
+ status:"planned"},
+
+{en:"Wild Pomegranate",af:"Wildegranaat / Taaibos",sci:"Burchellia bubalina",emoji:"🌺",
+ book:"book4",chapter:"ch-shrubs",habitat:"forest",
+ uses:["digestive","immune","skin","fever"],
+ useText:"Beautiful indigenous shrub with red tubular flowers — bark used for fever and digestive complaints in traditional medicine. Not related to true pomegranate but shares tannin-rich bark properties.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   human:"Bark tea for fever and diarrhoea — astringent tannins"},
+ status:"planned"},
+
+{en:"Kiepersol / Cabbage Tree",af:"Kiepersol / Wildekool",sci:"Cussonia spicata",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["fever","pain","digestive","women","skin"],
+ useText:"Iconic SA tree with distinctive large leaves — bark used for fever, malaria, rheumatism and as a charm in traditional medicine. Roots used for stomach complaints. Important cultural tree across many SA traditions.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Leaves occasionally browsed — nutritious",
+   human:"Bark decoction for fever and malaria — widely used in Zulu and Sotho traditions"},
+ status:"planned"},
+
+{en:"Wild Peach / Doppruim",af:"Doppruim / Wildeperskes",sci:"Kiggelaria africana",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"forest",
+ uses:["skin","immune","pain","digestive"],
+ useText:"Hardy SA forest tree — bark used for rheumatism, skin conditions and as general tonic. Seeds contain toxic compounds — not for consumption. Excellent garden tree attracting birds.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"caution",chicken:"safe",pig:"safe",human:"caution"},
+ animalNotes:{
+   human:"Bark tea medicinal — seeds toxic; do not consume seeds",
+   dog:"Seeds — toxic if chewed; leaves fine"},
+ status:"planned"},
+
+{en:"Rooiels / Cape Alder",af:"Rooiels",sci:"Cunonia capensis",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"mountain",
+ uses:["skin","digestive","pain"],
+ useText:"Beautiful Cape mountain stream tree — bark used medicinally for skin conditions and sore throats. Tannin-rich bark has astringent properties. Important riparian species.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   human:"Bark decoction for skin conditions and sore throat — gargle or apply topically"},
+ status:"planned"},
+
+{en:"Voëlent / Mistletoe",af:"Voëlent / Voëlentjie",sci:"Viscum species",emoji:"🌿",
+ book:"book5",chapter:"ch-toxic",habitat:"forest",
+ uses:["immune","pain","women"],
+ useText:"SA's indigenous mistletoes — toxic berries but traditionally used medicinally for immune support, high blood pressure and labour induction. European mistletoe research inspiring SA research. All SA Viscum species — berries toxic to children and most animals.",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"caution",human:"caution"},
+ animalNotes:{
+   dog:"Berries and leaves — toxic; causes vomiting, low blood pressure, seizures",
+   cat:"Same — toxic",
+   horse:"Small leaf exposure usually fine; berries — avoid",
+   human:"Traditional medicinal use under guidance only — not self-prescribing; berries never eaten"},
+ status:"planned"},
+
+{en:"Agapanthus",af:"Agapant / Bloulelie",sci:"Agapanthus africanus",emoji:"💜",
+ book:"book5",chapter:"ch-toxic",habitat:"garden",
+ uses:["women","pain"],
+ useText:"Beloved SA garden plant — traditionally used for fertility, pregnancy and labour induction. ALL parts toxic — roots especially. Causes vomiting, diarrhoea, serious digestive and neurological problems. Traditional use strictly under healer guidance only.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"caution"},
+ animalNotes:{
+   horse:"Roots and leaves — toxic; causes colic and neurological signs",
+   dog:"Common garden poisoning — roots especially toxic",
+   cat:"Same as dogs",
+   human:"Traditional fertility and labour medicine — powerful and dangerous; never self-administer"},
+ status:"planned"},
+
+{en:"Wateruintjie / Water Hawthorn",af:"Wateruintjie",sci:"Aponogeton distachyos",emoji:"💧",
+ book:"book2",chapter:"ch-culinary",habitat:"wetland",
+ uses:["digestive","immune"],
+ useText:"Uniquely Cape — edible aquatic plant, base of the beloved waterblommetjiebredie stew. Flowers and young pods eaten — rich in nutrients, delicious. A true Cape culinary treasure found only in SA fynbos region ponds.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   human:"Flowers and pods cooked in stew — iconic Cape Malay dish; also eaten raw when young"},
+ status:"planned"},
+
+{en:"Kremetart / Baobab",af:"Kremetartboom / Grootboom",sci:"Adansonia digitata",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["immune","digestive","fever","skin","women"],
+ useText:"The iconic African tree of life — fruit pulp highest Vitamin C of any fruit, 6x more than oranges. Bark, leaves, fruit all medicinal and edible. Fever, diarrhoea, immune support, calcium source. Every part has a use.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Fruit pulp and leaves — nutritious and safe",
+   cattle:"Leaves and pods eaten — excellent nutrition",
+   human:"Fruit pulp dissolved in water — refreshing drink rich in Vitamin C, calcium, potassium. Leaves cooked as vegetable. Seeds pressed for oil. Bark fibre for rope."},
+ status:"planned"},
+
+{en:"Morula / Bird Plum",af:"Moerbeiboom / Suurpruim",sci:"Berchemia discolor",emoji:"🌳",
+ book:"book4",chapter:"ch-trees",habitat:"veld",
+ uses:["digestive","immune","skin"],
+ useText:"Small edible fruit — sweet-sour, nutritious, eaten fresh or brewed into beer. Bark used medicinally for skin conditions and digestive complaints. Important food tree for wildlife and people.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"safe",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   human:"Fruit eaten fresh or fermented — traditional beer; bark tea for skin and digestion"},
+ status:"planned"},
+
+// ─── BOOK 2 · HERBS & SPICES ──────────────────────────
+{en:"Turmeric",af:"Borrie / Geelwortel",sci:"Curcuma longa",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["pain","digestive","immune","skin","liver"],
+ useText:"Curcumin — one of the most researched anti-inflammatory compounds on earth. Joint pain, digestive health, liver support, immune boosting, skin conditions. Widely used in SA cooking and increasingly in veterinary care.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Excellent anti-inflammatory — used for joint pain; add to feed with black pepper to improve absorption",
+   dog:"Anti-inflammatory and liver support — widely used in canine care with black pepper",
+   cat:"Limited studies — small amounts only; avoid concentrated supplements",
+   human:"Fresh or dried in cooking — combine with black pepper (piperine) and fat to absorb curcumin properly"},
+ status:"planned"},
+
+{en:"Ginger",af:"Gemmer / Gemmerwortel",sci:"Zingiber officinale",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","pain","immune","respiratory","women"],
+ useText:"Nausea, morning sickness, motion sickness, arthritis, colds, circulation. One of the world's best-studied medicinal spices — gingerols and shogaols are powerfully anti-inflammatory.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Digestive tonic — good for colic prevention; anti-nausea",
+   dog:"Safe in small amounts — anti-nausea for car sickness",
+   cat:"Small amounts only — ginger compounds can irritate sensitive cats",
+   human:"Fresh root tea, grated into food, capsules — excellent for nausea, arthritis, colds; safe in pregnancy for nausea"},
+ status:"planned"},
+
+{en:"Cinnamon",af:"Kaneel",sci:"Cinnamomum verum / C. cassia",emoji:"🌿",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","immune","pain","liver"],
+ useText:"Blood sugar regulation, anti-bacterial, anti-fungal, digestive, anti-inflammatory. Ceylon cinnamon (true) safer than Cassia for regular use. Widely used in SA cooking.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"caution",cat:"toxic",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Small amounts safe — anti-fungal properties useful",
+   dog:"Small amounts in food fine; essential oil or concentrated powder can cause liver damage",
+   cat:"Toxic — cinnamaldehyde; avoid all forms",
+   human:"Ceylon cinnamon preferred for regular medicinal use — lower coumarin than Cassia. Excellent for blood sugar management with meals."},
+ status:"planned"},
+
+{en:"Coffee",af:"Koffie",sci:"Coffea arabica",emoji:"☕",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["mental","digestive","immune","pain"],
+ useText:"Caffeine — the world's most widely used psychoactive substance. Antioxidant-rich, liver-protective, mental alertness, pain relief when combined with analgesics. SA grows small amounts of speciality coffee.",
+ animals:{horse:"toxic",cattle:"toxic",sheep:"toxic",goat:"toxic",dog:"toxic",cat:"toxic",chicken:"toxic",pig:"toxic",human:"safe"},
+ animalNotes:{
+   horse:"Caffeine toxic — cardiac arrhythmias and death; coffee grounds especially dangerous",
+   dog:"Methylxanthine toxicity — vomiting, tremors, seizures, death; even small amounts of grounds dangerous",
+   cat:"Same as dogs — highly sensitive to caffeine",
+   chicken:"Fatal — even small amounts of coffee or grounds",
+   human:"2-4 cups per day associated with reduced liver disease, diabetes, Parkinson's. Avoid in pregnancy in large amounts. Increases anxiety if prone to it."},
+ status:"planned"},
+
+{en:"Black Pepper",af:"Swartpeper",sci:"Piper nigrum",emoji:"🌶️",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["digestive","immune","pain","liver"],
+ useText:"Piperine — enhances absorption of curcumin (turmeric) by 2000%. Anti-bacterial, digestive stimulant, anti-inflammatory. More medicinal value than most people realise.",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"caution",pig:"caution",human:"safe"},
+ animalNotes:{
+   horse:"Small amounts fine; large amounts irritate gut and respiratory tract",
+   dog:"Small pinch safe; large amounts cause sneezing, gut irritation",
+   human:"Use freely in cooking — always combine turmeric with black pepper for maximum benefit"},
+ status:"planned"},
+
+{en:"Chilli / Hot Pepper",af:"Rissie / Brandrissie",sci:"Capsicum annuum / C. frutescens",emoji:"🌶️",
+ book:"book2",chapter:"ch-culinary",habitat:"garden",
+ uses:["pain","digestive","immune","respiratory","skin"],
+ useText:"Capsaicin — powerful pain reliever, metabolism booster, anti-bacterial, digestive stimulant. Used topically for arthritis, nerve pain. SA grows excellent chillies — peri-peri is a local favourite.",
+ animals:{horse:"caution",cattle:"caution",sheep:"caution",goat:"caution",dog:"caution",cat:"caution",chicken:"safe",pig:"caution",human:"safe"},
+ animalNotes:{
+   horse:"Can irritate mouth and gut — not recommended",
+   dog:"Causes significant digestive distress — avoid",
+   cat:"Same as dogs",
+   chicken:"Interestingly SAFE — birds lack the capsaicin receptor; used to deter mammal pests from feed",
+   human:"Fresh, dried, or powdered — excellent metabolic booster and pain relief. Peri-peri is a nutritious powerhouse."},
+ status:"planned"},
+
+{en:"Rosemary",af:"Roosmaryn",sci:"Salvia rosmarinus",emoji:"🌿",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["mental","digestive","pain","immune","skin"],
+ useText:"Memory and circulation herb — rosemarinic acid improves blood flow to brain, anti-oxidant, digestive, anti-fungal. Widely grown in SA gardens. Closely related to Cape wild rosemary.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Safe — occasional use as insect repellent",
+   cat:"Aromatic oils can irritate — small amounts fine; avoid essential oil",
+   human:"Tea for memory and concentration; add to food; rosemary-infused oil for scalp health"},
+ status:"planned"},
+
+{en:"Thyme",af:"Tiemie",sci:"Thymus vulgaris",emoji:"🌿",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["respiratory","immune","digestive","skin","anti-parasitic"],
+ useText:"Thymol — powerful antiseptic, anti-fungal, anti-bacterial. Coughs, bronchitis, throat infections, digestive complaints. One of the most medicinally potent kitchen herbs.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Anti-fungal properties — add small amounts to feed; good respiratory support",
+   chicken:"Add to nest boxes — natural mite repellent; anti-bacterial",
+   cat:"Thymol compounds can irritate cats — small culinary amounts fine; avoid concentrated oil",
+   human:"Strong tea for chest infections — gargle for sore throat; add to cooking freely"},
+ status:"planned"},
+
+{en:"Oregano",af:"Origaan / Wildemarjolein",sci:"Origanum vulgare",emoji:"🌿",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["immune","anti-parasitic","digestive","respiratory","skin"],
+ useText:"Carvacrol and thymol — among the most potent natural antimicrobials known. Anti-fungal, anti-bacterial, anti-viral, anti-parasitic. Increasingly used in poultry farming as antibiotic alternative.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Safe — anti-parasitic properties; add small amounts to feed",
+   chicken:"Excellent — added to feed as natural antibiotic alternative; improves gut health",
+   cat:"Essential oil toxic to cats; dried herb in small amounts fine",
+   human:"Oil of oregano — potent natural antibiotic; dried herb in cooking excellent for immune health"},
+ status:"planned"},
+
+{en:"Sage",af:"Salie",sci:"Salvia officinalis",emoji:"🌿",
+ book:"book2",chapter:"ch-aromatic",habitat:"garden",
+ uses:["women","digestive","mental","immune","skin"],
+ useText:"Menopausal hot flushes, memory, sore throat, digestive complaints, anti-bacterial. SA has many indigenous Salvia species too. Dries up breast milk — used traditionally to wean.",
+ animals:{horse:"safe",cattle:"safe",sheep:"safe",goat:"safe",dog:"safe",cat:"caution",chicken:"safe",pig:"safe",human:"safe"},
+ animalNotes:{
+   horse:"Occasional fresh sage safe",
+   cattle:"Dries up milk production — avoid feeding to dairy cows or lactating animals",
+   cat:"Thujone in sage — avoid concentrated amounts",
+   human:"Excellent for menopause hot flushes — clinically studied. Avoid large amounts during pregnancy. Stops breast milk production — useful for weaning."},
+ status:"planned"},
+
+];
+
+
+// ─── CHAPTER DEFINITIONS ──────────────────────────────
+const CHAPTERS = [
+  {id:"ch-groundplants",  book:"book1", icon:"🌿", title:"Ground Plants & Veld Plants",      sub:"Book 1 · SA Healing Plants"},
+  {id:"ch-succulents",    book:"book1", icon:"🌵", title:"Succulents & Aloes",                sub:"Book 1 · SA Healing Plants"},
+  {id:"ch-wetland",       book:"book1", icon:"💧", title:"Wetland & Riverbank Plants",        sub:"Book 1 · SA Healing Plants"},
+  {id:"ch-fynbos",        book:"book1", icon:"🌸", title:"Fynbos & Cape Plants",              sub:"Book 1 · SA Healing Plants"},
+  {id:"ch-culinary",      book:"book2", icon:"🍃", title:"Culinary & Kitchen Herbs",          sub:"Book 2 · SA Herb Garden"},
+  {id:"ch-medicinalherbs",book:"book2", icon:"💊", title:"Medicinal Herbs",                   sub:"Book 2 · SA Herb Garden"},
+  {id:"ch-aromatic",      book:"book2", icon:"🌸", title:"Aromatic Herbs, Spices & Teas",     sub:"Book 2 · SA Herb Garden"},
+  {id:"ch-animalherbs",   book:"book3", icon:"🐾", title:"Herbs for Animal Health",           sub:"Book 3 · Healing Plants for Animals"},
+  {id:"ch-trees",         book:"book4", icon:"🌳", title:"Indigenous Healing Trees",          sub:"Book 4 · Trees That Heal"},
+  {id:"ch-shrubs",        book:"book4", icon:"🌿", title:"Healing Shrubs & Bushes",           sub:"Book 4 · Trees That Heal"},
+  {id:"ch-toxic",         book:"book5", icon:"⚠️", title:"Plants Toxic to Animals",           sub:"Book 5 · Toxic & Dangerous Plants"},
+  {id:"ch-toxichuman",   book:"book5", icon:"🚫", title:"Plants Toxic to Humans",             sub:"Book 5 · Toxic & Dangerous Plants"},
+  {id:"ch-weeds",        book:"book5", icon:"🌾", title:"Invasive Weeds & Problem Plants",    sub:"Book 5 · Toxic & Dangerous Plants"},
+  {id:"ch-podtrees",     book:"book5", icon:"🫘", title:"Pod Trees — Green vs Ripe Danger",   sub:"Book 5 · Toxic & Dangerous Plants"},
+];
+
+const ANIMAL_LABELS = {horse:"🐴 Horse",cattle:"🐄 Cattle",sheep:"🐑 Sheep",goat:"🐐 Goat",dog:"🐕 Dog",cat:"🐈 Cat",chicken:"🐔 Chicken",pig:"🐷 Pig",human:"👤 Human"};
+
+let currentBook = 'all';
+let filteredPlants = [...PLANTS];
+
+// ─── RENDER ───────────────────────────────────────────
+function render() {
+  const grid = document.getElementById('gridArea');
+  grid.innerHTML = '';
+
+  if (filteredPlants.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🌿</div><p>No plants found. Try adjusting your search or filters.</p></div>`;
+    document.getElementById('resultsCount').textContent = '0 plants found';
+    return;
+  }
+
+  document.getElementById('resultsCount').textContent = `${filteredPlants.length} plant${filteredPlants.length!==1?'s':''} found`;
+
+  // Group by chapter in order
+  CHAPTERS.forEach(ch => {
+    const plants = filteredPlants.filter(p => p.chapter === ch.id);
+    if (plants.length === 0) return;
+
+    const header = document.createElement('div');
+    header.className = 'chapter-header';
+    header.id = ch.id;
+    header.innerHTML = `
+      <span class="chapter-icon">${ch.icon}</span>
+      <div>
+        <div class="chapter-title">${ch.title}</div>
+        <div class="chapter-sub">${ch.sub}</div>
+      </div>
+      <div class="chapter-count">${plants.length} plant${plants.length!==1?'s':''}</div>`;
+    grid.appendChild(header);
+
+    const plantGrid = document.createElement('div');
+    plantGrid.className = 'plant-grid';
+
+    plants.forEach(p => {
+      const card = document.createElement('div');
+      card.className = `plant-card ${p.book}`;
+      card.onclick = () => openModal(p);
+
+      // Overall safety
+      const vals = Object.values(p.animals);
+      const overallSafety = vals.includes('toxic') ? 'caution' : (vals.includes('caution') ? 'caution' : 'safe');
+
+      // Animal pips
+      const pipHTML = Object.entries(p.animals).map(([a,s]) =>
+        `<div class="animal-pip pip-${s}">${ANIMAL_LABELS[a].split(' ')[0]}</div>`
+      ).join('');
+
+      // Status badge
+      const statusMap = {done:'✅ Written',draft:'📝 In Progress',planned:'🕐 Planned'};
+      const statusClass = {done:'status-done',draft:'status-draft',planned:'status-planned'};
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-names">
+            <div class="card-en">${p.en}</div>
+            <div class="card-af">${p.af}</div>
+            <div class="card-sci">${p.sci}</div>
+          </div>
+          <div class="card-emoji">${p.emoji}</div>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag tag-book">${ch.sub.split('·')[0].trim()}</span>
+          ${p.uses.slice(0,3).map(u=>`<span class="card-tag tag-use">${u}</span>`).join('')}
+        </div>
+        <div class="card-uses">${p.useText}</div>
+        <div class="animal-row">${pipHTML}</div>
+        <div class="card-bottom">
+          <span class="card-book-label">${ch.title}</span>
+          <span class="card-status ${statusClass[p.status]}">${statusMap[p.status]}</span>
+        </div>`;
+      plantGrid.appendChild(card);
+    });
+
+    grid.appendChild(plantGrid);
+  });
+
+  // Update sidebar counts
+  CHAPTERS.forEach(ch => {
+    const el = document.getElementById('cnt-'+ch.id.replace('ch-',''));
+    if (el) el.textContent = filteredPlants.filter(p=>p.chapter===ch.id).length;
+  });
+
+  document.getElementById('totalPlants').textContent = PLANTS.length;
+  document.getElementById('totalChapters').textContent = CHAPTERS.filter(ch=>filteredPlants.some(p=>p.chapter===ch.id)).length;
+}
+
+// ─── FILTERS ──────────────────────────────────────────
+function filterPlants() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const habitat = document.getElementById('habitatFilter').value;
+  const safety = document.getElementById('safetyFilter').value;
+  const use = document.getElementById('useFilter').value;
+
+  filteredPlants = PLANTS.filter(p => {
+    if (currentBook !== 'all' && p.book !== currentBook) return false;
+    if (habitat && p.habitat !== habitat) return false;
+    if (use && !p.uses.includes(use)) return false;
+    if (safety) {
+      const vals = Object.values(p.animals);
+      if (safety === 'safe' && vals.some(v=>v!=='safe')) return false;
+      if (safety === 'caution' && !vals.includes('caution')) return false;
+      if (safety === 'toxic' && !vals.includes('toxic')) return false;
+    }
+    if (search) {
+      const haystack = [p.en,p.af,p.sci,p.useText,...p.uses].join(' ').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+  render();
+}
+
+function filterBook(book, el) {
+  currentBook = book;
+  document.querySelectorAll('.book-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  filterPlants();
+}
+
+function jumpChapter(id) {
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.target.closest('.sidebar-item').classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ─── MODAL ────────────────────────────────────────────
+function openModal(p) {
+  document.getElementById('mEn').textContent = p.en;
+  document.getElementById('mAf').textContent = p.af;
+  document.getElementById('mSci').textContent = p.sci + ' · ' + (p.habitat||'');
+
+  let animalHTML = '<div class="modal-animal-grid">';
+  Object.entries(p.animals).forEach(([a,s]) => {
+    const note = p.animalNotes[a] || (s==='safe'?'Safe to use in appropriate amounts':s==='caution'?'Use with caution':'Avoid — toxic');
+    const parts = ANIMAL_LABELS[a].split(' ');
+    animalHTML += `<div class="modal-animal ${s}">
+      <div class="emoji">${parts[0]}</div>
+      <span class="name">${parts.slice(1).join(' ')}</span>
+      <span class="note">${note}</span>
+    </div>`;
+  });
+  animalHTML += '</div>';
+
+  document.getElementById('mBody').innerHTML = `
+    <div class="modal-section">
+      <h4>🎯 What It's Used For</h4>
+      <p>${p.useText}</p>
+      ${p.uses.length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">${p.uses.map(u=>`<span class="card-tag tag-use">${u}</span>`).join('')}</div>`:''}
+    </div>
+    <div class="modal-section">
+      <h4>🐾 Animal Safety Guide</h4>
+      ${animalHTML}
+    </div>
+    <div class="modal-section">
+      <h4>📖 Book Assignment</h4>
+      <p>This plant is assigned to <strong>${CHAPTERS.find(c=>c.id===p.chapter)?.title}</strong> in the <strong>${CHAPTERS.find(c=>c.id===p.chapter)?.sub}</strong>.</p>
+      <p style="margin-top:8px;font-size:12px;color:#888">Status: ${p.status==='done'?'✅ Written & complete':p.status==='draft'?'📝 In progress':'🕐 Planned for next build'}</p>
+    </div>`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── INIT ─────────────────────────────────────────────
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
+render();
+</script>
+</body>
+</html>

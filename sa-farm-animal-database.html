@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA Farm Animal Health — Inibos Creations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Nunito:wght@300;400;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --earth:     #3d2b1a;
+  --saddle:    #6b3f1f;
+  --tan:       #c4863a;
+  --wheat:     #f0d090;
+  --cream:     #fdf6e8;
+  --warm:      #faf3e0;
+  --sage:      #7a9e7e;
+  --pasture:   #4a7c59;
+  --sky:       #6ba3be;
+  --rust:      #c0492b;
+  --gold:      #d4a017;
+  --muted:     #7a6a58;
+  --border:    rgba(107,63,31,0.12);
+}
+html { scroll-behavior:smooth; }
+body { font-family:'Nunito',sans-serif; background:#f5ede0; color:var(--earth); }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--earth);
+  padding: 0 40px;
+  position: sticky; top:0; z-index:200;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.header-inner {
+  display:flex; align-items:center;
+  justify-content:space-between; height:64px;
+}
+.brand { display:flex; align-items:center; gap:12px; }
+.brand-icon { font-size:28px; }
+.brand-name { font-family:'Dancing Script',cursive; font-size:22px; color:var(--wheat); }
+.brand-sub { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(240,208,144,0.45); margin-top:2px; }
+.header-stats { display:flex; gap:24px; }
+.stat { text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:var(--tan); line-height:1; }
+.stat-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(240,208,144,0.5); }
+
+/* ── HERO ── */
+.hero-band {
+  background: linear-gradient(135deg, var(--saddle) 0%, var(--earth) 100%);
+  padding: 50px 40px 40px;
+  text-align:center; position:relative; overflow:hidden;
+}
+.hero-band::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 25% 50%, rgba(196,134,58,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 75% 50%, rgba(122,158,126,0.12) 0%, transparent 60%);
+}
+.hero-band h1 {
+  font-family:'Playfair Display',serif;
+  font-size:46px; font-weight:900;
+  color:var(--cream); position:relative; line-height:1.1; margin-bottom:8px;
+}
+.hero-band h1 span { color:var(--wheat); }
+.hero-band p {
+  font-size:15px; color:rgba(253,246,232,0.65);
+  position:relative; max-width:600px; margin:0 auto 24px; line-height:1.6;
+}
+.animal-tags { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; position:relative; }
+.animal-tag {
+  background:rgba(196,134,58,0.15);
+  border:1px solid rgba(196,134,58,0.35);
+  border-radius:30px; padding:8px 20px;
+  font-size:13px; font-weight:700; color:var(--wheat);
+  cursor:pointer; transition:all 0.2s; letter-spacing:0.5px;
+}
+.animal-tag:hover, .animal-tag.active {
+  background:var(--tan); color:var(--earth);
+  border-color:var(--tan);
+}
+
+/* ── CONTROLS ── */
+.controls {
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:20px 40px;
+  display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+  position:sticky; top:64px; z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.search-wrap { position:relative; flex:1; min-width:220px; }
+.search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:16px; }
+.search-input {
+  width:100%; padding:10px 16px 10px 42px;
+  border:1.5px solid var(--border); border-radius:30px;
+  font-size:14px; font-family:'Nunito',sans-serif;
+  background:#fdf9f4; outline:none; transition:all 0.2s;
+}
+.search-input:focus { border-color:var(--tan); background:white; }
+.filter-select {
+  padding:10px 16px; border:1.5px solid var(--border);
+  border-radius:30px; font-size:13px; font-family:'Nunito',sans-serif;
+  background:#fdf9f4; outline:none; cursor:pointer; transition:all 0.2s;
+}
+.filter-select:focus { border-color:var(--tan); }
+.results-count { font-size:12px; color:var(--muted); white-space:nowrap; }
+
+/* ── LAYOUT ── */
+.main { display:flex; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width:250px; min-width:250px;
+  background:white; border-right:1px solid var(--border);
+  height:calc(100vh - 130px); overflow-y:auto;
+  position:sticky; top:130px; padding:16px 0;
+}
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--tan); border-radius:2px; }
+.sidebar-section { margin-bottom:6px; }
+.sidebar-section-title {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--tan); font-weight:800; padding:10px 20px 5px;
+}
+.sidebar-item {
+  display:flex; align-items:center; gap:8px;
+  padding:8px 20px; cursor:pointer; transition:all 0.15s;
+  font-size:13px; font-weight:600; color:var(--saddle);
+  border-left:3px solid transparent;
+}
+.sidebar-item:hover { background:#fdf3e4; border-left-color:var(--tan); }
+.sidebar-item.active { background:#fdf3e4; border-left-color:var(--saddle); color:var(--earth); }
+.sidebar-count {
+  margin-left:auto; background:#fdf3e4;
+  color:var(--saddle); font-size:10px; font-weight:800;
+  padding:2px 7px; border-radius:10px;
+}
+
+/* ── GRID AREA ── */
+.grid-area { flex:1; padding:30px 40px; }
+
+/* ── ANIMAL SECTION HEADER ── */
+.animal-header {
+  display:flex; align-items:center; gap:16px;
+  margin-bottom:20px; margin-top:10px;
+  padding-bottom:12px;
+  border-bottom:3px solid var(--tan);
+}
+.animal-header:not(:first-child) { margin-top:50px; }
+.animal-big-icon { font-size:44px; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.15)); }
+.animal-header-text h2 {
+  font-family:'Playfair Display',serif;
+  font-size:30px; font-weight:900; color:var(--earth);
+}
+.animal-header-text p { font-size:13px; color:var(--muted); margin-top:2px; letter-spacing:0.5px; }
+.animal-count {
+  margin-left:auto; background:var(--earth); color:var(--wheat);
+  font-size:11px; font-weight:800; padding:5px 14px; border-radius:20px; letter-spacing:1px;
+}
+
+/* ── CONDITION GRID ── */
+.condition-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(310px,1fr));
+  gap:16px; margin-bottom:10px;
+}
+
+/* ── CONDITION CARD ── */
+.condition-card {
+  background:white; border-radius:14px;
+  border:1px solid var(--border);
+  padding:20px; cursor:pointer;
+  transition:all 0.2s; position:relative; overflow:hidden;
+}
+.condition-card:hover {
+  border-color:var(--tan);
+  box-shadow:0 6px 24px rgba(107,63,31,0.12);
+  transform:translateY(-2px);
+}
+.condition-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:4px;
+}
+.sev-low::before    { background:linear-gradient(to right,#52b788,#7ac77d); }
+.sev-medium::before { background:linear-gradient(to right,var(--gold),#e8b84b); }
+.sev-high::before   { background:linear-gradient(to right,var(--rust),#e06b50); }
+.sev-critical::before { background:linear-gradient(to right,#8b0000,var(--rust)); }
+
+.card-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+.card-name {
+  font-family:'Playfair Display',serif;
+  font-size:18px; font-weight:700; color:var(--earth); line-height:1.2;
+}
+.card-af {
+  font-family:'Dancing Script',cursive;
+  font-size:13px; color:var(--tan); margin-top:3px;
+}
+.card-icon { font-size:30px; margin-left:8px; }
+
+.sev-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:10px; font-weight:800; padding:3px 10px;
+  border-radius:10px; letter-spacing:1px; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.badge-low      { background:#d8f3dc; color:#1a3d2b; }
+.badge-medium   { background:#fff3cd; color:#7a4500; }
+.badge-high     { background:#fde8e8; color:#7a1515; }
+.badge-critical { background:#8b0000; color:white; }
+
+.card-desc { font-size:13px; color:#555; line-height:1.6; margin-bottom:12px; }
+
+.card-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+.card-tag {
+  font-size:10px; padding:2px 8px; border-radius:8px; font-weight:700;
+}
+.tag-symptom  { background:#fdf3e4; color:var(--saddle); }
+.tag-cause    { background:#e8f5ee; color:#1a3d2b; }
+.tag-zoonotic { background:#fde8e8; color:#7a1515; }
+.tag-notifiable { background:#8b0000; color:white; }
+
+.card-bottom {
+  margin-top:10px; padding-top:10px;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.card-category { font-size:10px; color:var(--muted); letter-spacing:1px; }
+.card-status {
+  font-size:10px; font-weight:800; padding:3px 10px; border-radius:10px;
+}
+.status-done     { background:#d8f3dc; color:#1a3d2b; }
+.status-draft    { background:#fff3cd; color:#7a4500; }
+.status-planned  { background:#f0f0f0; color:#999; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.65); z-index:500;
+  align-items:flex-start; justify-content:center;
+  padding:40px 20px; overflow-y:auto;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:white; border-radius:20px;
+  max-width:720px; width:100%; overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  animation:slideUp 0.25s ease;
+}
+@keyframes slideUp {
+  from { transform:translateY(30px); opacity:0; }
+  to   { transform:translateY(0); opacity:1; }
+}
+.modal-header {
+  background:var(--earth); padding:30px 36px; position:relative;
+}
+.modal-close {
+  position:absolute; top:16px; right:16px;
+  background:rgba(255,255,255,0.1); border:none; color:white;
+  width:32px; height:32px; border-radius:50%; cursor:pointer;
+  font-size:16px; display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+}
+.modal-close:hover { background:rgba(255,255,255,0.2); }
+.modal-title {
+  font-family:'Playfair Display',serif;
+  font-size:36px; font-weight:900; color:var(--cream); line-height:1;
+}
+.modal-af { font-family:'Dancing Script',cursive; font-size:22px; color:var(--wheat); margin:6px 0 4px; }
+.modal-animal { font-size:13px; color:rgba(240,208,144,0.7); letter-spacing:1px; }
+.modal-body { padding:28px 36px; }
+.modal-section { margin-bottom:22px; }
+.modal-section h4 {
+  font-family:'Playfair Display',serif;
+  font-size:17px; font-weight:700; color:var(--earth);
+  border-bottom:2px solid var(--tan); padding-bottom:6px; margin-bottom:10px;
+}
+.modal-section p, .modal-section li {
+  font-size:13.5px; line-height:1.8; color:#444;
+}
+.modal-section ul { padding-left:20px; }
+.modal-section li { margin-bottom:4px; }
+.modal-section .warning-box {
+  background:#fff3cd; border-left:4px solid var(--gold);
+  border-radius:0 10px 10px 0; padding:12px 16px;
+  font-size:13px; color:#7a4500; line-height:1.6; margin-top:8px;
+}
+.modal-section .danger-box {
+  background:#fde8e8; border-left:4px solid var(--rust);
+  border-radius:0 10px 10px 0; padding:12px 16px;
+  font-size:13px; color:#7a1515; line-height:1.6; margin-top:8px;
+}
+.modal-section .tip-box {
+  background:#e8f5ee; border-left:4px solid #52b788;
+  border-radius:0 10px 10px 0; padding:12px 16px;
+  font-size:13px; color:#1a3d2b; line-height:1.6; margin-top:8px;
+}
+
+/* ── EMPTY ── */
+.empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+.empty-state .empty-icon { font-size:48px; margin-bottom:16px; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background:var(--earth); color:rgba(240,208,144,0.5);
+  text-align:center; padding:30px 40px; font-size:12px; line-height:1.8; margin-top:60px;
+}
+.site-footer strong { color:var(--wheat); }
+
+@media(max-width:768px) {
+  .sidebar { display:none; }
+  .controls { padding:16px 20px; }
+  .grid-area { padding:20px; }
+  .hero-band h1 { font-size:32px; }
+  .condition-grid { grid-template-columns:1fr; }
+  .animal-tags { gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🐴</div>
+      <div>
+        <div class="brand-name">Inibos Creations</div>
+        <div class="brand-sub">SA Farm Animal Health Series</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat"><div class="stat-num" id="totalConditions">0</div><div class="stat-label">Conditions</div></div>
+      <div class="stat"><div class="stat-num" id="totalAnimals">7</div><div class="stat-label">Animals</div></div>
+      <div class="stat"><div class="stat-num" id="totalCritical">0</div><div class="stat-label">Critical</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="hero-band">
+  <h1>SA Farm Animal<br><span>Health Database</span></h1>
+  <p>Comprehensive conditions, symptoms, causes, treatments and prevention for every SA farm animal — from donkeys to chickens. Know your animals. Save your animals.</p>
+  <div class="animal-tags">
+    <div class="animal-tag active" onclick="filterAnimal('all',this)">🌾 All Animals</div>
+    <div class="animal-tag" onclick="filterAnimal('donkey',this)">🐴 Donkeys</div>
+    <div class="animal-tag" onclick="filterAnimal('horse',this)">🐎 Horses</div>
+    <div class="animal-tag" onclick="filterAnimal('cattle',this)">🐄 Cattle</div>
+    <div class="animal-tag" onclick="filterAnimal('sheep',this)">🐑 Sheep</div>
+    <div class="animal-tag" onclick="filterAnimal('goat',this)">🐐 Goats</div>
+    <div class="animal-tag" onclick="filterAnimal('pig',this)">🐷 Pigs</div>
+    <div class="animal-tag" onclick="filterAnimal('chicken',this)">🐔 Chickens</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" type="text"
+      placeholder="Search by condition, symptom, cause, or treatment..."
+      oninput="filterConditions()">
+  </div>
+  <select class="filter-select" id="sevFilter" onchange="filterConditions()">
+    <option value="">⚠️ All Severities</option>
+    <option value="critical">🔴 Critical / Emergency</option>
+    <option value="high">🟠 High — Vet Required</option>
+    <option value="medium">🟡 Medium — Monitor Closely</option>
+    <option value="low">🟢 Low — Manageable</option>
+  </select>
+  <select class="filter-select" id="catFilter" onchange="filterConditions()">
+    <option value="">📋 All Categories</option>
+    <option value="viral">🦠 Viral Diseases</option>
+    <option value="bacterial">🧫 Bacterial Diseases</option>
+    <option value="parasitic">🪱 Parasites</option>
+    <option value="nutritional">🌿 Nutritional</option>
+    <option value="respiratory">🫁 Respiratory</option>
+    <option value="digestive">🫃 Digestive</option>
+    <option value="reproductive">🐣 Reproductive</option>
+    <option value="skin">🩹 Skin & External</option>
+    <option value="hoof">🦶 Hoof & Foot</option>
+    <option value="toxic">☠️ Poisoning & Toxic</option>
+    <option value="metabolic">⚗️ Metabolic</option>
+    <option value="behavioural">🧠 Behavioural</option>
+  </select>
+  <select class="filter-select" id="zooFilter" onchange="filterConditions()">
+    <option value="">👤 All</option>
+    <option value="true">⚠️ Zoonotic — Can spread to humans</option>
+    <option value="notifiable">🚨 Notifiable to authorities</option>
+  </select>
+  <div class="results-count" id="resultsCount">Loading...</div>
+</div>
+
+<div class="main">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">🐴 Donkeys & Horses</div>
+    <div class="sidebar-item active" onclick="jumpSection('sec-donkey')">🐴 Donkeys <span class="sidebar-count" id="cnt-donkey">0</span></div>
+    <div class="sidebar-item" onclick="jumpSection('sec-horse')">🐎 Horses <span class="sidebar-count" id="cnt-horse">0</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">🐄 Large Stock</div>
+    <div class="sidebar-item" onclick="jumpSection('sec-cattle')">🐄 Cattle <span class="sidebar-count" id="cnt-cattle">0</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">🐑 Small Stock</div>
+    <div class="sidebar-item" onclick="jumpSection('sec-sheep')">🐑 Sheep <span class="sidebar-count" id="cnt-sheep">0</span></div>
+    <div class="sidebar-item" onclick="jumpSection('sec-goat')">🐐 Goats <span class="sidebar-count" id="cnt-goat">0</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">🐷 Pigs & Poultry</div>
+    <div class="sidebar-item" onclick="jumpSection('sec-pig')">🐷 Pigs <span class="sidebar-count" id="cnt-pig">0</span></div>
+    <div class="sidebar-item" onclick="jumpSection('sec-chicken')">🐔 Chickens <span class="sidebar-count" id="cnt-chicken">0</span></div>
+  </div>
+</aside>
+
+<div class="grid-area" id="gridArea"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-title" id="mTitle"></div>
+      <div class="modal-af" id="mAf"></div>
+      <div class="modal-animal" id="mAnimal"></div>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <strong>Inibos Creations · Linda Visser</strong> · SA Farm Animal Health Series<br>
+  Farm Animal Health Database — Working Document · © 2025<br>
+  <span style="font-size:11px">Always consult a qualified veterinarian for diagnosis and treatment. This database is for educational reference only.</span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  ANIMAL SECTION DEFINITIONS
+// ═══════════════════════════════════════════════════════
+const ANIMALS = [
+  {id:"donkey",  icon:"🐴", label:"Donkeys",  sub:"Equus asinus — stoic, often mask pain, different from horses"},
+  {id:"horse",   icon:"🐎", label:"Horses",   sub:"Equus caballus — SA specific conditions including AHS"},
+  {id:"cattle",  icon:"🐄", label:"Cattle",   sub:"Bos taurus / Bos indicus — large stock conditions"},
+  {id:"sheep",   icon:"🐑", label:"Sheep",    sub:"Ovis aries — small stock, SA specific challenges"},
+  {id:"goat",    icon:"🐐", label:"Goats",    sub:"Capra hircus — hardy but with specific vulnerabilities"},
+  {id:"pig",     icon:"🐷", label:"Pigs",     sub:"Sus scrofa domesticus — often overlooked but important"},
+  {id:"chicken", icon:"🐔", label:"Chickens", sub:"Gallus gallus domesticus — poultry health essentials"},
+];
+
+// ═══════════════════════════════════════════════════════
+//  CONDITIONS DATABASE
+// ═══════════════════════════════════════════════════════
+const CONDITIONS = [
+
+// ════════════════════════════
+// 🐴 DONKEYS
+// ════════════════════════════
+{name:"African Horse Sickness",af:"Perdesiektes / AHS",animal:"donkey",icon:"🦟",
+ severity:"critical",category:"viral",zoonotic:false,notifiable:true,
+ desc:"Donkeys ARE susceptible to AHS and can develop viraemia — meaning they carry infectious virus in their blood for up to 12 days even without obvious clinical signs. Research has confirmed that spleen tissue from a subclinically infected donkey caused fatal cardiac AHS in a susceptible pony. NOTE: Zebras are believed to be the primary reservoir host (viraemia up to 40 days). The stoic nature of donkeys means signs are often missed until critical.",
+ symptoms:["Fever 38.5–40°C","Swelling above eyes (supraorbital fossa)","Laboured breathing","Frothy nasal discharge (pulmonary form)","Swollen head and neck (cardiac form)","Yellow tinged eyes","Depression and weakness"],
+ causes:["Orbivirus transmitted by Culicoides midges (knopiesvlieë)","9 serotypes — vaccination must match","Most prevalent late summer / after rains","Donkeys often subclinical but still infective"],
+ treatment:["No specific antiviral treatment","Complete rest — exercise can be fatal","Supportive care: anti-inflammatory, fluids","Isolate immediately","Annual vaccination CRITICAL — start before midge season"],
+ prevention:["Annual vaccination — all equines","Stable at dawn and dusk when midges most active","Insect-proof stabling","Fly repellent especially around ears and eyes","Move to higher altitude if possible during season"],
+ important:"NOTIFIABLE DISEASE — must report to State Vet. Donkeys mask symptoms — check temperature daily during season. Death rate in horses 70-95% without treatment; donkeys lower but still serious.",
+ status:"done"},
+
+{name:"Hyperlipidemia",af:"Hiperlipemie",animal:"donkey",icon:"🩸",
+ severity:"critical",category:"metabolic",zoonotic:false,notifiable:false,
+ desc:"THE most dangerous metabolic condition unique to donkeys — fat donkeys under stress mobilise fat faster than the liver can process, causing liver failure. NOT the same as in horses. Donkeys can die within days.",
+ symptoms:["Dull and depressed","Reduced or no appetite","Weakness and lethargy","Yellow tinge to gums and eyes (jaundice)","Muscle weakness","Pawing or reluctance to move","Sweet smell to breath"],
+ causes:["Stress combined with reduced feed intake","Pregnancy or late lactation","Sudden diet change","Transport stress","Pain from another condition","Dental problems preventing eating","Overweight donkeys most at risk"],
+ treatment:["EMERGENCY — vet immediately","Force feeding if necessary — glucose drips","Remove stressor immediately","Restore gut motility","Liver support — milk thistle, B vitamins","Small frequent feeds — never starve a donkey"],
+ prevention:["Never starve a donkey — even for 12 hours can trigger it","Monitor body condition score regularly","Never let donkeys get obese","Reduce stress during transport and illness","Feed small amounts frequently during illness"],
+ important:"UNIQUE TO DONKEYS — horses get hyperlipemia but donkeys are FAR more susceptible. A donkey that stops eating is a MEDICAL EMERGENCY. Never put a donkey on a starvation diet.",
+ status:"done"},
+
+{name:"Dental Disease",af:"Tandprobleme",animal:"donkey",icon:"🦷",
+ severity:"high",category:"digestive",zoonotic:false,notifiable:false,
+ desc:"Donkeys are notorious for hiding dental pain. By the time weight loss is obvious, dental disease is often severe. Annual dental checks are essential — donkeys need 'floating' (rasping) just like horses.",
+ symptoms:["Gradual weight loss","Dropping food while chewing (quidding)","Preferring soft food","Undigested grain in droppings","Head tilting while eating","Bad breath","Swellings on jaw","Reluctance to eat hard feed"],
+ causes:["Sharp points on cheek teeth cutting tongue/cheeks","Hooks and ramps on teeth","Loose or infected teeth","Dental overgrowths","Wolf teeth causing bit pain","Age-related tooth loss"],
+ treatment:["Annual dental check by equine vet or equine dentist","Floating (rasping) sharp points","Extraction of infected teeth if needed","Soft feed during recovery — soaked hay, beet pulp","Pain relief during treatment"],
+ prevention:["Annual dental checks — every 6 months in donkeys over 20","Feed hay — chewing action helps teeth wear evenly","Monitor body condition — weight loss = check teeth first","Watch for signs while eating"],
+ important:"Donkeys hide pain exceptionally well. A donkey losing weight is always a dental problem until proven otherwise. Do not wait for obvious symptoms.",
+ status:"done"},
+
+{name:"Laminitis",af:"Laminiete / Hoefbevering",animal:"donkey",icon:"🦶",
+ severity:"high",category:"hoof",zoonotic:false,notifiable:false,
+ desc:"Inflammation of the sensitive laminae inside the hoof — extremely painful. Donkeys on lush grass or obese donkeys are most at risk. Chronic laminitis causes rotation of the pedal bone.",
+ symptoms:["Reluctance to move","Rocking back onto hindquarters","Heat in hooves","Increased digital pulse","Rings on hooves (chronic)","Short shuffling gait","Standing in water or on soft ground"],
+ causes:["Lush spring grass (fructans)","Obesity","Grain overload","Cushing's disease","Stress","Retained placenta post-foaling","Concussion on hard surfaces"],
+ treatment:["Remove from pasture immediately","Deep sand or shavings — cushioning","Cold water on hooves / ice packs","NSAIDs — bute (phenylbutazone) under vet guidance","Remedial farriery — corrective trimming","Treat underlying cause"],
+ prevention:["Restrict grass intake in spring and autumn","Maintain healthy body weight","Avoid grain overload","Gradual diet changes","Regular farriery every 6-8 weeks","Test for Cushing's in older donkeys"],
+ important:"Chronic laminitis causes pedal bone rotation — can be fatal or require euthanasia. Early treatment is everything. Donkeys show pain differently — a donkey standing still may be in agony.",
+ status:"done"},
+
+{name:"Worm Burden / Internal Parasites",af:"Wurms / Interne Parasiete",animal:"donkey",icon:"🪱",
+ severity:"medium",category:"parasitic",zoonotic:false,notifiable:false,
+ desc:"Donkeys carry parasites differently to horses — strongyles, pinworms, lungworms and bots all affect donkeys. Over-worming causes resistance. Strategic worming based on faecal egg counts is the modern approach.",
+ symptoms:["Weight loss despite good appetite","Pot belly","Rough coat","Colic","Coughing (lungworm)","Tail rubbing (pinworm)","Diarrhoea","Anaemia — pale gums"],
+ causes:["Strongyles (most common)","Cyathostomes (small redworm)","Parascaris (roundworm)","Dictyocaulus (lungworm)","Oxyuris (pinworm)","Gasterophilus (bot fly larvae)","Overgrazing on contaminated pasture"],
+ treatment:["Faecal egg count first — treat based on results","Ivermectin or moxidectin for strongyles","Pyrantel for tapeworm","Fenbendazole 5-day course for encysted redworm","Rotate pastures","Remove droppings from paddocks regularly"],
+ prevention:["Faecal egg count every 3 months","Strategic treatment — not blanket every 3 months","Rotate pastures","Rest pastures 6+ weeks","Cross-graze with cattle or sheep — different parasites","Good nutrition supports immune response"],
+ important:"Anthelmintic resistance is a serious growing problem in SA. Never worm without a faecal egg count. Donkeys are often the unnoticed reservoir for horse parasites.",
+ status:"done"},
+
+{name:"Skin Conditions & Rain Rot",af:"Velprobleme / Reënvrot",animal:"donkey",icon:"🩹",
+ severity:"low",category:"skin",zoonotic:false,notifiable:false,
+ desc:"Donkeys have thicker skin than horses but are still prone to various skin conditions, especially in wet conditions. Rain rot (Dermatophilus) is common across SA after wet seasons.",
+ symptoms:["Crusty scabs along back and rump","Hair loss in patches","Itching and rubbing","Lumps or nodules under skin","Sweet itch — intense itching around mane and tail","Mud fever on lower legs"],
+ causes:["Dermatophilus congolensis (rain rot) — bacterial","Ringworm — fungal (Trichophyton)","Culicoides hypersensitivity (sweet itch)","Mange mites","Lice","Photosensitisation — white skin areas"],
+ treatment:["Rain rot: remove scabs gently, apply antiseptic wash, keep dry","Ringworm: antifungal shampoo, isolate — highly contagious","Sweet itch: fly rugs, insect repellent, antihistamines","Mange: ivermectin injection","Lice: topical insecticide powder"],
+ prevention:["Provide shelter from rain","Keep skin dry where possible","Regular grooming — spot skin problems early","Fly rugs in summer for sensitive animals","Quarantine new arrivals 2-3 weeks"],
+ important:"Ringworm is ZOONOTIC — can spread to humans. Wear gloves when treating. Dermatophilus is also potentially zoonotic. Wash hands thoroughly after handling affected animals.",
+ status:"done"},
+
+{name:"Colic",af:"Koliek",animal:"donkey",icon:"🫃",
+ severity:"high",category:"digestive",zoonotic:false,notifiable:false,
+ desc:"Abdominal pain — a catch-all term for gut pain with many causes. Donkeys show colic differently to horses — less obvious rolling, more depression and reduced gut sounds. Easy to miss until severe.",
+ symptoms:["Depression and dullness (often only sign)","Reduced gut sounds","Looking at flank","Pawing","Reluctance to eat","Lying down more than usual","Distended abdomen","Elevated heart rate above 48bpm"],
+ causes:["Impaction — dehydration, poor dental health","Gas colic — fermentation of rich feeds","Displacement of intestine","Suidwesdoring / mesquite bean overload","Sand accumulation","Internal parasites","Sudden feed changes"],
+ treatment:["Call vet immediately — assess type","Walk gently (NOT vigorously — can worsen displacement)","Pain relief under vet guidance","No food until assessed","Fluid therapy for impaction","Surgery in severe cases"],
+ prevention:["Fresh clean water always available","Regular dental care","High fibre low sugar diet","Gradual feed changes","Control parasite burden","Remove access to toxic plants"],
+ important:"Donkeys are stoic — by the time a donkey shows obvious colic signs it is often already serious. A dull, quiet donkey that hasn't eaten is a colic suspect. Act early.",
+ status:"done"},
+
+{name:"Tetanus",af:"Tetanus / Slotkaak",animal:"donkey",icon:"⚠️",
+ severity:"critical",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Clostridium tetani spores live in SA soil — any wound can introduce them. Donkeys are HIGHLY susceptible. Almost always fatal without treatment. Vaccination is simple, cheap and life-saving.",
+ symptoms:["Stiffness — walking like a rocking horse","Difficulty opening mouth (lockjaw)","Erect ears and flared nostrils","Prolapsed third eyelid","Muscle spasms triggered by noise or touch","Inability to eat or drink","Convulsions"],
+ causes:["Clostridium tetani in wound — especially puncture wounds","Hoof abscess","Post-castration","After foaling","Any skin wound","Unvaccinated animals"],
+ treatment:["Intensive veterinary care — poor prognosis once symptoms develop","Tetanus antitoxin","Penicillin","Dark quiet isolation — noise triggers spasms","IV fluids and feeding if jaw locked","Survival rate low without early intervention"],
+ prevention:["VACCINATE — two initial doses 4-6 weeks apart, then annual booster","Vaccinate foals from 3 months","Any wound — check vaccination status immediately, give antitoxin","Clean all wounds promptly","Tetanus antitoxin for unvaccinated animals after injury"],
+ important:"Prevention is everything. A vaccinated donkey rarely gets tetanus. An unvaccinated donkey with a puncture wound is in mortal danger. Keep vaccination records.",
+ status:"done"},
+
+{name:"Strangles",af:"Droes",animal:"donkey",icon:"🦠",
+ severity:"high",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Highly contagious bacterial infection of the lymph nodes of the head and neck — Streptococcus equi. Donkeys are susceptible. Can cause bastard strangles (internal abscesses) in donkeys which is far more serious.",
+ symptoms:["High fever 39.5–41°C","Thick yellow-green nasal discharge","Swollen lymph nodes under jaw and throat","Abscesses forming and rupturing","Difficulty swallowing","Reduced appetite","Coughing"],
+ causes:["Streptococcus equi subsp. equi","Highly contagious — direct contact and shared equipment","Carrier animals — may show no signs","Stress reduces immunity"],
+ treatment:["Isolate immediately","Penicillin under vet guidance — controversial (may prevent abscess maturation)","Poultice abscesses to help them mature","Flush ruptured abscesses with dilute iodine","Supportive care — soft food, fluids","Full recovery takes weeks"],
+ prevention:["Quarantine all new arrivals for 3 weeks minimum","Do not share water troughs, feed buckets or tack","Vaccination available — discuss with vet","Biosecurity during outbreaks — disinfect everything"],
+ important:"Donkeys can be silent carriers. Bastard strangles (internal) is life-threatening. Seek vet advice before giving antibiotics — timing is critical.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐎 HORSES
+// ════════════════════════════
+{name:"African Horse Sickness",af:"Perdesiektes / AHS",animal:"horse",icon:"🦟",
+ severity:"critical",category:"viral",zoonotic:false,notifiable:true,
+ desc:"THE most deadly SA equine disease. Up to 95% mortality in unvaccinated horses in some outbreaks. Transmitted by Culicoides midges. Three main forms — pulmonary (dunkop), cardiac (dikkop), and mixed.",
+ symptoms:["Pulmonary (dunkop): severe breathing difficulty, frothy discharge, horses die standing","Cardiac (dikkop): swelling above eyes, swollen head/neck, yellow gums","Mixed: combination of both — most common in SA","Horse sickness fever: mild fever only — often vaccinated or immune animals","Death can occur within hours of severe signs"],
+ causes:["Orbivirus — 9 serotypes","Culicoides midges — most active at dawn/dusk/after rain","Peak risk: late summer to first frost","Low-lying, damp areas highest risk"],
+ treatment:["No specific treatment","Complete rest — mandatory","Supportive: anti-inflammatories, diuretics for fluid","Isolate from other equines","Vet immediately — this is an emergency"],
+ prevention:["Annual polyvalent vaccination — BEFORE midge season","Stable at dawn and dusk","Insect-proof stabling","Fly repellent on ears and legs","Move to frost-free high altitude only if safe to do so","Report all suspected cases to State Vet"],
+ important:"NOTIFIABLE. Death rate without vaccination 70-95%. Annual vaccination is non-negotiable in SA. Cody — Linda's white pony — died of AHS. This disease is personal and devastating.",
+ status:"done"},
+
+{name:"Equine Influenza",af:"Perdegriep",animal:"horse",icon:"🤧",
+ severity:"high",category:"viral",zoonotic:false,notifiable:false,
+ desc:"Highly contagious respiratory virus — spreads rapidly through yards. Rarely fatal in healthy horses but can lead to secondary bacterial pneumonia. High economic impact — horses off work for weeks.",
+ symptoms:["High fever 39–41°C","Dry harsh cough","Nasal discharge","Depression and loss of appetite","Muscle soreness","Swollen lymph nodes","Recovery takes 3-6 weeks — rushing back to work causes complications"],
+ causes:["Equine influenza virus — H3N8 and H7N7","Direct contact and aerosol spread","Shows, competitions, livery yards — major risk","New horses introduced to yard"],
+ treatment:["Rest — minimum 1 week per day of fever","Anti-inflammatories for fever and muscle pain","Antibiotics only if secondary bacterial infection","Supportive care — dust-free hay, fresh water","No exercise until fully recovered"],
+ prevention:["Biannual vaccination recommended","Quarantine new arrivals","Avoid competitions during outbreaks","Good ventilation in stables","Disinfect shared equipment"],
+ important:"The '3-week rule' — rest for 3 weeks after recovery to prevent permanent respiratory damage. Horses rushed back to work often develop chronic respiratory problems.",
+ status:"done"},
+
+{name:"Equine Herpesvirus (EHV)",af:"Perdeherpesvirusse",animal:"horse",icon:"🦠",
+ severity:"high",category:"viral",zoonotic:false,notifiable:false,
+ desc:"Family of viruses causing respiratory disease, abortion storms, and neurological disease. EHV-1 causes the most serious neurological form. Latent infection — horses carry it for life.",
+ symptoms:["EHV-1/4 respiratory: fever, cough, nasal discharge in young horses","EHV-1 abortion: mares abort at 7-11 months — no warning signs","EHV-1 neurological: hind limb weakness, inability to urinate, recumbency","EHV-3 coital exanthema: vesicles on genitals"],
+ causes:["Herpesvirus — latent in trigeminal ganglia for life","Stress triggers reactivation","Mares most at risk for abortion — stressful events near foaling","New horses introduced","Shared equipment"],
+ treatment:["Rest and isolation","Antiviral medications under vet guidance","Supportive care","Biosecurity during outbreak","Nursing care for neurological cases"],
+ prevention:["EHV-1/4 vaccination — especially broodmares","Isolate new arrivals","Separate pregnant mares from young stock","Reduce stress around foaling","Disinfect after any respiratory outbreak"],
+ important:"An abortion storm in a broodmare band is catastrophic — one infected mare can cause multiple abortions. Vaccinate all pregnant mares.",
+ status:"done"},
+
+{name:"Equine Colic",af:"Perdkoliek",animal:"horse",icon:"🫃",
+ severity:"high",category:"digestive",zoonotic:false,notifiable:false,
+ desc:"Most common cause of death in horses in SA outside of AHS. Wide range of causes from simple gas colic to life-threatening surgical cases. Time is critical — a horse that cannot be stabilised needs surgery.",
+ symptoms:["Pawing the ground","Looking at flanks","Rolling — especially violent rolling","Elevated heart rate above 48bpm","Reduced gut sounds","Pale or muddy mucous membranes","Sweating","Not eating — most reliable early sign"],
+ causes:["Impaction (commonest in SA — dehydration)","Gas accumulation","Strangulation of intestine","Displacement","Sand accumulation (Karoo)","Parasites","Sudden feed change","Suidwesdoring pods"],
+ treatment:["Call vet immediately","Pain relief under vet guidance only","Walk slowly to prevent injury from rolling","Do not give food","Monitor heart rate, gum colour, gut sounds","Surgery if not responding — time critical"],
+ prevention:["Constant fresh water — dehydration is the main cause","High fibre diet — good quality hay","Gradual feed changes only","Regular parasite control","Psyllium husk for sand colic (monthly in Karoo)","Regular dental care"],
+ important:"A horse that is not responding to pain relief within 30-60 minutes needs surgical assessment. Delay kills. Colic surgery in SA is available — know your nearest equine hospital.",
+ status:"done"},
+
+{name:"Cushing's Disease (PPID)",af:"Cushing se siekte",animal:"horse",icon:"🧠",
+ severity:"medium",category:"metabolic",zoonotic:false,notifiable:false,
+ desc:"Pituitary Pars Intermedia Dysfunction — the most common hormonal disease of older horses. Causes excessive coat growth, laminitis, muscle wasting. Manageable with medication.",
+ symptoms:["Long curly coat that doesn't shed (hypertrichosis)","Muscle wasting along topline","Pot belly","Excessive drinking and urinating","Laminitis — recurrent","Weight loss despite eating","Sweating abnormally","Increased susceptibility to infection"],
+ causes:["Dysfunction of the pituitary gland — age-related","Oxidative damage to dopamine neurons","Most common in horses over 15","Ponies and donkeys also affected"],
+ treatment:["Pergolide (Prascend) — daily medication, controls well","Clip coat in summer","Careful management of laminitis","Dental care — harder to chew","Low sugar diet"],
+ prevention:["No prevention — age-related condition","Annual ACTH blood test in horses over 15","Early detection = better management","Weight management"],
+ important:"Many horses with laminitis have undiagnosed Cushing's. Test ALL horses with recurrent laminitis. Pergolide is affordable and transforms quality of life.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐄 CATTLE
+// ════════════════════════════
+{name:"Lumpy Skin Disease",af:"Knopvelsiekte",animal:"cattle",icon:"🦟",
+ severity:"high",category:"viral",zoonotic:false,notifiable:true,
+ desc:"Viral disease causing characteristic skin nodules across the body — spread by biting insects. SA has regular outbreaks. Vaccination is effective. Significant economic impact on dairy and beef cattle.",
+ symptoms:["Firm round raised skin nodules 2-5cm — anywhere on body","High fever — up to 41°C","Reduced milk production","Reduced appetite","Swollen lymph nodes","Limping — nodules on legs","Nodules may ulcerate and become infected"],
+ causes:["Lumpy skin disease virus (Capripoxvirus)","Transmitted by Culicoides midges, mosquitoes, stable flies","Mechanical spread by insects — not direct contact","SA outbreaks correlated with insect season"],
+ treatment:["No specific antiviral treatment","Supportive care — anti-inflammatories","Secondary infection treatment — antibiotics if nodules infected","Maintain nutrition and hydration","Cull severely affected animals"],
+ prevention:["Annual vaccination — ESSENTIAL in SA","Insect control","Report outbreaks immediately","Restrict movement during outbreaks"],
+ important:"NOTIFIABLE DISEASE. Spreads rapidly through herds. Vaccination prevents disease but does not stop infection. Vaccinate annually before insect season.",
+ status:"done"},
+
+{name:"Foot and Mouth Disease",af:"Moel-en-Klouseer / MKS",animal:"cattle",icon:"🦶",
+ severity:"critical",category:"viral",zoonotic:false,notifiable:true,
+ desc:"One of the world's most economically devastating livestock diseases. SA is not FMD-free — outbreaks occur regularly. Extreme biosecurity required. Do NOT move animals during outbreak.",
+ symptoms:["Blisters on tongue, lips, gums","Blisters on feet — coronary band and between toes","Severe lameness","Profuse salivation — drooling","Reduced milk production","Fever","Blisters on teats — painful — mastitis risk","Young animals may die suddenly — myocarditis"],
+ causes:["Foot and mouth disease virus — 7 serotypes","Highly contagious — aerosol, direct contact, fomites","Buffalo are reservoir in SA — no clinical signs","Moves with animal movements"],
+ treatment:["REPORT TO STATE VET IMMEDIATELY","No treatment — stamping out policy in SA","Supportive care if not being culled","Mouth wash, foot bathing","Anti-inflammatories for pain"],
+ prevention:["Vaccination in FMD zones of SA","Strict biosecurity — no movement during outbreaks","Buffalo-proof fencing in FMD zones","Do not buy cattle from unknown sources without testing"],
+ important:"NOTIFIABLE — mandatory reporting. SA has FMD-free and FMD-zone areas. Check your area status. Buffalo are the wildlife reservoir — game farm adjacency is a risk factor.",
+ status:"done"},
+
+{name:"Brucellosis",af:"Brusellose / Abortussiekte",animal:"cattle",icon:"🧫",
+ severity:"critical",category:"bacterial",zoonotic:true,notifiable:true,
+ desc:"Currently the most problematic disease for SA farmers according to veterinary authorities. Causes abortion storms, infertility, and undulant fever in humans. Serious public health concern.",
+ symptoms:["Abortion in last trimester — most common sign","Retained placenta","Orchitis in bulls","Reduced fertility","Joint swelling","Swollen lymph nodes","Mastitis"],
+ causes:["Brucella abortus (cattle) / B. melitensis (goats/sheep)","Abortion material is highly infectious","Raw milk consumption — human transmission","Direct contact with infected animals"],
+ treatment:["No treatment — test and slaughter policy in SA","Infected herds quarantined","Compensation scheme for farmers"],
+ prevention:["S19 vaccination of female calves 3-6 months","RB51 vaccination for older animals","Test and slaughter infected animals","Do not drink raw milk","Wear gloves when handling abortions or placenta","Test bulls before purchase"],
+ important:"NOTIFIABLE and ZOONOTIC. Brucellosis causes undulant fever in humans — debilitating chronic disease. Always wear gloves when assisting calvings or handling abortions. Raw milk is a serious risk.",
+ status:"done"},
+
+{name:"Heartwater",af:"Hartwater / Bosluiskoors",animal:"cattle",icon:"🫀",
+ severity:"critical",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Tick-borne disease caused by Ehrlichia ruminantium — transmitted by the bont tick (Amblyomma hebraeum). Common in bush areas of SA. High mortality without rapid treatment. Cattle, sheep and goats affected.",
+ symptoms:["High fever — sudden onset","Loss of appetite","Nervous signs — circling, high-stepping gait","Throwing head back","Seizures — paddling","Sudden death in peracute cases","Fluid accumulation in chest and abdomen (heartwater)"],
+ causes:["Ehrlichia ruminantium","Transmitted by bont tick Amblyomma hebraeum","Indigenous cattle and wildlife have partial immunity","Imported animals extremely susceptible"],
+ treatment:["Tetracycline IV — URGENTLY","Must be given early — death can occur within hours of nervous signs","Supportive care — fluids, anti-convulsants","Good nursing"],
+ prevention:["Tick control — critical","Vaccination available — discuss with vet","Introduce susceptible animals gradually to tick areas","Endemic stability — controlled exposure in young animals","Regular dipping or spot-on treatment"],
+ important:"Killing the tick is the most effective prevention. In heartwater areas, any cattle with fever and nervous signs — treat immediately. Do not wait for test results.",
+ status:"done"},
+
+{name:"Milk Fever (Hypocalcaemia)",af:"Melkkoors / Hypokalsemie",animal:"cattle",icon:"🥛",
+ severity:"high",category:"metabolic",zoonotic:false,notifiable:false,
+ desc:"Sudden drop in blood calcium around calving — muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds rapidly to calcium treatment if caught early.",
+ symptoms:["Within 24-72 hours of calving","Cold ears and extremities","Unsteady on feet","Goes down — unable to rise","Head tucked into flank","Bloat","Constipation","Can deteriorate to coma if untreated"],
+ causes:["Calcium mobilisation from bones cannot keep up with colostrum/milk production","High calcium diet pre-calving reduces bone calcium mobilisation","Older high-producing cows most at risk","Also occurs in ewes and does around lambing/kidding"],
+ treatment:["IV calcium borogluconate — dramatic rapid recovery","Warm subcutaneous calcium also effective","Roll cow to prevent bloat every 2 hours","Keep warm","Prevent recurrence — oral calcium supplements"],
+ prevention:["Low calcium diet 3 weeks pre-calving (anionic diet)","Calcium supplement at calving","Vitamin D injection pre-calving","Magnesium supplementation"],
+ important:"A cow down after calving = milk fever until proven otherwise. IV calcium is a miracle drug for this — recovery in 20 minutes is normal. Every farmer should know how to give it.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐑 SHEEP
+// ════════════════════════════
+{name:"Bluetongue",af:"Bloutong",animal:"sheep",icon:"🦟",
+ severity:"high",category:"viral",zoonotic:false,notifiable:true,
+ desc:"Viral disease transmitted by Culicoides midges — sheep are most severely affected. SA has multiple outbreaks yearly. Causes characteristic blue tongue from cyanosis. Vaccination is available.",
+ symptoms:["High fever","Redness then bluish discolouration of tongue and gums","Swollen face and lips","Nasal discharge","Excessive salivation","Lameness — coronary band inflammation","Wool loss","Reluctance to move"],
+ causes:["Bluetongue virus — 24 serotypes","Culicoides midges (same as AHS vector)","No direct animal-to-animal spread","Peak in late summer / early autumn"],
+ treatment:["No specific treatment","Rest — exercise worsens disease","Anti-inflammatories","Antibiotics for secondary infections","Soft feed if mouth sore","Shade from sun — photosensitive animals"],
+ prevention:["Vaccination — polyvalent where available","Insect control","Stable at dawn/dusk","Avoid moving sheep during outbreaks"],
+ important:"NOTIFIABLE. Sheep far more severely affected than cattle (who are often subclinical carriers). White-faced breeds more susceptible to photosensitisation complications.",
+ status:"done"},
+
+{name:"Sheep Scab / Mange",af:"Skaapskurfte",animal:"sheep",icon:"🩹",
+ severity:"high",category:"skin",zoonotic:false,notifiable:true,
+ desc:"One of the most economically important sheep diseases in SA. Psoroptes ovis mite causes intense itching, wool loss and death in severely affected sheep. Highly contagious — spreads rapidly through flocks.",
+ symptoms:["Intense rubbing and scratching","Wool pulling and loss","Yellow crusty areas on skin","Restlessness","Weight loss","Skin thickening","Secondary infection of open wounds"],
+ causes:["Psoroptes ovis mite","Highly contagious — spreads through direct contact and fencing","Can survive off the host for weeks","Cold wet conditions favour spread"],
+ treatment:["Plunge dipping in registered acaricide","Injectable ivermectin or doramectin","ALL animals must be treated simultaneously","Disinfect premises and equipment","Repeat treatment 7-14 days later"],
+ prevention:["Regular dipping programme","Quarantine all new arrivals","Check fences and boundaries","Notify neighbours of outbreaks","Maintain healthy flock — nutrition supports immunity"],
+ important:"NOTIFIABLE IN SA. If you suspect sheep scab, contact your State Vet. Entire neighbouring flocks may need to be treated.",
+ status:"done"},
+
+{name:"Enterotoxaemia / Pulpy Kidney",af:"Enterosiekte / Pulpnier",animal:"sheep",icon:"🫀",
+ severity:"critical",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Clostridium perfringens type D — produces toxins that cause sudden death. Often the best-conditioned animals die first. Extremely common in SA — preventable with vaccination.",
+ symptoms:["Often sudden death — no warning signs","Convulsions","Paddling movements","Coma","Greenish diarrhoea occasionally","Unsteady gait before collapse","Found dead after change to lush pasture or grain"],
+ causes:["Clostridium perfringens type D — epsilon toxin","Trigger: sudden change to rich feed — lush pasture, grain","Rapidly-growing lambs most at risk","Over-conditioned ewes"],
+ treatment:["Usually too rapid for treatment","Antitoxin if caught very early","Penicillin","Supportive care"],
+ prevention:["VACCINATION — Multivax or equivalent every 6 months in high-risk situations","Ewes vaccinated 4-6 weeks pre-lambing pass immunity to lambs","Gradual introduction to new pasture","Avoid sudden diet changes","Lambs vaccinate from 6 weeks"],
+ important:"The best animal in the flock dying suddenly = enterotoxaemia until proven otherwise. Vaccination is cheap, simple and life-saving. No excuse not to vaccinate.",
+ status:"done"},
+
+{name:"Orf / Sore Mouth",af:"Bek-en-Klou / Skaaporf",animal:"sheep",icon:"🦠",
+ severity:"medium",category:"viral",zoonotic:true,notifiable:false,
+ desc:"Contagious ecthyma — pustular skin disease around mouth and feet of lambs and sheep. Very painful — prevents feeding. ZOONOTIC — handlers regularly get painful lesions on hands.",
+ symptoms:["Crusty pustular lesions around lips and nostrils","Lesions on gums, feet and teats","Lambs refuse to suck — painful mouth","Weight loss in affected lambs","Secondary bacterial infection of lesions"],
+ causes:["Parapoxvirus — lives in soil for years","Direct contact","Grazing on rough pasture that scratches skin","Highly contagious in young lambs"],
+ treatment:["Self-limiting — resolves in 1-4 weeks","Soften crusts with antiseptic ointment","Ensure lambs can feed — assist if necessary","Antibiotics for secondary infection","Isolate severely affected animals"],
+ prevention:["Vaccination in endemic areas","Oral vaccination onto scarified skin area","Avoid abrasive pastures","Good nutrition supports immune response"],
+ important:"ZOONOTIC — wear gloves when handling affected animals. Human lesions are very painful and take weeks to heal. Tell handlers and family members.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐐 GOATS
+// ════════════════════════════
+{name:"CCPP — Contagious Caprine Pleuropneumonia",af:"KKPP / Besmetlike Geitetooglongsiekte",animal:"goat",icon:"🫁",
+ severity:"critical",category:"bacterial",zoonotic:false,notifiable:true,
+ desc:"One of the most serious goat respiratory diseases worldwide — Mycoplasma capricolum causes acute lung inflammation. Mortality can reach 100% in naive herds. Present in SA.",
+ symptoms:["Acute respiratory distress","High fever","Coughing","Painful breathing","Reluctance to move","Death within 1-3 days in acute form","Nasal discharge"],
+ causes:["Mycoplasma capricolum subsp. capripneumoniae","Direct contact and aerosol spread","Stress — transport, overcrowding","Introduced animals most at risk"],
+ treatment:["Oxytetracycline or tylosin — early treatment","Strict isolation","Supportive care","High mortality even with treatment in acute cases"],
+ prevention:["Vaccination where available","Strict quarantine of new animals","Biosecurity — dedicated equipment per group","Avoid stress and overcrowding"],
+ important:"NOTIFIABLE. Any acute respiratory disease killing goats rapidly — report to State Vet. Goats hide illness even more than other animals.",
+ status:"done"},
+
+{name:"Goat Lice & External Parasites",af:"Luise / Ektoparasiete",animal:"goat",icon:"🪲",
+ severity:"low",category:"skin",zoonotic:false,notifiable:false,
+ desc:"Lice, mites, ticks and keds are major welfare and production issues in SA goats. Angora goats especially susceptible. Regular checking and treatment keeps infestations manageable.",
+ symptoms:["Rubbing and scratching","Rough and dull coat or fleece","Weight loss","Reduced mohair/wool production","Visible lice or eggs at skin surface","Skin irritation and thickening"],
+ causes:["Biting lice (Damalinia)","Sucking lice (Linognathus)","Mange mites (Sarcoptes, Chorioptes)","Sheep ked (Melophagus)","Ticks — multiple species"],
+ treatment:["Lice: topical insecticide — pour-on or dip","Mites: ivermectin injection","Ticks: registered acaricide dip or pour-on","Treat all animals simultaneously","Repeat treatment as per label"],
+ prevention:["Regular inspection — especially after new animals introduced","Quarantine all new arrivals and treat","Regular dipping programme","Maintain body condition — well-nourished animals more resistant"],
+ important:"Angora goats with heavy lice infestations suffer significant production losses. Check mohair-producing goats monthly.",
+ status:"done"},
+
+{name:"CAE — Caprine Arthritis Encephalitis",af:"Kuitjie-artritis-ensefalitis",animal:"goat",icon:"🦠",
+ severity:"high",category:"viral",zoonotic:false,notifiable:false,
+ desc:"Lentivirus causing progressive arthritis in adult goats, brain disease in kids, and interstitial pneumonia. No treatment, no vaccination. Spread through infected colostrum and milk. Prevalence can exceed 80% in some SA dairy goat herds — a devastating production and welfare disease.",
+ symptoms:["Adults: progressive joint swelling — carpus (knee) most common","Gradual weight loss despite eating","Hardened udder — 'hard udder syndrome', reduced milk production","Kids: encephalitis — hind limb weakness, head tilt, paddling, blindness","Chronic interstitial pneumonia — coughing, laboured breathing","10-15% reduction in milk yield in infected does","Progressive deterioration over months to years — no recovery"],
+ causes:["Caprine Arthritis Encephalitis Virus (CAEV) — lentivirus","Primarily spread through infected colostrum and milk to kids","Horizontal adult-to-adult spread possible — faeces and lung fluids","No cure — lifelong infection","Introduced via purchase of infected animals","Prevalence highest in intensive dairy operations"],
+ treatment:["No treatment — palliative management only","Anti-inflammatories for joint pain and comfort","Good nutrition to maintain condition","Separate kids at birth — feed clean colostrum","Euthanase severely affected animals — welfare obligation"],
+ prevention:["Test entire herd — annual serology","Remove and cull positive animals","Feed kids heat-treated (56°C for 60 min) or pasteurised colostrum — destroys virus","CAE-free accreditation — test annually and maintain status","Never introduce animals without confirmed negative CAE test","Dedicated feeding equipment per group — no sharing"],
+ important:"Once in a herd, CAE is very difficult to eliminate — prevalence can reach 80%+ in dairy herds. Prevention through strict biosecurity and clean colostrum management is the only option. Buy only from tested CAE-negative herds. A CAE-positive herd is a significant reduction in farm value.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐷 PIGS
+// ════════════════════════════
+{name:"African Swine Fever",af:"Afrikaanse Varksiektes / AVS",animal:"pig",icon:"🦠",
+ severity:"critical",category:"viral",zoonotic:false,notifiable:true,
+ desc:"One of the world's most feared pig diseases — no vaccine, no treatment, nearly 100% mortality. Endemic in SA due to warthog and soft tick reservoir. NEVER feed pigs raw meat or uncooked food waste.",
+ symptoms:["High fever — 40-42°C","Reddening of skin — especially ears, belly, legs","Loss of appetite","Vomiting and diarrhoea","Coughing and difficulty breathing","Bloody diarrhoea","Abortion in sows","Sudden death"],
+ causes:["African Swine Fever Virus (ASFV)","Warthogs are reservoir — no clinical signs","Ornithodoros soft ticks transmit between warthogs and pigs","Contaminated pork products fed to pigs — bushmeat, kitchen waste","Direct contact with infected pigs"],
+ treatment:["NO TREATMENT — NO VACCINE","Stamping out — immediate slaughter of all pigs on premises","Report immediately to State Vet","Do not move pigs"],
+ prevention:["NEVER feed pigs raw meat, kitchen waste, or food scraps containing any meat","Pig-proof fencing against warthog contact","Soft tick control in pigsties","Biosecurity — no wild pigs near domestic pigs","Register all pig farms"],
+ important:"NOTIFIABLE. ASF is devastating — entire pig industries have been destroyed in other countries. The raw pork/kitchen waste rule is absolute. One kitchen scrap can kill your entire herd and your neighbours.",
+ status:"done"},
+
+{name:"Worm Burden in Pigs",af:"Wurms by Varke",animal:"pig",icon:"🪱",
+ severity:"medium",category:"parasitic",zoonotic:true,notifiable:false,
+ desc:"Roundworm (Ascaris), whipworm, kidney worm and lungworm are common in SA pigs. Some pig roundworms can infect humans. Regular deworming and good hygiene are essential.",
+ symptoms:["Pot belly in young pigs","Coughing (migration of larvae through lungs)","Weight loss and poor growth","Rough skin and coat","Diarrhoea","Anaemia — pale mucous membranes"],
+ causes:["Ascaris suum (roundworm) — most common","Trichuris suis (whipworm)","Stephanurus dentatus (kidney worm)","Metastrongylus spp (lungworm)","Contaminated soil and water"],
+ treatment:["Ivermectin injection or in-feed","Levamisole","Fenbendazole","Treat all pigs in group simultaneously","Clean and rest pens between batches"],
+ prevention:["Clean concrete pens — easier to disinfect than earth floors","Rotate pigs off paddocks","Quarantine and treat new arrivals","Do not mix age groups","Regular faecal monitoring"],
+ important:"Ascaris suum is ZOONOTIC — can infect humans, especially children playing in pig areas. Good hygiene and handwashing essential. Do not allow children to play in pig yards.",
+ status:"done"},
+
+{name:"Mastitis in Sows",af:"Mastitis / Mamma-ontsteking",animal:"pig",icon:"🐷",
+ severity:"high",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Mastitis-Metritis-Agalactia (MMA) syndrome in sows — inflammation of mammary glands after farrowing. Piglets starve if sow's milk fails. Common and economically significant.",
+ symptoms:["Sow refuses to suckle piglets","Hard swollen mammary glands","Reduced milk — piglets crying and thin","Fever","Depression","Vaginal discharge (metritis component)","Constipation"],
+ causes:["E. coli, Staphylococcus, Klebsiella","Typically within 12-24 hours of farrowing","Constipation pre-farrowing predisposes","Contaminated farrowing pen","Trauma to teats"],
+ treatment:["Oxytocin to promote milk letdown","Antibiotics — based on culture if possible","Anti-inflammatories","Laxatives — lactulose, bran mash pre-farrowing","Supplemental feeding of piglets — milk replacer"],
+ prevention:["Clean farrowing accommodation","Prevent constipation — adequate fibre and water","Reduce stress around farrowing","Monitor closely in first 24 hours post-farrowing"],
+ important:"Piglets can die from starvation within 24 hours. Recognise MMA early and supplement piglets immediately with milk replacer while treating sow.",
+ status:"done"},
+
+// ════════════════════════════
+// 🐔 CHICKENS
+// ════════════════════════════
+{name:"Newcastle Disease",af:"Nucastle-siekte / Pseudo-voëlpes",animal:"chicken",icon:"🦠",
+ severity:"critical",category:"viral",zoonotic:true,notifiable:true,
+ desc:"One of the most important poultry diseases worldwide — devastates unvaccinated flocks. Common in SA backyard poultry. Highly contagious — entire flock can die within days. ZOONOTIC — causes mild eye infection in humans.",
+ symptoms:["Sudden death — often first sign","Twisting of neck (torticollis)","Green watery diarrhoea","Respiratory distress — gasping","Swollen head","Reduced egg production","Soft-shelled or misshapen eggs","Nervous signs — paralysis"],
+ causes:["Paramyxovirus type 1","Highly contagious — aerosol, direct contact, fomites, contaminated feed/water","Wild birds are reservoir — pigeons especially","No treatment — prevent through vaccination"],
+ treatment:["No specific treatment","Supportive care — electrolytes in water","Cull severely affected birds","Isolate and disinfect","Report if suspected velogenic (virulent) strain"],
+ prevention:["Vaccination — eye-drop or drinking water at day 1 and 3-4 weeks, then every 3 months","Biosecurity — no wild birds in poultry area","Disinfect equipment","Isolate new birds for 2 weeks","Do not introduce birds from unknown flocks"],
+ important:"NOTIFIABLE (virulent strains). ZOONOTIC — mild conjunctivitis in handlers. Vaccination of ALL poultry including backyard flocks is the single most important intervention.",
+ status:"done"},
+
+{name:"Infectious Bronchitis",af:"Infektiewe Brongitis / IB",animal:"chicken",icon:"🫁",
+ severity:"high",category:"viral",zoonotic:false,notifiable:false,
+ desc:"Coronavirus of poultry — highly contagious respiratory disease causing significant production losses. Affects egg quality and quantity. Multiple strains in SA — matching vaccine to strain is important.",
+ symptoms:["Gasping and coughing","Nasal discharge — wet rattling sounds","Reduced egg production","Watery or blood-tinged egg whites","Misshapen or soft-shelled eggs","Depression","Secondary bacterial infections common"],
+ causes:["Avian Infectious Bronchitis Virus (IBV) — coronavirus","Multiple strains — vaccination must match local strain","Aerosol and direct contact spread","Contaminated equipment and clothing","Wild birds"],
+ treatment:["No specific antiviral treatment","Antibiotics for secondary bacterial infections","Supportive care — electrolytes, warmth","Good ventilation but draught-free"],
+ prevention:["Vaccination — day-old chicks and boosters","Match vaccine strain to local circulating strain","Biosecurity","All-in all-out management — empty and disinfect between flocks","Rodent control"],
+ important:"Egg production and quality losses can be severe and prolonged. Consult vet about which IB vaccine strain is circulating locally in your area.",
+ status:"done"},
+
+{name:"Coccidiosis",af:"Kokssidiose",animal:"chicken",icon:"🪱",
+ severity:"high",category:"parasitic",zoonotic:false,notifiable:false,
+ desc:"Intestinal parasite — Eimeria species destroy gut lining of young chicks. Major cause of chick mortality in SA. Wet litter and overcrowding greatly increase risk. Broiler chicks most severely affected.",
+ symptoms:["Bloody or reddish-brown diarrhoea","Huddling under heat source","Ruffled feathers","Loss of appetite","Depression","High mortality in young chicks (3-6 weeks)","Reduced growth rate"],
+ causes:["Eimeria species — multiple types affect different gut sections","Picked up from contaminated litter and soil","Warm wet conditions favour oocyst survival","Overcrowding and stress"],
+ treatment:["Amprolium in water — immediate treatment","Toltrazuril — single dose very effective","Supportive — electrolytes and vitamins","Improve litter management — reduce wet areas"],
+ prevention:["Coccidiostats in starter feed for broilers","Vaccination available for layers and breeders","Keep litter dry — fix drinker leaks","Avoid overcrowding","Clean and rest pens between batches","Gradual exposure of layers to build immunity"],
+ important:"Coccidiosis kills more chicks in SA than almost any other disease. Any chick with bloody diarrhoea — treat immediately. Do not delay.",
+ status:"done"},
+
+{name:"Red Mite / Chicken Mite",af:"Rooiluis / Stelselkmyt",animal:"chicken",icon:"🪲",
+ severity:"medium",category:"skin",zoonotic:true,notifiable:false,
+ desc:"Dermanyssus gallinae — the most economically important poultry ectoparasite worldwide. Lives in cracks of housing and feeds on sleeping birds at night. Can devastate production and welfare. Bites humans too.",
+ symptoms:["Anaemia — pale comb and wattles","Restlessness at night","Reduced egg production","Weight loss","Skin irritation","Death in severe infestations — especially young birds and heavy layers","White or grey powdery deposits on eggs (mite faeces)"],
+ causes:["Dermanyssus gallinae — lives in housing, not on birds during day","Introduced via new birds, second-hand equipment, wild birds","Survives months without feeding","Explosively fast reproduction in warm weather"],
+ treatment:["Treat the HOUSE not just the birds","Approved acaricide products — apply to all cracks and crevices","Spinosad or phoxim products","Remove birds while treating","Repeat treatment in 7-10 days","Cannot be eradicated — managed"],
+ prevention:["Check new birds and equipment before introduction","Seal cracks in housing","Wild bird exclusion","Regular monitoring — use sticky traps","Diatomaceous earth in litter — natural option"],
+ important:"ZOONOTIC — bites humans causing intense itching and skin irritation. If you are getting bitten at night near your poultry house, check for red mite. Treat building thoroughly.",
+ status:"done"},
+
+{name:"Egg Binding / Dystocia",af:"Eierbinding",animal:"chicken",icon:"🥚",
+ severity:"high",category:"reproductive",zoonotic:false,notifiable:false,
+ desc:"Hen unable to pass an egg — medical emergency. Causes straining, paralysis and death within hours if untreated. Common in young pullets, overweight hens, and calcium-deficient flocks.",
+ symptoms:["Straining without producing egg","Penguin stance — standing upright","Fluffed up and lethargic","Loss of appetite","Swollen abdomen","Tail pumping up and down","Paralysis — egg pressing on sciatic nerve"],
+ causes:["Undersized pullet starting to lay too early","Calcium deficiency — soft-shelled egg stuck","Overweight hens","Oversized egg or double yolk","Stress","Obesity"],
+ treatment:["Steam bath — sit hen in warm steam for 20-30 minutes","Lubricant — olive oil around vent","Calcium supplement immediately — liquid calcium orally","Vet: oxytocin injection to stimulate contractions","NEVER try to break egg inside hen — fatal if contents contaminate body cavity"],
+ prevention:["Delay point of lay — don't rush pullets","Constant access to oyster shell or calcium grit","Maintain healthy body weight","Adequate lighting programme","Stress-free management"],
+ important:"A hen with egg binding can die within hours. Steam bath and calcium are first aid while contacting vet. Do not delay.",
+ status:"done"},
+
+// ════════════════════════════════════════════════════
+// TOXIC & POISONING — ALL SPECIES
+// ════════════════════════════════════════════════════
+
+{name:"Plant Poisoning — General",af:"Plantevergiftiging",animal:"donkey",icon:"☠️",
+ severity:"critical",category:"toxic",zoonotic:false,notifiable:false,
+ desc:"Donkeys are curious grazers and will eat plants they normally avoid when grazing is scarce — drought and overstocking are the biggest risk factors for plant poisoning in donkeys. Donkeys are stoic so symptoms may only appear once poisoning is advanced.",
+ symptoms:["Sudden colic-like pain","Depression and dullness — often only sign early","Drooling or difficulty swallowing","Muscle tremors or weakness","Staggering and incoordination","Rapid or laboured breathing","Swollen face or throat","Seizures in severe cases","Sudden death"],
+ causes:["Suidwesdoring / Mesquite pods — impaction and neurological","Lantana — liver failure and photosensitisation","Gifblaar — sudden death","Senecio / Ragwort — cumulative liver damage","Euphorbia / Melkbos — latex burns mouth and gut","Any of the toxic plants in the SA Healing Plants database"],
+ treatment:["CALL VET IMMEDIATELY — identify the plant if possible","Remove from source plant urgently","Activated charcoal if ingestion recent — vet administered","IV fluids for kidney and liver support","Anti-inflammatories","Treatment specific to plant — no universal antidote","Keep calm and quiet — stress worsens most toxicities"],
+ prevention:["Know your farm's toxic plants — walk the land","Remove or fence off toxic plants","Ensure adequate grazing — hungry animals take risks","Cross-reference the SA Healing Plants database","Never let donkeys into new areas unsupervised"],
+ important:"The stoic nature of donkeys means poisoning is often only noticed when serious. A dull donkey that won't eat near a new plant is a poisoning suspect. Time is critical — act before symptoms become severe.",
+ status:"done"},
+
+{name:"Suidwesdoring / Mesquite Poisoning",af:"Suidwesdoringvergiftiging",animal:"cattle",icon:"☠️",
+ severity:"critical",category:"toxic",zoonotic:false,notifiable:false,
+ desc:"Prosopis glandulosa — honey mesquite. Green pods consumed as high proportion of diet causes devastating neurological damage in cattle. Develops gradually over 2+ months then becomes obvious — jaw and tongue paralysis. Sheep are resistant. Donkeys and horses get impaction colic instead.",
+ symptoms:["Jaw and tongue trouble — develops gradually after 2+ months","Continuous chewing with nothing in mouth","Tongue protruding 1-4 inches — partial paralysis","Salivation and drooling","Head held to one side","Bulging eyes and wild expression","Rapid weight loss — up to 50% of body weight","Swelling under jaw or tongue","Nervous and anxious behaviour","Death"],
+ causes:["Prosopis glandulosa green pods as 60%+ of diet for 60+ days","High sugar content disrupts rumen microflora","B-vitamin synthesis inhibited — nerve damage","Worst in drought years — heavy pod loads and scarce grazing","Donkeys and horses: impaction colic instead of neurological signs","Sheep: reportedly resistant"],
+ treatment:["Remove from mesquite immediately","High quality ground feed and roughage","Rumen inoculation with fluid from healthy animal","3 out of 4 animals survive if treated before too advanced","Supportive care — soft food, fluids","B-vitamin supplementation"],
+ prevention:["Monitor pod intake in drought years — trees carry MORE pods when rainfall is low","Ensure adequate alternative grazing","Never allow cattle to rely on mesquite as primary feed","Fence off heavy mesquite areas during drought","Stock cattle and sheep together — sheep graze pods without harm"],
+ important:"By the time jaw and tongue signs appear the animal has been poisoning for months. The tragedy is it's slow and insidious. In drought years with heavy pod loads — monitor cattle closely near mesquite. Linda's firsthand knowledge of donkey deaths from this is documented in this database.",
+ status:"done"},
+
+{name:"Lantana Poisoning",af:"Lantanavergiftiging",animal:"cattle",icon:"☠️",
+ severity:"critical",category:"toxic",zoonotic:false,notifiable:false,
+ desc:"Lantana camara causes liver failure and photosensitisation in cattle. Cattle sometimes become addicted to it. First sign is often photosensitisation on white skin — easily misdiagnosed as biliary fever. One SA outbreak: 10 of 91 cattle died. No antidote.",
+ symptoms:["Photosensitisation — redness, pain and swelling on white or pale skin areas","Yellow discolouration of gums and eyes — jaundice","Anorexia and depression","Black soft faeces","Ruminal stasis","Swollen muzzle and face","Skin sloughing in severe cases","Death within 1-4 days in acute cases"],
+ causes:["Lantadene A and B — hepatotoxic compounds","Animals eat voluntarily when hungry or addicted","Red and yellow flowered varieties most toxic","Toxin not destroyed by drying — hay contamination possible","Drought drives animals to eat it"],
+ treatment:["Remove from lantana immediately","No antidote — supportive care only","Keep out of direct sunlight — photosensitisation is extremely painful","IV fluids for liver support","Anti-inflammatories","Prognosis poor in severe cases"],
+ prevention:["Remove lantana from farm — it is an invasive alien and should be cleared","Check fences — lantana grows along fence lines and under trees","Be aware horses can become addicted — seek it out even with good grazing","Teach all farm workers to identify it"],
+ important:"Lantana is one of SA's most ecologically and economically destructive invasive plants. Clearing it off your farm protects your livestock AND restores indigenous vegetation. Horses: photosensitisation especially bad on white markings — Paints and Appaloosas most at risk.",
+ status:"done"},
+
+{name:"Gifblaar Poisoning",af:"Gifblaarvergiftiging",animal:"cattle",icon:"☠️",
+ severity:"critical",category:"toxic",zoonotic:false,notifiable:false,
+ desc:"Dichapetalum cymosum — one of the most toxic plants in SA. Monofluoroacetate (Compound 1080) causes sudden death — no warning signs. A single mouthful can kill a cow. Mainly found in bushveld regions.",
+ symptoms:["Sudden death — most common presentation","Occasional brief signs before death: anxiety, rapid breathing","Muscle tremors","Collapse and death within hours","No characteristic post-mortem lesions","Animals found dead without prior illness"],
+ causes:["Monofluoroacetate — inhibits cellular energy production","New green shoots most toxic — especially after rain","Animals eat willingly — not avoided","No antidote exists"],
+ treatment:["No effective treatment — death too rapid","Veterinary support if caught immediately — activated charcoal","Remove all other animals from the area immediately"],
+ prevention:["Learn to identify Gifblaar — small shrub with glossy leaves, regrows after veld fires","Most dangerous after rain when new growth appears","Fence off known Gifblaar areas","Do not allow cattle into new veld without checking for it"],
+ important:"Gifblaar is one of SA's 'Big 6' most toxic plants — responsible for 8% of all cattle deaths from plant poisoning nationally. 70% of cases are in Limpopo, with 10% each in North West, Mpumalanga and Gauteng. Most dangerous in SPRING (new shoots) and AUTUMN (new leaves) — not just after rain. WARNING: 'The poison that keeps on killing' — fluoroacetate remains active in the carcass. Predators and scavengers eating a gifblaar-poisoned carcass are also poisoned. Do not leave carcasses in the veld.",
+ status:"done"},
+
+{name:"Organophosphate / Dip Poisoning",af:"Organofosfaatvergiftiging / Dip-vergiftiging",animal:"cattle",icon:"☠️",
+ severity:"critical",category:"toxic",zoonotic:false,notifiable:false,
+ desc:"Accidental poisoning from incorrect use of tick dips and agricultural chemicals. Over-concentration of dip, wrong product, or stress dipping causes serious illness and death. Common when farmers mix their own dip incorrectly.",
+ symptoms:["Excessive salivation and tear production","Muscle tremors","Constricted pupils","Difficulty breathing","Vomiting (if possible)","Seizures","Weakness and inability to stand","Death in severe cases"],
+ causes:["Dip concentration too high","Wrong product used","Animals stressed or sick before dipping — increases absorption","Mixing errors","Exposure to agricultural sprays"],
+ treatment:["Atropine — specific antidote, given by vet IV","Remove from source immediately","Wash off topical exposure","Fresh air","IV fluids"],
+ prevention:["Always follow label instructions EXACTLY","Never increase concentration","Do not dip sick or stressed animals","Ensure dip bath concentration is tested regularly","Store chemicals safely and separately from feed"],
+ important:"Read the label. Every time. Dip poisoning is entirely preventable. When in doubt about concentration — rather less than more.",
+ status:"done"},
+
+// ════════════════════════════════════════════════════
+// BEHAVIOURAL CONDITIONS
+// ════════════════════════════════════════════════════
+
+{name:"Stereotypies / Stable Vices",af:"Stereotipieë / Stalgewoontes",animal:"horse",icon:"🧠",
+ severity:"medium",category:"behavioural",zoonotic:false,notifiable:false,
+ desc:"Repetitive behaviours that serve no obvious function — crib-biting, wind-sucking, weaving, stall-walking, head-nodding, box-walking. Once established, stereotypies are very difficult to stop. Prevention through good management is everything.",
+ symptoms:["Crib-biting — grabs fixed object with teeth and gulps air","Wind-sucking — swallows air without gripping","Weaving — rhythmic swaying side to side","Stall-walking — repetitive circling","Head-nodding — rhythmic vertical head movement","Wood-chewing — destroys fencing and stables","Pawing continuously"],
+ causes:["Insufficient forage — horses evolved to eat 16+ hours per day","Confinement and boredom","Social isolation — horses are herd animals","Stress and anxiety","Learned from other horses","Insufficient exercise","Gastric ulcers often present alongside crib-biting"],
+ treatment:["No cure once established — management only","Increase forage — ad lib hay","Increase social contact with other horses","Increase turnout and exercise","Treat underlying gastric ulcers","Crib collars — reduce crib-biting but don't treat cause","Anti-weave grids — reduce but don't cure weaving","NEVER punish — increases stress and worsens behaviour"],
+ prevention:["Ad lib forage — hay always available","Turnout as much as possible","Social housing — horses need equine company","Environmental enrichment — mirrors, toys","Gradual introduction to stabling","Address gastric ulcers promptly"],
+ important:"Stereotypies are a welfare indicator — they develop when horses' needs are not being met. Punishing a horse for crib-biting is cruel and counterproductive. Address the cause, not the symptom.",
+ status:"done"},
+
+{name:"Separation Anxiety / Bonding",af:"Skeidingsangs / Kleefgedrag",animal:"donkey",icon:"🧠",
+ severity:"medium",category:"behavioural",zoonotic:false,notifiable:false,
+ desc:"Donkeys form extraordinarily deep social bonds — often described as 'best friends' pairs. Separation from a bonded companion causes profound psychological distress. This is not just sadness — it is a genuine welfare emergency that can trigger hyperlipidemia and death. Linda's Booboo pining after Cody's death is a documented example of this.",
+ symptoms:["Persistent loud braying — unusual for donkeys","Walking fence lines repeatedly","Refusing to eat","Depression and withdrawal","Weight loss","Hyperlipidemia risk if not eating","Attempting to escape enclosure","Staring into distance","Not responding to usual interaction"],
+ causes:["Removal or death of bonded companion","Sudden separation without gradual transition","Sale of one animal from a pair","Hospitalization of companion","Donkeys are not like horses — they bond more deeply and grieve more profoundly"],
+ treatment:["Reintroduce companion or provide new companion as soon as possible","Introduce new companion slowly — side by side before together","Increase human interaction and reassurance","Ensure eating — hyperlipidemia is a real risk","Monitor food intake daily","Provide hay ad lib — gives comfort","Allow to see or smell other animals","Time — grief in donkeys is real and takes time"],
+ prevention:["Never keep a single donkey alone","Always rehome, sell or move in bonded pairs","When a companion dies — plan immediately for replacement","Allow donkeys to spend time with dying companion if safe","Gradual separation if necessary — not sudden"],
+ important:"The Donkey Sanctuary UK recognises donkey grief as a real and serious condition. Booboo pining after Cody is not unusual — it is a well-documented donkey response to companion loss. A donkey that stops eating after losing a companion needs urgent attention. This is not 'just an animal being sad' — it can be fatal.",
+ status:"done"},
+
+{name:"Wood Chewing / Bark Stripping",af:"Houtkou / Bassskil",animal:"horse",icon:"🧠",
+ severity:"low",category:"behavioural",zoonotic:false,notifiable:false,
+ desc:"Destructive chewing of wood fences, stable doors, and tree bark. Different from crib-biting — horse does not gulp air. Often dietary — lack of roughage or mineral deficiency. Can lead to ingestion of toxic wood (tamboti, syringa, lantana stems).",
+ symptoms:["Chewed fence poles, stable doors, trees","Wood splinters in mouth","Damaged fencing","Tree bark stripped — can kill trees","Weight loss if hay intake insufficient"],
+ causes:["Insufficient roughage in diet","Boredom — lack of stimulation","Mineral or salt deficiency","Learned behaviour from other horses","Gastric discomfort"],
+ treatment:["Increase hay — ad lib forage","Salt and mineral lick always available","Increase exercise and turnout","Paint anti-chew products on wood","Cover fencing with metal","Identify and remove toxic wood sources"],
+ prevention:["Ad lib forage — never run out of hay","Salt lick constantly available","Environmental enrichment","Check that wood being chewed is not toxic — tamboti especially dangerous"],
+ important:"Check what wood is being chewed. Tamboti (tambotie) wood is highly toxic — a horse chewing tamboti stems is in danger. Lantana stems also toxic. Know your trees.",
+ status:"done"},
+
+{name:"Aggression in Pigs",af:"Aggressie / Byt by Varke",animal:"pig",icon:"🧠",
+ severity:"medium",category:"behavioural",zoonotic:false,notifiable:false,
+ desc:"Pigs are intelligent social animals — but overcrowding, competition for food, boredom and mixing of unfamiliar groups causes serious aggression and tail/ear biting. Tail biting can escalate to cannibalism. A major welfare and production issue in intensive systems.",
+ symptoms:["Tail biting — bitten stumps, blood","Ear biting","Flank biting","Wounds and infections from bites","Restlessness and anxiety","Dominant pigs preventing weaker ones from eating"],
+ causes:["Overcrowding — insufficient space per pig","Competition for food and water","Boredom — lack of enrichment","Mixing unfamiliar pigs","Tail docking not performed or poorly done","High temperature — heat stress increases aggression","Mineral deficiency — salt especially"],
+ treatment:["Separate the aggressor immediately","Treat bite wounds — antiseptic and antibiotics if infected","Reduce stocking density","Provide enrichment — straw, rooting material","Ensure adequate feeder and drinker space","Salt supplementation if deficient"],
+ prevention:["Adequate space per pig — minimum standards","Do not mix unfamiliar pigs without introduction protocol","Provide enrichment — rooting material, straw","Adequate feeders and drinkers for group size","Consistent groups — minimise mixing","Tail docking where legally permitted"],
+ important:"Tail biting can escalate to cannibalism very rapidly once blood is drawn. Separate the victim immediately — not the aggressor. Blood attracts more biting. Address the root cause — almost always overcrowding or boredom.",
+ status:"done"},
+
+{name:"Pecking Order Aggression / Feather Pecking",af:"Vereppikking / Pikorde Aggressie",animal:"chicken",icon:"🧠",
+ severity:"medium",category:"behavioural",zoonotic:false,notifiable:false,
+ desc:"Feather pecking and vent pecking is a major welfare problem in chickens — can escalate to cannibalism. Overcrowding, insufficient enrichment, dietary imbalances and introducing new birds all trigger it. Once blood is drawn the whole flock may attack.",
+ symptoms:["Feathers missing — back, rump and tail most common","Red raw skin areas","Vent pecking — extremely serious","Blood on victim","Birds hiding or cowering","Reduced egg production","Deaths from cannibalism in severe cases"],
+ causes:["Overcrowding","Boredom — no enrichment","Too bright lighting","Nutritional deficiency — protein, salt","Introducing new birds into established flock","Sudden change in routine","Mite infestation causing skin irritation"],
+ treatment:["Separate severely injured bird immediately","Treat wounds — purple antiseptic spray (Gentian violet)","Anti-peck sprays on affected areas","Reduce light intensity","Provide enrichment — greens hanging, dust bath","Investigate and address root cause"],
+ prevention:["Do not overcrowd","Dim lighting — bright light stimulates pecking","Provide adequate enrichment","Ensure sufficient protein in diet","Introduce new birds at night — reduces aggression","Beak trimming in commercial systems"],
+ important:"Once blood is visible the whole flock will peck at the wound. Remove the victim immediately — isolation until healed. Gentian violet (purple spray) hides the red colour that attracts pecking and has antiseptic properties.",
+ status:"done"},
+
+// ════════════════════════════════════════════════════
+// NEW ADDITIONS — VERIFIED
+// ════════════════════════════════════════════════════
+
+// ─── SHEEP ───────────────────────────────────────────
+{name:"Hartwater / Heartwater",af:"Hartwater / Bosluiskoors",animal:"sheep",icon:"🫀",
+ severity:"critical",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Tick-borne disease caused by Ehrlichia ruminantium — transmitted by the bont tick (Amblyomma hebraeum). Confirmed as one of the most economically costly animal diseases in SA — estimated R1.2 billion per year in losses. Sheep and goats are highly susceptible. Angora goats and imported breeds most at risk. Indigenous breeds have some resistance from endemic exposure.",
+ symptoms:["Sudden high fever — first sign","Loss of appetite and depression","Nervous signs — high-stepping gait, circling","Muscle tremors and twitching","Head pressing and throwing head back","Paddling convulsions — late stage","Fluid in chest cavity (heartwater)","Sudden death — peracute cases show no prior signs"],
+ causes:["Ehrlichia ruminantium — obligate intracellular bacterium","Transmitted by Amblyomma hebraeum (bont tick) in SA","A. variegatum also a vector","Wild ruminants — reservoir","Exotic and imported breeds extremely susceptible","Young lambs under 9 days old have natural resistance"],
+ treatment:["Tetracycline IV — URGENTLY at first nervous signs","Doxycycline also effective","Act IMMEDIATELY — hours matter once nervous signs appear","Supportive care — anti-convulsants, fluids","Good nursing — dark quiet environment","DO NOT stress the animal — any stimulation worsens convulsions"],
+ prevention:["Tick control — Amblyomma control is key","Vaccination available — infection-and-treatment type (IV)","Gradual exposure of young stock in endemic areas","Introduce susceptible animals slowly — treat at first fever","Regular dipping or pour-on acaricide treatment","Check tick loads daily in high-risk seasons"],
+ important:"Heartwater is notoriously fast-moving — an animal can go from normal to dead in hours once nervous signs appear. In heartwater areas, any sheep or goat with fever and ANY nervous sign: treat immediately with tetracycline. Do not wait for lab results.",
+ status:"done"},
+
+// ─── GOATS ───────────────────────────────────────────
+{name:"Orf / Sore Mouth",af:"Orf / Mondskurf / Skaappokke",animal:"goat",icon:"🦠",
+ severity:"medium",category:"viral",zoonotic:true,notifiable:false,
+ desc:"Contagious ecthyma — painful pustular and crusty lesions around mouth, lips, nostrils and feet. Goats of all ages affected. Kids refuse to suck — can starve. ZOONOTIC — handlers regularly develop painful nodules on hands, especially those without previous exposure.",
+ symptoms:["Crusty pustular lesions on lips, nostrils and gums","Lesions on teats — does refuse to be suckled","Lesions on feet — interdigital space and coronary band","Kids lose weight — too painful to suck","Secondary bacterial infection of open lesions","Fly strike (myiasis) on open wounds in summer"],
+ causes:["Parapoxvirus — survives in soil and dried scabs for years","Highly contagious — direct contact","Abrasive pasture, rough feed scratches skin allowing entry","Kids infected from does and environment"],
+ treatment:["Self-limiting — resolves in 3-6 weeks","Soften crusty lesions with petroleum jelly or antiseptic ointment","Bottle feed kids if too painful to suck","Antibiotics for secondary bacterial infection","Topical antiseptic sprays","Isolate most severely affected animals"],
+ prevention:["Vaccination in endemic areas — live virus onto scarified skin","Avoid abrasive feed — rough hay, thorny browse","Good nutrition — supports immune recovery","Gloves for all handlers"],
+ important:"ZOONOTIC — always wear gloves when handling affected animals or their scabs. Human lesions are very painful, take 3-6 weeks to resolve, and can spread on the handler's skin. Inform all farm workers and family members.",
+ status:"done"},
+
+// ─── ALL SPECIES — FOOTROT ───────────────────────────
+{name:"Vrotpootjie / Footrot",af:"Vrotpootjie / Klouseer",animal:"sheep",icon:"🦶",
+ severity:"high",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Highly contagious bacterial infection between the toes — one of the most economically damaging conditions in SA sheep and goat flocks. In virulent footrot the hoof separates from the underlying tissue with a characteristic foul smell. Can affect 100% of a flock under wet muddy conditions. Cattle also get footrot but from a slightly different bacterial combination.",
+ symptoms:["Severe lameness — often on multiple legs","Foul-smelling discharge between toes","Redness and swelling of interdigital skin","Hoof wall separation in virulent cases","Animals kneel to graze","Weight loss from pain and reduced grazing","Green-grey under-running of the hoof horn"],
+ causes:["Dichelobacter nodosus (primary cause in sheep/goats)","Fusobacterium necrophorum (initiating organism)","Wet muddy conditions soften interdigital skin","Introduced through infected animals","Survives in soil up to 10 months (Fusobacterium)","D. nodosus survives maximum 2 weeks off host"],
+ treatment:["Foot bathing — zinc sulphate 10% or formalin 3-5%","Systemic antibiotics — oxytetracycline or penicillin","Pare away under-run horn to allow drainage and treatment","Zinc sulphate footbath after paring","Isolate affected animals","Cull chronically infected non-responders","Vaccination available — 60-80% success rate"],
+ prevention:["Footbath all incoming animals before entry","Quarantine new animals — minimum 3 weeks","Dry underfoot conditions — improve drainage","Zinc sulphate footbaths preventatively during wet season","Vaccinate before wet season in endemic flocks","Cull chronically infected animals — they are a reservoir"],
+ important:"Once established in a flock, footrot is very difficult to eliminate. Early treatment and isolation is essential. The foul smell between toes is diagnostic. Copper sulphate footbaths — use with GREAT caution in sheep as it can cause copper toxicity.",
+ status:"done"},
+
+{name:"Vrotpootjie / Footrot",af:"Vrotpootjie / Klouseer",animal:"goat",icon:"🦶",
+ severity:"high",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Same bacterial cause as in sheep but goats don't always follow the same clinical presentation — virulent and benign footrot can look similar in goats, making assessment harder. Dairy goats in wet conditions especially vulnerable.",
+ symptoms:["Lameness — variable severity","Swelling and redness between toes","Foul odour from foot","Hoof separation in severe cases","Reluctance to stand and move","Weight loss","Kneeling to reach grazing"],
+ causes:["Dichelobacter nodosus and Fusobacterium necrophorum","Wet muddy conditions","Introduced through infected animals","Mixed-species grazing — can spread between sheep and goats"],
+ treatment:["Zinc sulphate footbath 10%","Systemic antibiotics — oxytetracycline","Pare under-run horn","Zinc sulphate or oxytetracycline spray on pared foot","Isolate affected animals","Vaccination for Dichelobacter nodosus"],
+ prevention:["Quarantine all new animals","Dry housing and paddocks","Preventative footbathing in wet season","Cull non-responders","Do not mix with footrot-infected sheep"],
+ important:"In goats, clinical signs may not indicate whether bacteria are benign or virulent — unlike in sheep. Treat all cases seriously. Copper sulphate footbaths are TOXIC to goats — use zinc sulphate only.",
+ status:"done"},
+
+{name:"Vrotpootjie / Footrot",af:"Vrotpootjie / Klouseer",animal:"cattle",icon:"🦶",
+ severity:"high",category:"bacterial",zoonotic:false,notifiable:false,
+ desc:"Bacterial cellulitis of the foot in cattle — painful swelling that extends from between the toes. Different bacterial combination to sheep footrot but same wet muddy trigger. Common after rain when ground is muddy and churned up around water troughs and feeding areas.",
+ symptoms:["Sudden severe lameness — often one leg","Swelling above and between the claws — symmetric","Foul smell","Fever","Reduced milk production in dairy cows","Reluctance to bear weight","Hot swollen coronary band area"],
+ causes:["Fusobacterium necrophorum (primary)","Bacteroides melaninogenicus","Wet boggy conditions macerate interdigital skin","Stones, gravel or stubble cause skin trauma allowing entry","Assembly points, dips, gates — high-risk areas"],
+ treatment:["Systemic antibiotics — penicillin or oxytetracycline","Single injection often curative if caught early","Foot bathing — formalin or zinc sulphate","Remove any foreign body if present","Anti-inflammatory for pain and swelling","Hoof trimming if overgrown"],
+ prevention:["Improve drainage around water troughs, gates, feed areas","Footbaths at parlour entrances for dairy cattle","Vaccination available — reduces incidence","Remove sharp stones from high-traffic areas","Treat promptly — every day of delay worsens prognosis"],
+ important:"Cattle footrot responds well to antibiotics if treated quickly. A cow that is severely lame is losing production every day. Single penicillin injection often gives dramatic improvement within 48 hours.",
+ status:"done"},
+
+// ─── EQUINES — MUD FEVER ─────────────────────────────
+{name:"Mud Fever / Pastern Dermatitis",af:"Modderkoors / Pasterndermatitis",animal:"donkey",icon:"🦶",
+ severity:"medium",category:"skin",zoonotic:false,notifiable:false,
+ desc:"Inflammatory skin condition of the lower legs — pasterns, fetlocks and heels. Caused by Dermatophilus congolensis bacteria and other organisms thriving in wet muddy conditions. Donkeys, horses and ponies all affected. Donkeys with feathered legs more susceptible. Also known as scratches, greasy heel, cracked heels, rain scald.",
+ symptoms:["Crusty matted scabs on back of pastern and heel","Thick discharge under scabs","Heat and swelling of lower leg","Hair loss in affected areas","Skin cracking — especially at back of heel","Lameness in severe cases","Raw weeping skin under scabs","Nodular growths (grapes) in chronic cases"],
+ causes:["Dermatophilus congolensis (main bacterial cause)","Staphylococcus spp.","Fungal organisms in some cases","Chorioptic mange mites contributing factor","Wet muddy conditions soften and damage skin barrier","White legs and pink skin more susceptible","Feathered legs trap moisture against skin"],
+ treatment:["Clip feathered legs to allow skin to dry","Remove scabs gently — soften first with warm water soak","Clean with dilute antiseptic — chlorhexidine or hibiscrub","Dry THOROUGHLY — moisture is the enemy","Apply barrier cream — petroleum jelly, zinc cream","Keep on dry ground until healed","Antibiotics for severe or spreading infection","Antifungal if fungal involvement","Mite treatment if chorioptic mange contributing"],
+ prevention:["Keep paddocks well-drained","Avoid prolonged standing in mud","Dry legs after rain or washing","Petroleum jelly on heels as barrier before muddy conditions","Regular inspection — catch it early","Good nutrition supports skin health"],
+ important:"The most common mistake is washing legs without drying thoroughly — this makes mud fever worse. Always dry completely after any washing. Donkeys especially — their thicker skin can hide how deep the infection has gone.",
+ status:"done"},
+
+{name:"Mud Fever / Pastern Dermatitis",af:"Modderkoors / Pasterndermatitis",animal:"horse",icon:"🦶",
+ severity:"medium",category:"skin",zoonotic:false,notifiable:false,
+ desc:"Same condition as in donkeys — inflammatory skin condition of lower legs in wet muddy conditions. Horses with white legs and pink skin are more susceptible. Heavy feathered breeds (Warmbloods, Friesians) at highest risk. Can become severe if not treated promptly.",
+ symptoms:["Crusty scabs on pastern and back of heel","Matted hair with discharge underneath","Heat and swelling — 'filled legs'","Cracked skin at heels","Lameness in severe cases","Raw weeping areas under scabs","'Grapes' — nodular proliferative tissue in chronic cases"],
+ causes:["Dermatophilus congolensis","Staphylococcus spp.","Fungal dermatophytes","Chorioptic mites under feathering","Wet muddy conditions","Photosensitisation — white legs in sunlight","Repeated wetting and drying cycles"],
+ treatment:["Clip feathers to allow air circulation","Warm water soak to soften scabs","Remove scabs gently — do NOT rip off dry scabs","Scrub with chlorhexidine solution","Dry COMPLETELY — use hairdryer if needed","Barrier cream — petroleum jelly or zinc oxide","Stable on dry bedding until healed","Systemic antibiotics if spreading above fetlock","Rule out photosensitisation — check for plant poisoning"],
+ prevention:["Good paddock drainage","Petroleum jelly on heels before wet conditions","Dry legs after washing","Regular inspection","Move off wet ground in severe weather","Do not over-wash legs"],
+ important:"Never leave wet legs. The drying step is as important as the cleaning. Photosensitisation (from plant toxins like St John's Wort or Lantana) causes mud fever symptoms on white legs even without mud — if white-legged horse keeps getting mud fever in dry conditions, investigate plant exposure.",
+ status:"done"},
+
+// ─── CHICKENS — SCALY LEG ────────────────────────────
+{name:"Scaly Leg Mite",af:"Skubbepootjies / Beenskilfermyt",animal:"chicken",icon:"🪲",
+ severity:"medium",category:"skin",zoonotic:false,notifiable:false,
+ desc:"Knemidocoptes mutans — microscopic mites that burrow under the scales of chicken legs and feet, feeding on tissue and depositing debris. This causes the characteristic crusty, raised, thick scaly appearance Linda described. Spreads easily between birds through direct contact. Slow to develop — often only obvious in older birds, but young birds in the same flock are infected too.",
+ symptoms:["Raised, thickened leg scales — no longer lying flat","Crusty white or grey deposits on legs and feet","Thickened rough-looking legs","Legs look bumpy and deformed","Irritation — birds peck at legs","Swollen legs in advanced cases","Lameness — mites interfere with joint flexion","Necrosis of toes — loss of toes in severe untreated cases"],
+ causes:["Knemidocoptes mutans — microscopic burrowing mite","Spreads through direct bird-to-bird contact","Introduced via new birds, wild birds, rodents","Lives entirely on the bird — full life cycle on host","Damp earth floors and overcrowding increase risk","Older birds more obviously affected but all ages infected"],
+ treatment:["Soak legs in warm water 10 minutes — softens scales","Gently scrub with soft brush — remove loose material","Dry thoroughly","Smother mites — dip or coat legs in oil (vegetable, olive, coconut, linseed or paraffin)","Apply petroleum jelly (Vaseline) over entire leg — smothers mites","Repeat every 2-3 days for several weeks","Severe infestations: ivermectin injection or oral (0.2mg/kg, repeat in 10 days)","Treat ALL birds in the flock — not just obviously affected ones","Clean and disinfect coop thoroughly"],
+ prevention:["Inspect leg scales of ALL new birds before introduction","Quarantine new birds 2 weeks — check legs","Maintain clean dry coop conditions","Discourage wild birds and rodents","Regular leg inspections — monthly for backyard flocks","Good nutrition — healthy immune system slows progression"],
+ important:"Do NOT try to pull off or force off the crusty scales — this causes severe pain and bleeding. Soaking and oiling softens them to come off naturally as new healthy scales grow in. Mild cases respond beautifully to petroleum jelly alone applied consistently. Treat the whole flock — not just the obviously affected birds.",
+ status:"done"},
+
+];
+
+// ═══════════════════════════
+// RENDER
+// ═══════════════════════════
+let currentAnimal = 'all';
+let filtered = [...CONDITIONS];
+
+function render() {
+  const grid = document.getElementById('gridArea');
+  grid.innerHTML = '';
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🐄</div><p>No conditions found. Try adjusting your search.</p></div>`;
+    document.getElementById('resultsCount').textContent = '0 found';
+    return;
+  }
+
+  document.getElementById('resultsCount').textContent = `${filtered.length} condition${filtered.length!==1?'s':''} found`;
+
+  // Update stats
+  document.getElementById('totalConditions').textContent = CONDITIONS.length;
+  document.getElementById('totalCritical').textContent = CONDITIONS.filter(c=>c.severity==='critical').length;
+
+  // Group by animal
+  ANIMALS.forEach(animal => {
+    const items = filtered.filter(c => c.animal === animal.id);
+    if (!items.length) return;
+
+    const header = document.createElement('div');
+    header.className = 'animal-header';
+    header.id = 'sec-' + animal.id;
+    header.innerHTML = `
+      <div class="animal-big-icon">${animal.icon}</div>
+      <div class="animal-header-text">
+        <h2>${animal.label}</h2>
+        <p>${animal.sub}</p>
+      </div>
+      <div class="animal-count">${items.length} condition${items.length!==1?'s':''}</div>`;
+    grid.appendChild(header);
+
+    const cGrid = document.createElement('div');
+    cGrid.className = 'condition-grid';
+
+    items.forEach(c => {
+      const card = document.createElement('div');
+      card.className = `condition-card sev-${c.severity}`;
+      card.onclick = () => openModal(c);
+
+      const sevLabel = {critical:'🔴 Critical',high:'🟠 High',medium:'🟡 Medium',low:'🟢 Low'}[c.severity];
+      const sevClass = {critical:'badge-critical',high:'badge-high',medium:'badge-medium',low:'badge-low'}[c.severity];
+      const statLabel = {done:'✅ Written',draft:'📝 Draft',planned:'🕐 Planned'}[c.status];
+      const statClass = {done:'status-done',draft:'status-draft',planned:'status-planned'}[c.status];
+
+      const tags = [];
+      if (c.zoonotic) tags.push(`<span class="card-tag tag-zoonotic">⚠️ Zoonotic</span>`);
+      if (c.notifiable) tags.push(`<span class="card-tag tag-notifiable">🚨 Notifiable</span>`);
+      c.symptoms.slice(0,2).forEach(s => tags.push(`<span class="card-tag tag-symptom">${s}</span>`));
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div>
+            <div class="card-name">${c.name}</div>
+            <div class="card-af">${c.af}</div>
+          </div>
+          <div class="card-icon">${c.icon}</div>
+        </div>
+        <div class="sev-badge ${sevClass}">${sevLabel}</div>
+        <div class="card-desc">${c.desc.substring(0,160)}${c.desc.length>160?'...':''}</div>
+        <div class="card-tags">${tags.join('')}</div>
+        <div class="card-bottom">
+          <span class="card-category">${c.category} · ${ANIMALS.find(a=>a.id===c.animal)?.icon} ${ANIMALS.find(a=>a.id===c.animal)?.label}</span>
+          <span class="card-status ${statClass}">${statLabel}</span>
+        </div>`;
+      cGrid.appendChild(card);
+    });
+
+    grid.appendChild(cGrid);
+
+    // Sidebar counts
+    const el = document.getElementById('cnt-'+animal.id);
+    if (el) el.textContent = filtered.filter(c=>c.animal===animal.id).length;
+  });
+}
+
+function filterConditions() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const sev = document.getElementById('sevFilter').value;
+  const cat = document.getElementById('catFilter').value;
+  const zoo = document.getElementById('zooFilter').value;
+
+  filtered = CONDITIONS.filter(c => {
+    if (currentAnimal !== 'all' && c.animal !== currentAnimal) return false;
+    if (sev && c.severity !== sev) return false;
+    if (cat && c.category !== cat) return false;
+    if (zoo === 'true' && !c.zoonotic) return false;
+    if (zoo === 'notifiable' && !c.notifiable) return false;
+    if (search) {
+      const hay = [c.name,c.af,c.desc,...c.symptoms,...c.causes,...c.treatment,...c.prevention,c.important].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  render();
+}
+
+function filterAnimal(animal, el) {
+  currentAnimal = animal;
+  document.querySelectorAll('.animal-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  filterConditions();
+}
+
+function jumpSection(id) {
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.target.closest('.sidebar-item').classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openModal(c) {
+  document.getElementById('mTitle').textContent = c.name;
+  document.getElementById('mAf').textContent = c.af;
+  const animal = ANIMALS.find(a=>a.id===c.animal);
+  document.getElementById('mAnimal').textContent = `${animal?.icon} ${animal?.label} · ${c.category} · ${c.severity.toUpperCase()}`;
+
+  const sevLabel = {critical:'🔴 CRITICAL — Emergency',high:'🟠 HIGH — Vet Required',medium:'🟡 MEDIUM — Monitor Closely',low:'🟢 LOW — Manageable'}[c.severity];
+
+  let zooBadge = '';
+  if (c.zoonotic) zooBadge += `<div class="danger-box">⚠️ <strong>ZOONOTIC</strong> — This condition can spread to humans. Take precautions: gloves, handwashing, inform family members.</div>`;
+  if (c.notifiable) zooBadge += `<div class="warning-box">🚨 <strong>NOTIFIABLE DISEASE</strong> — Must be reported to the State Veterinarian immediately.</div>`;
+
+  document.getElementById('mBody').innerHTML = `
+    <div class="modal-section">
+      <div class="sev-badge badge-${c.severity}" style="margin-bottom:12px">${sevLabel}</div>
+      ${zooBadge}
+      <h4>📋 Description</h4>
+      <p>${c.desc}</p>
+    </div>
+    <div class="modal-section">
+      <h4>🩺 Symptoms — What to look for</h4>
+      <ul>${c.symptoms.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="modal-section">
+      <h4>🔍 Causes</h4>
+      <ul>${c.causes.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="modal-section">
+      <h4>💊 Treatment</h4>
+      <ul>${c.treatment.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="modal-section">
+      <h4>🛡️ Prevention</h4>
+      <ul>${c.prevention.map(s=>`<li>${s}</li>`).join('')}</ul>
+      <div class="tip-box">💡 <strong>Key point:</strong> ${c.important}</div>
+    </div>`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target===document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
+render();
+</script>
+</body>
+</html>
