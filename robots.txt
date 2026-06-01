@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lindaleevisser-hub.github.io/inibos-creations/sitemap.xml
