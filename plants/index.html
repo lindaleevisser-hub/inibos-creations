@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>South African Healing Plants — Complete Index · Inibos Creations</title>
+<meta name="description" content="Complete index of 157 South African healing plants — indigenous and naturalised — with traditional uses, animal safety, and chapter assignment. Part of the Inibos Creations five-book series by Linda Visser.">
+<meta name="author" content="Linda Visser">
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:title" content="South African Healing Plants — Complete Index">
+<meta property="og:description" content="Complete index of 157 South African healing plants — indigenous and naturalised — with traditional uses, animal safety, and chapter assignment. Part of the Inibos Creations five-book series by Linda Visser.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Inibos Creations">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="South African Healing Plants — Complete Index">
+<meta name="twitter:description" content="Complete index of 157 South African healing plants — indigenous and naturalised — with traditional uses, animal safety, and chapter assignment. Part of the Inibos Creations five-book series by Linda Visser.">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --earth: #3d2b1a;
+  --saddle: #6b3f1f;
+  --tan: #c4863a;
+  --wheat: #f0d090;
+  --cream: #fdf6e8;
+  --bg: #f5ede0;
+  --sage: #7a9e7e;
+  --pasture: #4a7c59;
+  --rust: #c0492b;
+  --gold: #d4a017;
+  --muted: #7a6a58;
+  --border: rgba(107,63,31,0.15);
+  --safe-bg: #d8f3dc;
+  --safe-text: #1a3d2b;
+  --caution-bg: #fff3cd;
+  --caution-text: #7a4500;
+  --toxic-bg: #fde8e8;
+  --toxic-text: #7a1515;
+}
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Lato', 'Nunito', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--earth);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+/* Header */
+.site-header {
+  background: var(--earth);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  position: sticky; top: 0; z-index: 100;
+}
+.site-header a { color: var(--wheat); text-decoration: none; }
+.brand {
+  font-family: 'Dancing Script', 'Georgia', serif;
+  font-size: 22px;
+  color: var(--wheat);
+}
+.brand-sub {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(240,208,144,0.55); margin-top: 2px;
+}
+.header-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.header-nav a {
+  font-size: 13px;
+  color: rgba(240,208,144,0.85);
+  font-weight: 600;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.header-nav a:hover { border-bottom-color: var(--tan); color: var(--wheat); }
+
+/* Breadcrumbs */
+.breadcrumbs {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 14px 24px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.breadcrumbs a { color: var(--saddle); text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs .sep { margin: 0 6px; opacity: 0.5; }
+
+/* Main */
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(107,63,31,0.06);
+  margin-top: 14px;
+  margin-bottom: 40px;
+}
+
+/* Hero */
+.hero {
+  border-bottom: 2px solid var(--tan);
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--tan); font-weight: 700; margin-bottom: 6px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: 38px; font-weight: 900;
+  color: var(--earth); line-height: 1.15; margin-bottom: 8px;
+}
+.hero-af {
+  font-family: 'Dancing Script', 'Georgia', cursive;
+  font-size: 22px; color: var(--tan);
+  margin-bottom: 6px;
+}
+.hero-sci {
+  font-size: 14px; font-style: italic;
+  color: var(--muted);
+}
+.hero-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.tag {
+  font-size: 11px; padding: 4px 11px;
+  border-radius: 12px; font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.tag-book { background: var(--earth); color: var(--wheat); }
+.tag-use { background: #e8f5ee; color: var(--pasture); }
+.tag-cat { background: #fff7e8; color: var(--saddle); }
+.tag-habitat { background: #fdf3e4; color: var(--saddle); }
+.tag-zoonotic { background: var(--toxic-bg); color: var(--toxic-text); }
+.tag-notifiable { background: #8b0000; color: white; }
+
+/* Severity badge */
+.severity-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 800; padding: 6px 14px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;
+}
+.sev-critical { background: #8b0000; color: white; }
+.sev-high { background: var(--toxic-bg); color: var(--toxic-text); }
+.sev-medium { background: var(--caution-bg); color: var(--caution-text); }
+.sev-low { background: var(--safe-bg); color: var(--safe-text); }
+
+/* Section */
+section { margin-bottom: 32px; }
+section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; font-weight: 700; color: var(--earth);
+  border-bottom: 2px solid var(--tan);
+  padding-bottom: 7px; margin-bottom: 14px;
+}
+section p { margin-bottom: 12px; color: #333; }
+section ul { padding-left: 22px; margin-bottom: 12px; }
+section li { margin-bottom: 6px; color: #333; }
+
+/* Callout boxes */
+.important-box {
+  background: var(--caution-bg);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--caution-text);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.danger-box {
+  background: var(--toxic-bg);
+  border-left: 4px solid var(--rust);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--toxic-text);
+}
+.tip-box {
+  background: #e8f5ee;
+  border-left: 4px solid var(--pasture);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--safe-text);
+}
+
+/* Animal safety grid (plant pages) */
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.safety-card {
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+}
+.safety-card.safe { background: var(--safe-bg); border-color: #b6dbb9; }
+.safety-card.caution { background: var(--caution-bg); border-color: #e8d490; }
+.safety-card.toxic { background: var(--toxic-bg); border-color: #e8a8a8; }
+.safety-card .animal-name {
+  font-weight: 700; font-size: 15px;
+  margin-bottom: 4px;
+}
+.safety-card.safe .animal-name { color: var(--safe-text); }
+.safety-card.caution .animal-name { color: var(--caution-text); }
+.safety-card.toxic .animal-name { color: var(--toxic-text); }
+.safety-card .animal-note {
+  font-size: 13px; line-height: 1.55;
+}
+
+/* Related book */
+.book-cta {
+  background: linear-gradient(135deg, var(--saddle), var(--earth));
+  color: var(--cream);
+  padding: 22px;
+  border-radius: 14px;
+  margin: 24px 0;
+}
+.book-cta h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 19px; color: var(--wheat); margin-bottom: 8px;
+}
+.book-cta p { font-size: 14px; color: rgba(253,246,232,0.9); margin-bottom: 14px; }
+.book-cta a {
+  display: inline-block;
+  background: var(--tan); color: var(--earth);
+  font-weight: 700; padding: 9px 18px;
+  border-radius: 22px; text-decoration: none;
+  font-size: 14px; transition: background 0.15s;
+}
+.book-cta a:hover { background: var(--wheat); }
+
+/* Index grids */
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.index-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.index-card:hover {
+  border-color: var(--tan);
+  box-shadow: 0 6px 20px rgba(107,63,31,0.08);
+  transform: translateY(-2px);
+}
+.index-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--earth); margin-bottom: 3px;
+}
+.index-card-af {
+  font-family: 'Dancing Script', Georgia, cursive;
+  font-size: 14px; color: var(--tan); margin-bottom: 6px;
+}
+.index-card-meta {
+  font-size: 12px; color: var(--muted);
+  margin-top: 8px;
+}
+
+.section-divider {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; color: var(--earth);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Footer */
+footer {
+  background: var(--earth);
+  color: rgba(240,208,144,0.6);
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+footer a { color: var(--wheat); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .footer-brand {
+  font-family: 'Dancing Script', Georgia, cursive;
+  font-size: 20px; color: var(--wheat);
+  display: block; margin-bottom: 8px;
+}
+footer .footer-links {
+  margin-top: 14px;
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  main { padding: 18px; margin: 8px; }
+  .hero h1 { font-size: 28px; }
+  .header-nav { gap: 12px; }
+  .header-nav a { font-size: 12px; }
+  .brand { font-size: 18px; }
+}
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/inibos-creations/">
+    <div class="brand">Inibos Creations</div>
+    <div class="brand-sub">Linda Visser · Rooidam</div>
+  </a>
+  <nav class="header-nav">
+    <a href="/inibos-creations/plants/">Plants</a>
+    <a href="/inibos-creations/conditions/">Animal Health</a>
+    <a href="/inibos-creations/">Books</a>
+  </nav>
+</header>
+
+<nav class="breadcrumbs"><a href="/inibos-creations/">Inibos Creations</a><span class="sep">›</span><span>Plants</span></nav>
+
+<main>
+<div class="hero">
+<div class="hero-eyebrow">Inibos Creations · Linda Visser</div>
+<h1>South African Healing Plants</h1>
+<div class="hero-af">Suid-Afrikaanse Genesingsplante</div>
+<p style="margin-top:14px;color:#444">The complete index of plants in the Inibos Creations reference. 157 plants across the five-book series — what each plant heals, how it is used, and which animals it is safe for.</p>
+<p style="margin-top:10px"><a href="/inibos-creations/sa-plants-master-database.html" style="color:var(--saddle);font-weight:600">Open the interactive database with filters and search →</a></p>
+</div>
+<h2 class="section-divider">🌿 Ground Plants &amp; Veld Plants</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Healing Plants · 25 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/african-potato.html">
+          <div class="index-card-title">African Potato</div>
+          <div class="index-card-af">Gifbol / Inkomfe</div>
+          <div class="index-card-meta">Immune boosting, prostate, UTI, benign tumours — widely used in traditional medicine</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/african-wormwood.html">
+          <div class="index-card-title">African Wormwood</div>
+          <div class="index-card-af">Wilde-als / Alsem</div>
+          <div class="index-card-meta">Coughs, flu, malaria, worms, digestive complaints, skin infections</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/blackjacks.html">
+          <div class="index-card-title">Blackjacks</div>
+          <div class="index-card-af">Swartjacks / Knapsekerel</div>
+          <div class="index-card-meta">One of Africa&#x27;s most used medicinal weeds — anti-malarial, wound healing, diabetes management, anti-...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/bulbine.html">
+          <div class="index-card-title">Bulbine</div>
+          <div class="index-card-af">Geelkatstert / Rankkopieva</div>
+          <div class="index-card-meta">Burns, wounds, rashes, eczema, cracked lips, mouth ulcers</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cancer-bush.html">
+          <div class="index-card-title">Cancer Bush</div>
+          <div class="index-card-af">Kankerbos / Unwele</div>
+          <div class="index-card-meta">Immune support, cancer adjunct, liver disease, stress, wasting disease</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cannabis-dagga.html">
+          <div class="index-card-title">Cannabis / Dagga</div>
+          <div class="index-card-af">Dagga / Intsango</div>
+          <div class="index-card-meta">Pain relief, anxiety, nausea, inflammation, epilepsy — medicinally significant; legal status complex...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cape-weed-servetjie.html">
+          <div class="index-card-title">Cape Weed / Servetjie</div>
+          <div class="index-card-af">Servetjie / Perdepis</div>
+          <div class="index-card-meta">Common yellow daisy weed — mild medicinal uses for skin conditions and digestive complaints; good la...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/devils-claw.html">
+          <div class="index-card-title">Devil&#x27;s Claw</div>
+          <div class="index-card-af">Duiwelsklou / Grapple Plant</div>
+          <div class="index-card-meta">Arthritis, back pain, indigestion, liver complaints, gout</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/fever-tea-koorsbossie.html">
+          <div class="index-card-title">Fever Tea / Koorsbossie</div>
+          <div class="index-card-af">Koorsbossie / Heuningtee</div>
+          <div class="index-card-meta">One of SA&#x27;s most popular traditional fever remedies — anti-malarial properties studied scientificall...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/imphepho.html">
+          <div class="index-card-title">Imphepho</div>
+          <div class="index-card-af">Imphepho / Hottentotstee</div>
+          <div class="index-card-meta">Sacred plant in Zulu and Xhosa tradition — used in ancestral ceremonies, and medicinally for coughs,...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/inkblom-cape-marigold.html">
+          <div class="index-card-title">Inkblom / Cape Marigold</div>
+          <div class="index-card-af">Botterblom / Inkblom</div>
+          <div class="index-card-meta">Orange and yellow veld flowers — traditional uses for skin complaints and mild digestive issues acro...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/khakibos.html">
+          <div class="index-card-title">Khakibos</div>
+          <div class="index-card-af">Khakibos / Kakiebos</div>
+          <div class="index-card-meta">Powerful insect and tick repellent, nematode control, digestive complaints — strongly aromatic weed ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/marigold-afrikaaner.html">
+          <div class="index-card-title">Marigold / Afrikaaner</div>
+          <div class="index-card-af">Afrikaaner / Kalkoentjie</div>
+          <div class="index-card-meta">Indigenous gladiolus species used for skin conditions and digestive complaints — corms edible in som...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/ox-eye-daisy-gousblom.html">
+          <div class="index-card-title">Ox-eye Daisy / Gousblom</div>
+          <div class="index-card-af">Gansogies / Botterblom</div>
+          <div class="index-card-meta">Indigenous daisies used in skin preparations, wound healing, and fever management — vast family of S...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/sour-fig.html">
+          <div class="index-card-title">Sour Fig</div>
+          <div class="index-card-af">Suurvy / Hottentotsvy</div>
+          <div class="index-card-meta">Sore throat, mouth ulcers, sunburn, skin infections, diarrhoea</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/suring-sorrel.html">
+          <div class="index-card-title">Suring / Sorrel</div>
+          <div class="index-card-af">Suring / Wildestamvrug</div>
+          <div class="index-card-meta">Edible sour leaves rich in Vitamin C — traditional anti-scurvy plant. Flowers and leaves used in sal...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/suurknol-wild-cucumber.html">
+          <div class="index-card-title">Suurknol / Wild Cucumber</div>
+          <div class="index-card-af">Suurknol / Wilde-agurk</div>
+          <div class="index-card-meta">Indigenous cucumber relative — traditional use for digestive complaints, skin conditions, and as a p...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/umhlonyane.html">
+          <div class="index-card-title">Umhlonyane</div>
+          <div class="index-card-af">Umhlonyane / Wilde-als</div>
+          <div class="index-card-meta">Zulu name for African wormwood — widely used across all SA cultures for colds, flu, fever, worms, st...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-asparagus.html">
+          <div class="index-card-title">Wild Asparagus</div>
+          <div class="index-card-af">Wildeaspersie / Katdoring</div>
+          <div class="index-card-meta">Multiple indigenous asparagus species across SA — roots and young shoots medicinal and edible; impor...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-cardamom.html">
+          <div class="index-card-title">Wild Cardamom</div>
+          <div class="index-card-af">Wildekardemom</div>
+          <div class="index-card-meta">Digestion, nausea, coughs, headaches, general tonic</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-dagga.html">
+          <div class="index-card-title">Wild Dagga</div>
+          <div class="index-card-af">Wildedagga / Lebombo</div>
+          <div class="index-card-meta">Coughs, skin conditions, fever, snake bite, mild sedative</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-garlic-snotbossie.html">
+          <div class="index-card-title">Wild Garlic / Snotbossie</div>
+          <div class="index-card-af">Snotbossie / Wildeknoffel</div>
+          <div class="index-card-meta">SA&#x27;s indigenous garlic — anti-fungal, anti-bacterial, tick repellent, immune boosting. Milder than c...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-ginger.html">
+          <div class="index-card-title">Wild Ginger</div>
+          <div class="index-card-af">Wildegemmer / Indungulo</div>
+          <div class="index-card-meta">SA&#x27;s own indigenous ginger — roots used for coughs, colds, asthma, malaria, stomach complaints, mens...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-mint.html">
+          <div class="index-card-title">Wild Mint</div>
+          <div class="index-card-af">Wildemint / Kruisement</div>
+          <div class="index-card-meta">Colds &amp; flu, digestion, fever, headaches, stress, skin irritation</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-sunflower-rankgousblom.html">
+          <div class="index-card-title">Wild Sunflower / Rankgousblom</div>
+          <div class="index-card-af">Rankgousblom / Wildesonneblom</div>
+          <div class="index-card-meta">Traditional fever remedy, anti-malarial, digestive tonic, wound healing — fast-growing medicinal shr...</div>
+        </a>
+</div>
+<h2 class="section-divider">🌵 Succulents &amp; Aloes</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Healing Plants · 5 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/aloe-ferox.html">
+          <div class="index-card-title">Aloe Ferox</div>
+          <div class="index-card-af">Bitteraalwyn / Cape Aloe</div>
+          <div class="index-card-meta">Burns, wounds, constipation, arthritis, skin conditions, liver cleanse</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/aloe-vera.html">
+          <div class="index-card-title">Aloe Vera</div>
+          <div class="index-card-af">Aalwyn</div>
+          <div class="index-card-meta">Burns, wounds, eczema, digestion, immune support</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/prickly-pear.html">
+          <div class="index-card-title">Prickly Pear</div>
+          <div class="index-card-af">Turksvy / Doringvy</div>
+          <div class="index-card-meta">One of SA&#x27;s most complex plants — invasive pest AND valuable medicine AND drought fodder. Fruit eate...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/quiver-tree.html">
+          <div class="index-card-title">Quiver Tree</div>
+          <div class="index-card-af">Kokerboom</div>
+          <div class="index-card-meta">San people used sap for fever, pain, and stomach ailments — culturally significant</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/spekboom.html">
+          <div class="index-card-title">Spekboom</div>
+          <div class="index-card-af">Spekboom / Porkbush</div>
+          <div class="index-card-meta">Sore throat, mouth ulcers, skin rashes, exhaustion, thirst — extraordinary carbon sponge plant</div>
+        </a>
+</div>
+<h2 class="section-divider">💧 Wetland &amp; Riverbank Plants</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Healing Plants · 7 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/cape-reed.html">
+          <div class="index-card-title">Cape Reed</div>
+          <div class="index-card-af">Matjiesgoed</div>
+          <div class="index-card-meta">Rhizomes used for digestive complaints and wound healing in traditional practice</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/maidenhair-fern.html">
+          <div class="index-card-title">Maidenhair Fern</div>
+          <div class="index-card-af">Venushaar / Vrouehaar</div>
+          <div class="index-card-meta">Traditional remedy for coughs, bronchitis, hair loss, dandruff — a gentle medicinal fern used in fol...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/papyrus.html">
+          <div class="index-card-title">Papyrus</div>
+          <div class="index-card-af">Papirus / Waterriet</div>
+          <div class="index-card-meta">Root preparations used for digestive complaints; cultural and practical uses across Africa</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/river-fern.html">
+          <div class="index-card-title">River Fern</div>
+          <div class="index-card-af">Riviervaring</div>
+          <div class="index-card-meta">Various Asplenium ferns used in traditional SA medicine for wounds, digestive complaints, and fertil...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/rooiwortel-red-root.html">
+          <div class="index-card-title">Rooiwortel / Red Root</div>
+          <div class="index-card-af">Rooiwortel</div>
+          <div class="index-card-meta">Important Zulu and Xhosa medicine for menstrual problems, fertility, and childbirth. One of SA&#x27;s mos...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/water-hyacinth.html">
+          <div class="index-card-title">Water Hyacinth</div>
+          <div class="index-card-af">Waterasint</div>
+          <div class="index-card-meta">Traditional use for skin conditions and digestive complaints — invasive but medicinally used</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/willow-herb.html">
+          <div class="index-card-title">Willow Herb</div>
+          <div class="index-card-af">Wilgeblom</div>
+          <div class="index-card-meta">Prostate health, urinary complaints, anti-inflammatory — gaining scientific recognition for benign p...</div>
+        </a>
+</div>
+<h2 class="section-divider">🌸 Fynbos &amp; Cape Plants</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Healing Plants · 6 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/buchu.html">
+          <div class="index-card-title">Buchu</div>
+          <div class="index-card-af">Boegoe / Buchu</div>
+          <div class="index-card-meta">Urinary tract infections, kidney support, digestive complaints, anti-inflammatory</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cape-snowbush.html">
+          <div class="index-card-title">Cape Snowbush</div>
+          <div class="index-card-af">Slangbos / Kapokbos</div>
+          <div class="index-card-meta">Indigestion, colic, chest complaints, stress, traditional Cape remedy</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/honeybush.html">
+          <div class="index-card-title">Honeybush</div>
+          <div class="index-card-af">Heuningbos</div>
+          <div class="index-card-meta">Menopause symptoms, coughs, immune support, antioxidant, anxiety</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/pelargonium.html">
+          <div class="index-card-title">Pelargonium</div>
+          <div class="index-card-af">Malvarossie / Rabassam</div>
+          <div class="index-card-meta">Active ingredient in Umckaloabo — chest infections, bronchitis, sinusitis</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/rooibos.html">
+          <div class="index-card-title">Rooibos</div>
+          <div class="index-card-af">Rooibos</div>
+          <div class="index-card-meta">Antioxidant, colic in infants, eczema, sleep, immune support, anti-ageing</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/umckaloabo.html">
+          <div class="index-card-title">Umckaloabo</div>
+          <div class="index-card-af">Umckaloabo / Pelargonium</div>
+          <div class="index-card-meta">South Africa&#x27;s gift to the world — basis of the commercial chest infection remedy. Clinically proven...</div>
+        </a>
+</div>
+<h2 class="section-divider">🍃 Culinary &amp; Kitchen Herbs</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Herb Garden · 16 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/black-pepper.html">
+          <div class="index-card-title">Black Pepper</div>
+          <div class="index-card-af">Swartpeper</div>
+          <div class="index-card-meta">Piperine — enhances absorption of curcumin (turmeric) by 2000%. Anti-bacterial, digestive stimulant,...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/chilli-hot-pepper.html">
+          <div class="index-card-title">Chilli / Hot Pepper</div>
+          <div class="index-card-af">Rissie / Brandrissie</div>
+          <div class="index-card-meta">Capsaicin — powerful pain reliever, metabolism booster, anti-bacterial, digestive stimulant. Used to...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cinnamon.html">
+          <div class="index-card-title">Cinnamon</div>
+          <div class="index-card-af">Kaneel</div>
+          <div class="index-card-meta">Blood sugar regulation, anti-bacterial, anti-fungal, digestive, anti-inflammatory. Ceylon cinnamon (...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/coffee.html">
+          <div class="index-card-title">Coffee</div>
+          <div class="index-card-af">Koffie</div>
+          <div class="index-card-meta">Caffeine — the world&#x27;s most widely used psychoactive substance. Antioxidant-rich, liver-protective, ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/ginger.html">
+          <div class="index-card-title">Ginger</div>
+          <div class="index-card-af">Gemmer / Gemmerwortel</div>
+          <div class="index-card-meta">Nausea, morning sickness, motion sickness, arthritis, colds, circulation. One of the world&#x27;s best-st...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/lemon-verbena.html">
+          <div class="index-card-title">Lemon Verbena</div>
+          <div class="index-card-af">Lemoengras / Suurlemoenbossie</div>
+          <div class="index-card-meta">Calming tea, digestion, coughs, fevers, flavouring — widely grown in SA gardens</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/lemongrass.html">
+          <div class="index-card-title">Lemongrass</div>
+          <div class="index-card-af">Suurlemoengras / Sereh</div>
+          <div class="index-card-meta">Digestion, fever, headaches, anxiety, insect repellent — popular in SA cooking</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/moringa.html">
+          <div class="index-card-title">Moringa</div>
+          <div class="index-card-af">Moringa / Peulboom</div>
+          <div class="index-card-meta">Superfood — protein, vitamins, minerals; malnutrition, immune support, milk production in lactating ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/pigweed-misbredie.html">
+          <div class="index-card-title">Pigweed / Misbredie</div>
+          <div class="index-card-af">Misbredie / Waterblommetjie</div>
+          <div class="index-card-meta">One of Africa&#x27;s oldest food plants — leaves highly nutritious (protein, iron, calcium), seeds edible...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/spinach-wild-spinach.html">
+          <div class="index-card-title">Spinach / Wild Spinach</div>
+          <div class="index-card-af">Wildespinasie / Imfino</div>
+          <div class="index-card-meta">Traditional leafy vegetable across SA — nutritious, rich in iron, folate, calcium. Widely used in to...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/sunflower.html">
+          <div class="index-card-title">Sunflower</div>
+          <div class="index-card-af">Sonneblom</div>
+          <div class="index-card-meta">Seeds highly nutritious — protein, vitamin E, healthy fats; flower heads medicinal for fever and inf...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/turmeric.html">
+          <div class="index-card-title">Turmeric</div>
+          <div class="index-card-af">Borrie / Geelwortel</div>
+          <div class="index-card-meta">Curcumin — one of the most researched anti-inflammatory compounds on earth. Joint pain, digestive he...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/waterblommetjie.html">
+          <div class="index-card-title">Waterblommetjie</div>
+          <div class="index-card-af">Waterblommetjie</div>
+          <div class="index-card-meta">Uniquely Cape — edible aquatic plant, the base of waterblommetjiebredie. Nutritious, delicious, and ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wateruintjie-water-hawthorn.html">
+          <div class="index-card-title">Wateruintjie / Water Hawthorn</div>
+          <div class="index-card-af">Wateruintjie</div>
+          <div class="index-card-meta">Uniquely Cape — edible aquatic plant, base of the beloved waterblommetjiebredie stew. Flowers and yo...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-basil.html">
+          <div class="index-card-title">Wild Basil</div>
+          <div class="index-card-af">Wildebasilie</div>
+          <div class="index-card-meta">Cooking, digestion, insect repellent, coughs, stress — similar to garden basil but indigenous</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-rosemary.html">
+          <div class="index-card-title">Wild Rosemary</div>
+          <div class="index-card-af">Wilderosmaryn / Kapokbossie</div>
+          <div class="index-card-meta">Cooking herb, digestion, coughs, stress relief, headaches — SA&#x27;s answer to rosemary</div>
+        </a>
+</div>
+<h2 class="section-divider">💊 Medicinal Herbs</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Herb Garden · 6 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/dandelion.html">
+          <div class="index-card-title">Dandelion</div>
+          <div class="index-card-af">Perdeblom / Pissabed</div>
+          <div class="index-card-meta">Liver and kidney tonic, digestive bitter, diuretic, rich in vitamins A, C, K — entire plant edible a...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/echinacea.html">
+          <div class="index-card-title">Echinacea</div>
+          <div class="index-card-af">Echinacea / Keëlblom</div>
+          <div class="index-card-meta">Cold and flu prevention, immune boosting, wound healing — one of SA&#x27;s most popular supplements</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/milk-thistle.html">
+          <div class="index-card-title">Milk Thistle</div>
+          <div class="index-card-af">Melkdissel / Mariedissel</div>
+          <div class="index-card-meta">Silymarin — world&#x27;s best-studied liver protectant. Used for liver disease, hepatitis, mushroom poiso...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/st-johns-wort.html">
+          <div class="index-card-title">St John&#x27;s Wort</div>
+          <div class="index-card-af">Johanneskruid</div>
+          <div class="index-card-meta">Mild to moderate depression, anxiety, nerve pain, wound healing</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/stinging-nettle.html">
+          <div class="index-card-title">Stinging Nettle</div>
+          <div class="index-card-af">Brandnetel</div>
+          <div class="index-card-meta">Sting feared, benefits huge — iron, folate, protein; arthritis, hay fever, prostate, iron deficiency...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/valerian.html">
+          <div class="index-card-title">Valerian</div>
+          <div class="index-card-af">Baldriaan</div>
+          <div class="index-card-meta">Sleep disorders, anxiety, menstrual cramps, stress — widely available in SA</div>
+        </a>
+</div>
+<h2 class="section-divider">🌸 Aromatic Herbs, Spices &amp; Teas</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">SA Herb Garden · 7 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/chamomile.html">
+          <div class="index-card-title">Chamomile</div>
+          <div class="index-card-af">Kamille</div>
+          <div class="index-card-meta">Anxiety, sleep, colic, eczema, menstrual cramps, indigestion — gentle and safe</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/lavender.html">
+          <div class="index-card-title">Lavender</div>
+          <div class="index-card-af">Laventel</div>
+          <div class="index-card-meta">Anxiety, sleep, headaches, burns, skin conditions — one of most versatile herbs</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/oregano.html">
+          <div class="index-card-title">Oregano</div>
+          <div class="index-card-af">Origaan / Wildemarjolein</div>
+          <div class="index-card-meta">Carvacrol and thymol — among the most potent natural antimicrobials known. Anti-fungal, anti-bacteri...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/peppermint.html">
+          <div class="index-card-title">Peppermint</div>
+          <div class="index-card-af">Pepermunt</div>
+          <div class="index-card-meta">Digestion, IBS, headaches, nausea, colds — stronger than wild mint</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/rosemary.html">
+          <div class="index-card-title">Rosemary</div>
+          <div class="index-card-af">Roosmaryn</div>
+          <div class="index-card-meta">Memory and circulation herb — rosemarinic acid improves blood flow to brain, anti-oxidant, digestive...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/sage.html">
+          <div class="index-card-title">Sage</div>
+          <div class="index-card-af">Salie</div>
+          <div class="index-card-meta">Menopausal hot flushes, memory, sore throat, digestive complaints, anti-bacterial. SA has many indig...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/thyme.html">
+          <div class="index-card-title">Thyme</div>
+          <div class="index-card-af">Tiemie</div>
+          <div class="index-card-meta">Thymol — powerful antiseptic, anti-fungal, anti-bacterial. Coughs, bronchitis, throat infections, di...</div>
+        </a>
+</div>
+<h2 class="section-divider">🐾 Herbs for Animal Health</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Healing Plants for Animals · 20 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/aloe-ferox-animal-use.html">
+          <div class="index-card-title">Aloe Ferox — Animal Use</div>
+          <div class="index-card-af">Bitteraalwyn — Diergebruik</div>
+          <div class="index-card-meta">Specifically for animal use — gel for wound healing and skin conditions in livestock. Most commonly ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/calendula.html">
+          <div class="index-card-title">Calendula</div>
+          <div class="index-card-af">Gousblom / Calendula</div>
+          <div class="index-card-meta">Wound healing, skin rashes, digestive complaints, eye wash — gentle and very safe</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/comfrey.html">
+          <div class="index-card-title">Comfrey</div>
+          <div class="index-card-af">Smeerwortel / Konsol</div>
+          <div class="index-card-meta">Wound healing, bone fractures, bruising, joint pain — topical use only for animals</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/elderberry-vlierbes.html">
+          <div class="index-card-title">Elderberry / Vlierbes</div>
+          <div class="index-card-af">Vlierbes / Sambucus</div>
+          <div class="index-card-meta">Powerful immune booster and antiviral — berries for immune support, flowers for fever and respirator...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/fennel.html">
+          <div class="index-card-title">Fennel</div>
+          <div class="index-card-af">Vinkel</div>
+          <div class="index-card-meta">Digestive tonic — reduces gas and bloat, improves milk production in lactating animals, natural fly ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/fenugreek-fenegriek.html">
+          <div class="index-card-title">Fenugreek / Fenegriek</div>
+          <div class="index-card-af">Fenegriek / Wildeklawer</div>
+          <div class="index-card-meta">Milk production booster — widely used in SA to increase milk yield in dairy cows, goats and sheep. A...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/garlic.html">
+          <div class="index-card-title">Garlic</div>
+          <div class="index-card-af">Knoffel</div>
+          <div class="index-card-meta">Natural antibiotic, worm control, respiratory health — widely used in farm animal management</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/grewia-flava-rosyntjiebos.html">
+          <div class="index-card-title">Grewia Flava / Rosyntjiebos</div>
+          <div class="index-card-af">Rosyntjiebos / Moretlwa</div>
+          <div class="index-card-meta">Applied to wounds in livestock — confirmed anti-bacterial activity in SA research. Berries edible an...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/lemon-balm-suurlemoenmelisse.html">
+          <div class="index-card-title">Lemon Balm / Suurlemoenmelisse</div>
+          <div class="index-card-af">Melisse / Suurlemoenmelisse</div>
+          <div class="index-card-meta">Calming herb — reduces stress and anxiety in animals, especially during transport and handling. Anti...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/neem.html">
+          <div class="index-card-title">Neem</div>
+          <div class="index-card-af">Neem / Indiese Sering</div>
+          <div class="index-card-meta">Natural insect repellent, tick control, skin conditions, deworming — widely used on farms</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/plantain.html">
+          <div class="index-card-title">Plantain</div>
+          <div class="index-card-af">Weegbree</div>
+          <div class="index-card-meta">Wound healing, coughs, digestive tonic — common garden weed with extraordinary healing properties</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/psyllium-husk-psillium.html">
+          <div class="index-card-title">Psyllium Husk / Psillium</div>
+          <div class="index-card-af">Psillium / Sandpootjie</div>
+          <div class="index-card-meta">Sand and impaction colic prevention in horses — psyllium sweeps sand from the gut. Essential for hor...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/rosehip-roosknop.html">
+          <div class="index-card-title">Rosehip / Roosknop</div>
+          <div class="index-card-af">Roosknop / Roosheup</div>
+          <div class="index-card-meta">Highest natural Vitamin C source available — immune boosting, anti-inflammatory, joint support. Exce...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/senna-italica-wilde-senna.html">
+          <div class="index-card-title">Senna Italica / Wilde-senna</div>
+          <div class="index-card-af">Wilde-senna / Sebete</div>
+          <div class="index-card-meta">Most cited plant in SA ethnoveterinary research for livestock digestive complaints — confirmed as pu...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/slippery-elm-gladde-olm.html">
+          <div class="index-card-title">Slippery Elm / Gladde Olm</div>
+          <div class="index-card-af">Gladde Olm</div>
+          <div class="index-card-meta">Mucilaginous — coats and soothes the entire digestive tract. Excellent for animals with ulcers, coli...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/terminalia-sericea-vaalboom.html">
+          <div class="index-card-title">Terminalia Sericea / Vaalboom</div>
+          <div class="index-card-af">Vaalboom / Wildesering</div>
+          <div class="index-card-meta">Second most cited plant in SA ethnoveterinary research — bark used for diarrhoea and digestive compl...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/turmeric-borrie.html">
+          <div class="index-card-title">Turmeric / Borrie</div>
+          <div class="index-card-af">Borrie / Geelwortel</div>
+          <div class="index-card-meta">Curcumin — most researched natural anti-inflammatory. Joint pain, liver support, immune boosting, wo...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/valerian-baldriaan.html">
+          <div class="index-card-title">Valerian / Baldriaan</div>
+          <div class="index-card-af">Baldriaan</div>
+          <div class="index-card-meta">Natural sedative and calming herb — widely used for nervous horses, dogs with anxiety, and animals s...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wormwood-alsem.html">
+          <div class="index-card-title">Wormwood / Alsem</div>
+          <div class="index-card-af">Alsem / Wildealsem</div>
+          <div class="index-card-meta">Natural dewormer — thujone and absinthin repel and expel internal parasites. Used traditionally acro...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/yarrow.html">
+          <div class="index-card-title">Yarrow</div>
+          <div class="index-card-af">Duisendblad</div>
+          <div class="index-card-meta">Wound healing — stops bleeding rapidly, anti-inflammatory, fever reducer. One of the best topical wo...</div>
+        </a>
+</div>
+<h2 class="section-divider">🌳 Indigenous Healing Trees</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Trees That Heal · 18 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/buffalo-thorn.html">
+          <div class="index-card-title">Buffalo Thorn</div>
+          <div class="index-card-af">Blinkblaar-wag-&#x27;n-bietjie</div>
+          <div class="index-card-meta">Leaves for wounds, bark for dysentery, root for coughs — deeply significant culturally in SA</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cape-willow.html">
+          <div class="index-card-title">Cape Willow</div>
+          <div class="index-card-af">Salix / Treurwilger</div>
+          <div class="index-card-meta">Bark contains salicin — original aspirin; fever, pain, inflammation, arthritis</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/fever-tree.html">
+          <div class="index-card-title">Fever Tree</div>
+          <div class="index-card-af">Koorsboom</div>
+          <div class="index-card-meta">Bark traditionally used for malaria and fever — the original quinine tree of SA folklore</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/karee-wild-currant.html">
+          <div class="index-card-title">Karee / Wild Currant</div>
+          <div class="index-card-af">Karee / Rooikaree</div>
+          <div class="index-card-meta">Graceful indigenous willow-like tree — bark for diarrhoea and fever, berries fermented into traditio...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/kiepersol-cabbage-tree.html">
+          <div class="index-card-title">Kiepersol / Cabbage Tree</div>
+          <div class="index-card-af">Kiepersol / Wildekool</div>
+          <div class="index-card-meta">Iconic SA tree with distinctive large leaves — bark used for fever, malaria, rheumatism and as a cha...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/kremetart-baobab.html">
+          <div class="index-card-title">Kremetart / Baobab</div>
+          <div class="index-card-af">Kremetartboom / Grootboom</div>
+          <div class="index-card-meta">The iconic African tree of life — fruit pulp highest Vitamin C of any fruit, 6x more than oranges. B...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/leadwood.html">
+          <div class="index-card-title">Leadwood</div>
+          <div class="index-card-af">Hardekool</div>
+          <div class="index-card-meta">Bark for diarrhoea and dysentery, ash used as toothpowder, leaves for wounds</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/marula.html">
+          <div class="index-card-title">Marula</div>
+          <div class="index-card-af">Maroela</div>
+          <div class="index-card-meta">Bark for dysentery and diarrhoea, oil for skin, fruit extremely nutritious — iconic African tree</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/monkey-orange.html">
+          <div class="index-card-title">Monkey Orange</div>
+          <div class="index-card-af">Kafferpruim / Wildelemoen</div>
+          <div class="index-card-meta">Fruit for nutrition and digestive health, bark for fever and malaria, roots for toothache</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/mopane.html">
+          <div class="index-card-title">Mopane</div>
+          <div class="index-card-af">Mopanie</div>
+          <div class="index-card-meta">Iconic bushveld tree — bark for diarrhoea and dysentery, leaves for wounds, mopane worm (caterpillar...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/morula-bird-plum.html">
+          <div class="index-card-title">Morula / Bird Plum</div>
+          <div class="index-card-af">Moerbeiboom / Suurpruim</div>
+          <div class="index-card-meta">Small edible fruit — sweet-sour, nutritious, eaten fresh or brewed into beer. Bark used medicinally ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/rooiels-cape-alder.html">
+          <div class="index-card-title">Rooiels / Cape Alder</div>
+          <div class="index-card-af">Rooiels</div>
+          <div class="index-card-meta">Beautiful Cape mountain stream tree — bark used medicinally for skin conditions and sore throats. Ta...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/shepherds-tree.html">
+          <div class="index-card-title">Shepherd&#x27;s Tree</div>
+          <div class="index-card-af">Witgat</div>
+          <div class="index-card-meta">Roots for coffee substitute, berries edible, leaves medicinal — sacred tree of Kalahari</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/soetdoring-sweet-thorn.html">
+          <div class="index-card-title">Soetdoring / Sweet Thorn</div>
+          <div class="index-card-af">Soetdoring</div>
+          <div class="index-card-meta">Bark for diarrhoea and dysentery, gum edible and medicinal, pods nutritious fodder — one of SA&#x27;s mos...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/weeping-boerboon.html">
+          <div class="index-card-title">Weeping Boerboon</div>
+          <div class="index-card-af">Huilboerboon</div>
+          <div class="index-card-meta">Beautiful iconic SA tree — pods edible and nutritious when ripe and roasted. Bark used medicinally. ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-fig.html">
+          <div class="index-card-title">Wild Fig</div>
+          <div class="index-card-af">Wildevy / Umkhiwane</div>
+          <div class="index-card-meta">Bark and latex for diarrhoea, wounds, ringworm, toothache — multiple species all medicinally used</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-olive.html">
+          <div class="index-card-title">Wild Olive</div>
+          <div class="index-card-af">Olienhout / Wildeolien</div>
+          <div class="index-card-meta">Leaves for fever, high blood pressure, diabetes; bark for wounds; fruit edible</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-peach-doppruim.html">
+          <div class="index-card-title">Wild Peach / Doppruim</div>
+          <div class="index-card-af">Doppruim / Wildeperskes</div>
+          <div class="index-card-meta">Hardy SA forest tree — bark used for rheumatism, skin conditions and as general tonic. Seeds contain...</div>
+        </a>
+</div>
+<h2 class="section-divider">🌿 Healing Shrubs &amp; Bushes</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Trees That Heal · 7 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/blombos.html">
+          <div class="index-card-title">Blombos</div>
+          <div class="index-card-af">Blombos</div>
+          <div class="index-card-meta">Traditional Cape remedy for coughs, chest complaints, and skin conditions</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/camphor-bush.html">
+          <div class="index-card-title">Camphor Bush</div>
+          <div class="index-card-af">Kanferblaar / Wildesalie</div>
+          <div class="index-card-meta">Headaches, coughs, rheumatism, skin infections — leaves smell strongly of camphor</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cape-honeysuckle.html">
+          <div class="index-card-title">Cape Honeysuckle</div>
+          <div class="index-card-af">Trompetters / Kaperse Kanferfoelie</div>
+          <div class="index-card-meta">Brilliant orange-red flowers beloved by sunbirds — leaves and bark used in traditional medicine for ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/num-num.html">
+          <div class="index-card-title">Num-Num</div>
+          <div class="index-card-af">Noemnoem</div>
+          <div class="index-card-meta">Berries nutritious and edible, bark and roots used medicinally, roots for fever</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/saltbush.html">
+          <div class="index-card-title">Saltbush</div>
+          <div class="index-card-af">Soutslaai / Brakbos</div>
+          <div class="index-card-meta">Rich in minerals, drought fodder, traditional digestive remedy</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/sausage-tree.html">
+          <div class="index-card-title">Sausage Tree</div>
+          <div class="index-card-af">Worsboom</div>
+          <div class="index-card-meta">Fruit extract for skin conditions including skin cancer — basis of popular commercial skin creams</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-pomegranate.html">
+          <div class="index-card-title">Wild Pomegranate</div>
+          <div class="index-card-af">Wildegranaat / Taaibos</div>
+          <div class="index-card-meta">Beautiful indigenous shrub with red tubular flowers — bark used for fever and digestive complaints i...</div>
+        </a>
+</div>
+<h2 class="section-divider">⚠️ Plants Toxic to Animals</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Toxic &amp; Dangerous Plants · 26 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/agapanthus.html">
+          <div class="index-card-title">Agapanthus</div>
+          <div class="index-card-af">Agapant / Bloulelie</div>
+          <div class="index-card-meta">Beloved SA garden plant — traditionally used for fertility, pregnancy and labour induction. ALL part...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/arum-lily-varkoor.html">
+          <div class="index-card-title">Arum Lily / Varkoor</div>
+          <div class="index-card-af">Wit Varkoor / Varkoorgonna</div>
+          <div class="index-card-meta">Iconic white SA flower — all parts toxic due to calcium oxalate crystals. Causes severe mouth swelli...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/bitter-apple-bitter-nightshade.html">
+          <div class="index-card-title">Bitter Apple / Bitter Nightshade</div>
+          <div class="index-card-af">Bitterappel / Perdebossie</div>
+          <div class="index-card-meta">Fruit used topically in traditional medicine for skin conditions and ringworm — NOT for internal use...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/black-nightshade.html">
+          <div class="index-card-title">Black Nightshade</div>
+          <div class="index-card-af">Nastergal / Mnxeba</div>
+          <div class="index-card-meta">Complex plant — ripe berries eaten in some cultures, unripe berries toxic. Leaves used medicinally i...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/boekenhout.html">
+          <div class="index-card-title">Boekenhout</div>
+          <div class="index-card-af">Gifappel / Stramonium</div>
+          <div class="index-card-meta">Highly toxic — all parts. Used historically for asthma but extremely dangerous without expert prepar...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/bracken-fern.html">
+          <div class="index-card-title">Bracken Fern</div>
+          <div class="index-card-af">Arend Varing / Adelaarsvaring</div>
+          <div class="index-card-meta">Highly toxic to livestock — thiaminase enzyme destroys Vitamin B1, causing progressive neurological ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/cocklebur.html">
+          <div class="index-card-title">Cocklebur</div>
+          <div class="index-card-af">Kankerroos / Kankerbossie</div>
+          <div class="index-card-meta">Spiny burrs cause mechanical injury to animals; seedlings highly toxic — carboxyatractyloside causes...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/euphorbia-melkbos.html">
+          <div class="index-card-title">Euphorbia / Melkbos</div>
+          <div class="index-card-af">Melkbos / Naboom</div>
+          <div class="index-card-meta">Many Euphorbia species in SA — all produce caustic milky latex. Some traditional medicinal uses (war...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/field-poppy.html">
+          <div class="index-card-title">Field Poppy</div>
+          <div class="index-card-af">Klaproos / Rooi Papawer</div>
+          <div class="index-card-meta">Mild sedative properties — less toxic than opium poppy but still causes problems in livestock. Petal...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/gifappel-thorn-apple.html">
+          <div class="index-card-title">Gifappel / Thorn Apple</div>
+          <div class="index-card-af">Gifappel / Stinkblaar</div>
+          <div class="index-card-meta">Highly toxic tropane alkaloids — all parts deadly. Causes hallucinations, respiratory failure, death...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/gifblaar.html">
+          <div class="index-card-title">Gifblaar</div>
+          <div class="index-card-af">Gifblaar</div>
+          <div class="index-card-meta">One of the most toxic plants in SA — causes sudden death in livestock</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/inkberry.html">
+          <div class="index-card-title">Inkberry</div>
+          <div class="index-card-af">Tintelbessie / Sambokbessie</div>
+          <div class="index-card-meta">Highly toxic — causes liver and kidney failure. Important to identify and remove from farms</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/inkbossie-inkweed.html">
+          <div class="index-card-title">Inkbossie / Inkweed</div>
+          <div class="index-card-af">Inkbossie / Wildejohannesbessie</div>
+          <div class="index-card-meta">Dark purple berries used as ink — toxic to livestock but traditionally used for skin complaints. Bir...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/koringblom-blue-weed.html">
+          <div class="index-card-title">Koringblom / Blue Weed</div>
+          <div class="index-card-af">Koringblom / Bloublom</div>
+          <div class="index-card-meta">Pretty purple-blue invasive weed — pyrrolizidine alkaloids accumulate in liver causing Pictou diseas...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/lantana.html">
+          <div class="index-card-title">Lantana</div>
+          <div class="index-card-af">Lantana / Wildeprivet</div>
+          <div class="index-card-meta">One of the world&#x27;s most ecologically and economically destructive invasive plants — and one of SA&#x27;s ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/pom-pom-weed.html">
+          <div class="index-card-title">Pom-pom Weed</div>
+          <div class="index-card-af">Pompomwiet / Fynbossie</div>
+          <div class="index-card-meta">Invasive pink pompom weed taking over SA grasslands — toxic to animals and suppresses indigenous pla...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/scotch-thistle.html">
+          <div class="index-card-title">Scotch Thistle</div>
+          <div class="index-card-af">Wouddissel / Skaapdissel</div>
+          <div class="index-card-meta">Invasive thistle — seeds contain silymarin (same as milk thistle) with liver-protective properties. ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/senecio-ragwort.html">
+          <div class="index-card-title">Senecio / Ragwort</div>
+          <div class="index-card-af">Kruiskruid / Gifbossie</div>
+          <div class="index-card-meta">Extremely toxic — pyrrolizidine alkaloids cause irreversible liver damage. Over 100 Senecio species ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/slaapbossie-slagroos.html">
+          <div class="index-card-title">Slaapbossie / Slagroos</div>
+          <div class="index-card-af">Slaapbossie / Wilde Slaapmiddel</div>
+          <div class="index-card-meta">Known as &#x27;sleep bush&#x27; — causes extreme sedation, hallucinations, and death. A dangerous weed found o...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/spear-thistle.html">
+          <div class="index-card-title">Spear Thistle</div>
+          <div class="index-card-af">Gewone Dissel</div>
+          <div class="index-card-meta">Invasive weed — mainly a livestock management problem. Spines cause mouth and digestive tract injuri...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/stinkblaar-jimsonweed.html">
+          <div class="index-card-title">Stinkblaar / Jimsonweed</div>
+          <div class="index-card-af">Stinkblaar / Olieboom</div>
+          <div class="index-card-meta">Related to Gifappel — equally toxic. Distinctive white trumpet flowers, unpleasant smell. All parts ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/tamboti.html">
+          <div class="index-card-title">Tamboti</div>
+          <div class="index-card-af">Tambotie / Umthombothi</div>
+          <div class="index-card-meta">PROTECTED SA tree — extraordinarily beautiful wood, extraordinarily dangerous tree. Milky latex toxi...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/tomato-wild-tomato.html">
+          <div class="index-card-title">Tomato / Wild Tomato</div>
+          <div class="index-card-af">Tamatie / Wilde Tamatie</div>
+          <div class="index-card-meta">Ripe fruit nutritious and safe — leaves and stems toxic (solanine). Wild tomato (morogo) is a tradit...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/tulip-tree.html">
+          <div class="index-card-title">Tulip Tree</div>
+          <div class="index-card-af">Tulp / Kafferboom</div>
+          <div class="index-card-meta">NO medicinal use — extremely toxic. Causes heart failure in livestock</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/umdlebe-poison-rope.html">
+          <div class="index-card-title">Umdlebe / Poison Rope</div>
+          <div class="index-card-af">Gifboom / Melkboom</div>
+          <div class="index-card-meta">Milky latex extremely toxic — causes severe skin burns, blindness if in eyes, internal bleeding if i...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/vo-lent-mistletoe.html">
+          <div class="index-card-title">Voëlent / Mistletoe</div>
+          <div class="index-card-af">Voëlent / Voëlentjie</div>
+          <div class="index-card-meta">SA&#x27;s indigenous mistletoes — toxic berries but traditionally used medicinally for immune support, hi...</div>
+        </a>
+</div>
+<h2 class="section-divider">🚫 Plants Toxic to Humans</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Toxic &amp; Dangerous Plants · 3 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/cape-lilac.html">
+          <div class="index-card-title">Cape Lilac</div>
+          <div class="index-card-af">Seringboom / Sering</div>
+          <div class="index-card-meta">Beautiful but toxic — berries and bark cause vomiting, seizures, death in livestock and children</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/poison-bulb.html">
+          <div class="index-card-title">Poison Bulb</div>
+          <div class="index-card-af">Seeroogblom / Gifui</div>
+          <div class="index-card-meta">Toxic to humans and most animals — traditional use by San for arrow poison</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/poppy.html">
+          <div class="index-card-title">Poppy</div>
+          <div class="index-card-af">Papawer / Slaappapawer</div>
+          <div class="index-card-meta">Source of morphine and codeine — powerful pain relief in controlled medical use. Garden poppies dang...</div>
+        </a>
+</div>
+<h2 class="section-divider">🫘 Pod Trees — Green vs Ripe Danger</h2>
+<p style="font-size:13px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Toxic &amp; Dangerous Plants · 11 plants</p>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/plants/black-wattle.html">
+          <div class="index-card-title">Black Wattle</div>
+          <div class="index-card-af">Swartwattel</div>
+          <div class="index-card-meta">Invasive wattle — bark used medicinally for diarrhoea and wounds (tannins). Pods and seeds problemat...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/erythrina-lucky-bean-tree.html">
+          <div class="index-card-title">Erythrina / Lucky Bean Tree</div>
+          <div class="index-card-af">Koraalboom / Transvaalse Koraalboom</div>
+          <div class="index-card-meta">Iconic red flowering tree — seeds (lucky beans) highly toxic. Bark used medicinally for pain and inf...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/flamboyant-tree.html">
+          <div class="index-card-title">Flamboyant Tree</div>
+          <div class="index-card-af">Flambojant / Vlamdeboom</div>
+          <div class="index-card-meta">Spectacular red flowering tree — large woody pods contain seeds with toxic compounds. Horses and cat...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/honey-mesquite-suidwesdoring.html">
+          <div class="index-card-title">Honey Mesquite / Suidwesdoring</div>
+          <div class="index-card-af">Suidwesdoringboom / Prosopis</div>
+          <div class="index-card-meta">⚠️ DROUGHT DANGER: Ripe brown pods = fair livestock forage. GREEN pods consumed heavily = fatal. Wor...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/jacaranda.html">
+          <div class="index-card-title">Jacaranda</div>
+          <div class="index-card-af">Jakaranda</div>
+          <div class="index-card-meta">SA&#x27;s most beloved purple street tree. CORRECTED: According to the ASPCA, Jacaranda mimosifolia is cl...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/oak-tree-akkerboom.html">
+          <div class="index-card-title">Oak Tree / Akkerboom</div>
+          <div class="index-card-af">Akkerboom / Eikeboom</div>
+          <div class="index-card-meta">⚠️ CUMULATIVE TOXICITY: Acorns and young oak leaves contain gallotannins that accumulate over weeks ...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/poison-pod-umzane.html">
+          <div class="index-card-title">Poison Pod / Umzane</div>
+          <div class="index-card-af">Gifpeul</div>
+          <div class="index-card-meta">Sickle bush — pods and seeds contain compounds causing neurological symptoms in livestock. Distincti...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/sweet-pea-lathyrus.html">
+          <div class="index-card-title">Sweet Pea / Lathyrus</div>
+          <div class="index-card-af">Ertjieblom / Soetertjie</div>
+          <div class="index-card-meta">Beautiful garden climber — seeds of Lathyrus species cause lathyrism: irreversible paralysis of hind...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/syringa-ser-oom.html">
+          <div class="index-card-title">Syringa / Serингбoom</div>
+          <div class="index-card-af">Seringboom / Sering</div>
+          <div class="index-card-meta">One of SA&#x27;s most dangerous common garden trees. Berries, bark, leaves all toxic — tetranortriterpene...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wild-laburnum-geelkeur.html">
+          <div class="index-card-title">Wild Laburnum / Geelkeur</div>
+          <div class="index-card-af">Geelkeur / Geel Basterels</div>
+          <div class="index-card-meta">Yellow-flowered pod tree related to laburnum — all parts toxic, especially seeds. Traditionally used...</div>
+        </a>
+<a class="index-card" href="/inibos-creations/plants/wisteria.html">
+          <div class="index-card-title">Wisteria</div>
+          <div class="index-card-af">Blourëen / Wisteria</div>
+          <div class="index-card-meta">Popular garden climber with beautiful purple flowers — all parts toxic, especially seeds and pods. A...</div>
+        </a>
+</div>
+</main>
+
+<footer>
+  <span class="footer-brand">Inibos Creations</span>
+  <div>Linda Visser · Rooidam Farm · South Africa</div>
+  <div style="margin-top:6px;font-size:12px;">
+    South African animal-care references, written from the lived experience of a farm, a rescue, and a lifetime with animals.
+  </div>
+  <div class="footer-links">
+    <a href="https://www.facebook.com/share/g/1CnqWeMp6F/">Facebook Group</a>
+    <a href="https://www.instagram.com/InibosCreations">@InibosCreations</a>
+    <a href="https://www.tiktok.com/@lindainibos">@lindainibos</a>
+    <a href="mailto:lindaleevisser@gmail.com">lindaleevisser@gmail.com</a>
+  </div>
+  <div style="margin-top:14px;font-size:11px;opacity:0.5;">
+    This site is for educational reference only. Always consult a qualified veterinarian for diagnosis and treatment.
+  </div>
+</footer>
+
+</body>
+</html>
