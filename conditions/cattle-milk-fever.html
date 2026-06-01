@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milk Fever (Hypocalcaemia) in Cattle (Melkkoors / Hypokalsemie) · Inibos Creations</title>
+<meta name="description" content="Sudden drop in blood calcium around calving — muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds...">
+<meta name="author" content="Linda Visser">
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:title" content="Milk Fever (Hypocalcaemia) in Cattle (Melkkoors / Hypokalsemie)">
+<meta property="og:description" content="Sudden drop in blood calcium around calving — muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds...">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Inibos Creations">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Milk Fever (Hypocalcaemia) in Cattle (Melkkoors / Hypokalsemie)">
+<meta name="twitter:description" content="Sudden drop in blood calcium around calving — muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds...">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --earth: #3d2b1a;
+  --saddle: #6b3f1f;
+  --tan: #c4863a;
+  --wheat: #f0d090;
+  --cream: #fdf6e8;
+  --bg: #f5ede0;
+  --sage: #7a9e7e;
+  --pasture: #4a7c59;
+  --rust: #c0492b;
+  --gold: #d4a017;
+  --muted: #7a6a58;
+  --border: rgba(107,63,31,0.15);
+  --safe-bg: #d8f3dc;
+  --safe-text: #1a3d2b;
+  --caution-bg: #fff3cd;
+  --caution-text: #7a4500;
+  --toxic-bg: #fde8e8;
+  --toxic-text: #7a1515;
+}
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Lato', 'Nunito', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--earth);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+/* Header */
+.site-header {
+  background: var(--earth);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  position: sticky; top: 0; z-index: 100;
+}
+.site-header a { color: var(--wheat); text-decoration: none; }
+.brand {
+  font-family: 'Dancing Script', 'Georgia', serif;
+  font-size: 22px;
+  color: var(--wheat);
+}
+.brand-sub {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(240,208,144,0.55); margin-top: 2px;
+}
+.header-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.header-nav a {
+  font-size: 13px;
+  color: rgba(240,208,144,0.85);
+  font-weight: 600;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.header-nav a:hover { border-bottom-color: var(--tan); color: var(--wheat); }
+
+/* Breadcrumbs */
+.breadcrumbs {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 14px 24px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.breadcrumbs a { color: var(--saddle); text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs .sep { margin: 0 6px; opacity: 0.5; }
+
+/* Main */
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(107,63,31,0.06);
+  margin-top: 14px;
+  margin-bottom: 40px;
+}
+
+/* Hero */
+.hero {
+  border-bottom: 2px solid var(--tan);
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--tan); font-weight: 700; margin-bottom: 6px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: 38px; font-weight: 900;
+  color: var(--earth); line-height: 1.15; margin-bottom: 8px;
+}
+.hero-af {
+  font-family: 'Dancing Script', 'Georgia', cursive;
+  font-size: 22px; color: var(--tan);
+  margin-bottom: 6px;
+}
+.hero-sci {
+  font-size: 14px; font-style: italic;
+  color: var(--muted);
+}
+.hero-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.tag {
+  font-size: 11px; padding: 4px 11px;
+  border-radius: 12px; font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.tag-book { background: var(--earth); color: var(--wheat); }
+.tag-use { background: #e8f5ee; color: var(--pasture); }
+.tag-cat { background: #fff7e8; color: var(--saddle); }
+.tag-habitat { background: #fdf3e4; color: var(--saddle); }
+.tag-zoonotic { background: var(--toxic-bg); color: var(--toxic-text); }
+.tag-notifiable { background: #8b0000; color: white; }
+
+/* Severity badge */
+.severity-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 800; padding: 6px 14px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;
+}
+.sev-critical { background: #8b0000; color: white; }
+.sev-high { background: var(--toxic-bg); color: var(--toxic-text); }
+.sev-medium { background: var(--caution-bg); color: var(--caution-text); }
+.sev-low { background: var(--safe-bg); color: var(--safe-text); }
+
+/* Section */
+section { margin-bottom: 32px; }
+section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; font-weight: 700; color: var(--earth);
+  border-bottom: 2px solid var(--tan);
+  padding-bottom: 7px; margin-bottom: 14px;
+}
+section p { margin-bottom: 12px; color: #333; }
+section ul { padding-left: 22px; margin-bottom: 12px; }
+section li { margin-bottom: 6px; color: #333; }
+
+/* Callout boxes */
+.important-box {
+  background: var(--caution-bg);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--caution-text);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.danger-box {
+  background: var(--toxic-bg);
+  border-left: 4px solid var(--rust);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--toxic-text);
+}
+.tip-box {
+  background: #e8f5ee;
+  border-left: 4px solid var(--pasture);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: var(--safe-text);
+}
+
+/* Animal safety grid (plant pages) */
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.safety-card {
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+}
+.safety-card.safe { background: var(--safe-bg); border-color: #b6dbb9; }
+.safety-card.caution { background: var(--caution-bg); border-color: #e8d490; }
+.safety-card.toxic { background: var(--toxic-bg); border-color: #e8a8a8; }
+.safety-card .animal-name {
+  font-weight: 700; font-size: 15px;
+  margin-bottom: 4px;
+}
+.safety-card.safe .animal-name { color: var(--safe-text); }
+.safety-card.caution .animal-name { color: var(--caution-text); }
+.safety-card.toxic .animal-name { color: var(--toxic-text); }
+.safety-card .animal-note {
+  font-size: 13px; line-height: 1.55;
+}
+
+/* Related book */
+.book-cta {
+  background: linear-gradient(135deg, var(--saddle), var(--earth));
+  color: var(--cream);
+  padding: 22px;
+  border-radius: 14px;
+  margin: 24px 0;
+}
+.book-cta h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 19px; color: var(--wheat); margin-bottom: 8px;
+}
+.book-cta p { font-size: 14px; color: rgba(253,246,232,0.9); margin-bottom: 14px; }
+.book-cta a {
+  display: inline-block;
+  background: var(--tan); color: var(--earth);
+  font-weight: 700; padding: 9px 18px;
+  border-radius: 22px; text-decoration: none;
+  font-size: 14px; transition: background 0.15s;
+}
+.book-cta a:hover { background: var(--wheat); }
+
+/* Index grids */
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.index-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.index-card:hover {
+  border-color: var(--tan);
+  box-shadow: 0 6px 20px rgba(107,63,31,0.08);
+  transform: translateY(-2px);
+}
+.index-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--earth); margin-bottom: 3px;
+}
+.index-card-af {
+  font-family: 'Dancing Script', Georgia, cursive;
+  font-size: 14px; color: var(--tan); margin-bottom: 6px;
+}
+.index-card-meta {
+  font-size: 12px; color: var(--muted);
+  margin-top: 8px;
+}
+
+.section-divider {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; color: var(--earth);
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Footer */
+footer {
+  background: var(--earth);
+  color: rgba(240,208,144,0.6);
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+footer a { color: var(--wheat); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .footer-brand {
+  font-family: 'Dancing Script', Georgia, cursive;
+  font-size: 20px; color: var(--wheat);
+  display: block; margin-bottom: 8px;
+}
+footer .footer-links {
+  margin-top: 14px;
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  main { padding: 18px; margin: 8px; }
+  .hero h1 { font-size: 28px; }
+  .header-nav { gap: 12px; }
+  .header-nav a { font-size: 12px; }
+  .brand { font-size: 18px; }
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MedicalCondition", "name": "Milk Fever (Hypocalcaemia)", "alternateName": "Melkkoors / Hypokalsemie", "description": "Sudden drop in blood calcium around calving \u2014 muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds rapidly to calcium treatment if caught early.", "associatedAnatomy": "Cattle"}</script>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/inibos-creations/">
+    <div class="brand">Inibos Creations</div>
+    <div class="brand-sub">Linda Visser · Rooidam</div>
+  </a>
+  <nav class="header-nav">
+    <a href="/inibos-creations/plants/">Plants</a>
+    <a href="/inibos-creations/conditions/">Animal Health</a>
+    <a href="/inibos-creations/">Books</a>
+  </nav>
+</header>
+
+<nav class="breadcrumbs"><a href="/inibos-creations/">Inibos Creations</a><span class="sep">›</span><a href="/inibos-creations/conditions/">Animal Health</a><span class="sep">›</span><span>Milk Fever (Hypocalcaemia)</span></nav>
+
+<main>
+<div class="hero">
+<div class="hero-eyebrow">🐄 Cattle · Metabolic</div>
+<h1>Milk Fever (Hypocalcaemia)</h1>
+<div class="hero-af">Melkkoors / Hypokalsemie</div>
+<div class="hero-meta">
+<span class="severity-badge sev-high">High — Vet Required</span>
+<span class="tag tag-cat">Metabolic</span>
+</div>
+</div>
+<section>
+<p>Sudden drop in blood calcium around calving — muscles and nerves need calcium to function. Dairy cows and high-producing cows most at risk. Responds rapidly to calcium treatment if caught early.</p>
+</section>
+<section><h2>Symptoms — what to look for</h2><ul><li>Within 24-72 hours of calving</li><li>Cold ears and extremities</li><li>Unsteady on feet</li><li>Goes down — unable to rise</li><li>Head tucked into flank</li><li>Bloat</li><li>Constipation</li><li>Can deteriorate to coma if untreated</li></ul></section>
+<section><h2>Causes</h2><ul><li>Calcium mobilisation from bones cannot keep up with colostrum/milk production</li><li>High calcium diet pre-calving reduces bone calcium mobilisation</li><li>Older high-producing cows most at risk</li><li>Also occurs in ewes and does around lambing/kidding</li></ul></section>
+<section><h2>Treatment</h2><ul><li>IV calcium borogluconate — dramatic rapid recovery</li><li>Warm subcutaneous calcium also effective</li><li>Roll cow to prevent bloat every 2 hours</li><li>Keep warm</li><li>Prevent recurrence — oral calcium supplements</li></ul></section>
+<section><h2>Prevention</h2><ul><li>Low calcium diet 3 weeks pre-calving (anionic diet)</li><li>Calcium supplement at calving</li><li>Vitamin D injection pre-calving</li><li>Magnesium supplementation</li></ul></section>
+<div class="important-box"><strong>Key point: </strong>A cow down after calving = milk fever until proven otherwise. IV calcium is a miracle drug for this — recovery in 20 minutes is normal. Every farmer should know how to give it.</div>
+<div class="book-cta">
+          <h3>Read more in The Extraordinary Cow</h3>
+          <p>Full clinical detail on this and many other conditions appears in <strong>The Extraordinary Cow</strong>, the comprehensive South African animal-health reference for cattle keepers.</p>
+          <a href="/inibos-creations/">See all books →</a>
+        </div>
+<section>
+<h2>Other cattle conditions</h2>
+<div class="index-grid">
+<a class="index-card" href="/inibos-creations/conditions/cattle-lumpy-skin-disease.html">
+              <div class="index-card-title">Lumpy Skin Disease</div>
+              <div class="index-card-af">Knopvelsiekte</div>
+              <div class="index-card-meta">Viral disease causing characteristic skin nodules across the body — spread by biting insec...</div>
+            </a>
+<a class="index-card" href="/inibos-creations/conditions/cattle-foot-and-mouth-disease.html">
+              <div class="index-card-title">Foot and Mouth Disease</div>
+              <div class="index-card-af">Moel-en-Klouseer / MKS</div>
+              <div class="index-card-meta">One of the world&#x27;s most economically devastating livestock diseases. SA is not FMD-free — ...</div>
+            </a>
+<a class="index-card" href="/inibos-creations/conditions/cattle-brucellosis.html">
+              <div class="index-card-title">Brucellosis</div>
+              <div class="index-card-af">Brusellose / Abortussiekte</div>
+              <div class="index-card-meta">Currently the most problematic disease for SA farmers according to veterinary authorities....</div>
+            </a>
+<a class="index-card" href="/inibos-creations/conditions/cattle-heartwater.html">
+              <div class="index-card-title">Heartwater</div>
+              <div class="index-card-af">Hartwater / Bosluiskoors</div>
+              <div class="index-card-meta">Tick-borne disease caused by Ehrlichia ruminantium — transmitted by the bont tick (Amblyom...</div>
+            </a>
+<a class="index-card" href="/inibos-creations/conditions/cattle-suidwesdoring-mesquite-poisoning.html">
+              <div class="index-card-title">Suidwesdoring / Mesquite Poisoning</div>
+              <div class="index-card-af">Suidwesdoringvergiftiging</div>
+              <div class="index-card-meta">Prosopis glandulosa — honey mesquite. Green pods consumed as high proportion of diet cause...</div>
+            </a>
+<a class="index-card" href="/inibos-creations/conditions/cattle-lantana-poisoning.html">
+              <div class="index-card-title">Lantana Poisoning</div>
+              <div class="index-card-af">Lantanavergiftiging</div>
+              <div class="index-card-meta">Lantana camara causes liver failure and photosensitisation in cattle. Cattle sometimes bec...</div>
+            </a>
+</div>
+</section>
+<section>
+<p style="margin-top:10px"><a href="/inibos-creations/conditions/" style="color:var(--saddle);font-weight:600">← Browse all conditions</a> · <a href="/inibos-creations/sa-farm-animal-database.html" style="color:var(--saddle);font-weight:600">Open the interactive database →</a></p>
+</section>
+</main>
+
+<footer>
+  <span class="footer-brand">Inibos Creations</span>
+  <div>Linda Visser · Rooidam Farm · South Africa</div>
+  <div style="margin-top:6px;font-size:12px;">
+    South African animal-care references, written from the lived experience of a farm, a rescue, and a lifetime with animals.
+  </div>
+  <div class="footer-links">
+    <a href="https://www.facebook.com/share/g/1CnqWeMp6F/">Facebook Group</a>
+    <a href="https://www.instagram.com/InibosCreations">@InibosCreations</a>
+    <a href="https://www.tiktok.com/@lindainibos">@lindainibos</a>
+    <a href="mailto:lindaleevisser@gmail.com">lindaleevisser@gmail.com</a>
+  </div>
+  <div style="margin-top:14px;font-size:11px;opacity:0.5;">
+    This site is for educational reference only. Always consult a qualified veterinarian for diagnosis and treatment.
+  </div>
+</footer>
+
+</body>
+</html>
