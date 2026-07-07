@@ -145,19 +145,31 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--wd);color:var(--t
 .card-stat-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,192,96,.45);}
 
 /* BOOK CARDS */
-.book-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:1000px;margin:0 auto;}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px;max-width:1000px;margin:0 auto;}
 .book-card{
-  background:linear-gradient(160deg,var(--lw),var(--ld));
-  border:1px solid rgba(240,192,96,.2);border-radius:4px;
-  padding:24px 20px;text-align:center;
-  box-shadow:4px 4px 0 rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.4);
-  position:relative;transition:transform .2s;
+  background:
+    radial-gradient(ellipse at 25% 15%,rgba(240,192,96,.10) 0%,transparent 45%),
+    linear-gradient(160deg,var(--lw),var(--ld));
+  border:1px solid rgba(240,192,96,.25);border-radius:6px;
+  padding:0 0 22px;text-align:center;overflow:hidden;
+  box-shadow:6px 6px 0 rgba(0,0,0,.35),0 14px 34px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;transition:transform .25s,box-shadow .25s;
 }
-.book-card:hover{transform:translateY(-3px) rotate(0.5deg);}
-.book-card::before{content:'';position:absolute;left:0;top:10%;bottom:10%;width:5px;background:linear-gradient(to bottom,var(--gd),var(--gb),var(--gd));border-radius:0 2px 2px 0;}
-.book-num{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(240,192,96,.45);text-transform:uppercase;margin-bottom:8px;}
-.book-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--gp);margin-bottom:6px;line-height:1.3;}
-.book-af{font-family:'Dancing Script',cursive;font-size:13px;color:var(--gw);opacity:.7;margin-bottom:10px;}
+.book-card:hover{transform:translateY(-5px) rotate(0.5deg);box-shadow:8px 10px 0 rgba(0,0,0,.35),0 20px 44px rgba(0,0,0,.6);}
+.book-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,var(--gd),var(--gb),var(--gd));box-shadow:1px 0 4px rgba(0,0,0,.4);z-index:2;}
+.book-cover{width:100%;aspect-ratio:2/3;overflow:hidden;position:relative;box-shadow:0 6px 16px rgba(0,0,0,.5);}
+.book-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+.book-cover-placeholder{
+  width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;
+  font-size:44px;background:
+    repeating-linear-gradient(45deg,rgba(0,0,0,.08) 0,rgba(0,0,0,.08) 2px,transparent 2px,transparent 10px),
+    linear-gradient(160deg,var(--ll),var(--lm));
+  box-shadow:inset 0 0 30px rgba(0,0,0,.4);
+}
+.book-card-body{padding:18px 20px 0;}
+.book-num{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(240,192,96,.5);text-transform:uppercase;margin-bottom:8px;}
+.book-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--gp);margin-bottom:6px;line-height:1.3;text-shadow:0 2px 6px rgba(0,0,0,.4);}
+.book-af{font-family:'Dancing Script',cursive;font-size:13px;color:var(--gw);opacity:.75;margin-bottom:12px;}
 .book-status{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:10px;font-family:'Oswald',sans-serif;}
 .status-wip{background:rgba(240,192,96,.15);color:var(--gb);border:1px solid rgba(240,192,96,.25);}
 .status-soon{background:rgba(82,183,136,.15);color:#88d4b0;border:1px solid rgba(82,183,136,.25);}
@@ -307,53 +319,92 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--wd);color:var(--t
     <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gw);margin-bottom:20px;text-align:center;">📚 Available Now — payhip.com/InibosCreations</div>
 
     <div class="book-grid">
+      <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/ZWNxT','_blank')">
+        <div class="book-cover"><img src="covers/mmm-cover.jpg" alt="Mud, Manure & Miracles cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">🆕 New Release</div>
+          <div class="book-title">Mud, Manure & Miracles</div>
+          <div class="book-af">A Life Built One Day at a Time</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR99</span>
+          <div style="margin-top:10px;">
+            <a href="https://www.amazon.com/s?k=Mud+Manure+%26+Miracles+Linda+Visser" target="_blank" onclick="event.stopPropagation()" style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,192,96,.55);text-decoration:none;border-bottom:1px dotted rgba(240,192,96,.4);">📕 Also on Amazon (paperback)</a>
+          </div>
+        </div>
+      </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/8xEGc','_blank')">
-        <div class="book-num">🐴 Donkey Care</div>
-        <div class="book-title">Long Ears & Big Hearts</div>
-        <div class="book-af">Complete Guide to Donkey Care, Rescue & Welfare in SA</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        <div class="book-cover"><img src="covers/Donkey%20Care%20Manual.png" alt="Long Ears & Big Hearts – Donkey Care Manual cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Donkey Care</div>
+          <div class="book-title">Long Ears & Big Hearts</div>
+          <div class="book-af">Complete Guide to Donkey Care, Rescue & Welfare in SA</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/xpZD5','_blank')">
-        <div class="book-num">🐴 Rescue Toolkit</div>
-        <div class="book-title">Long Ears & Big Hearts</div>
-        <div class="book-af">Complete Rescue Toolkit & Legal Forms</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR50+</span>
+        <div class="book-cover"><img src="covers/Donkey%20care%20collection.png" alt="Long Ears & Big Hearts – Rescue Toolkit cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Rescue Toolkit</div>
+          <div class="book-title">Long Ears & Big Hearts</div>
+          <div class="book-af">Complete Rescue Toolkit & Legal Forms</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR50+</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/Krtfs','_blank')">
-        <div class="book-num">📖 Story</div>
-        <div class="book-title">The Heart of the Kalahari</div>
-        <div class="book-af">Stories from the rescue and the land</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR80</span>
+        <div class="book-cover"><img src="covers/Heart%20of%20the%20Kalahari.png" alt="The Heart of the Kalahari cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Story</div>
+          <div class="book-title">The Heart of the Kalahari</div>
+          <div class="book-af">Stories from the rescue and the land</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR80</span>
+          <div style="margin-top:10px;">
+            <a href="https://www.amazon.com/dp/B0H6FHTDZ5" target="_blank" onclick="event.stopPropagation()" style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(240,192,96,.55);text-decoration:none;border-bottom:1px dotted rgba(240,192,96,.4);">📕 Also on Amazon (paperback)</a>
+          </div>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/N6T7X','_blank')">
-        <div class="book-num">🙏 Devotional</div>
-        <div class="book-title">Faithful Hooves</div>
-        <div class="book-af">A Donkey Keeper's Diary of Grace, Love & Devotion</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        <div class="book-cover"><img src="covers/Faithful%20hooves.png" alt="Faithful Hooves cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Devotional</div>
+          <div class="book-title">Faithful Hooves</div>
+          <div class="book-af">A Donkey Keeper's Diary of Grace, Love & Devotion</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/AuoMk','_blank')">
-        <div class="book-num">💚 Inspirational</div>
-        <div class="book-title">Journey of Love, Faith & Inspiration</div>
-        <div class="book-af">Stories of heart from the veld</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        <div class="book-cover"><img src="covers/Faith%20%26%20Inspiration.png" alt="Journey of Love, Faith & Inspiration cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Inspirational</div>
+          <div class="book-title">Journey of Love, Faith & Inspiration</div>
+          <div class="book-af">Stories of heart from the veld</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/msKH6','_blank')">
-        <div class="book-num">📔 Journal</div>
-        <div class="book-title">My Farm Journal</div>
-        <div class="book-af">A Diary of Life with the Animals</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        <div class="book-cover"><img src="covers/Farm%20Journal%20Adult.png" alt="My Farm Journal cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Journal</div>
+          <div class="book-title">My Farm Journal</div>
+          <div class="book-af">A Diary of Life with the Animals</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR120</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/Uvsdz','_blank')">
-        <div class="book-num">👶 Children's</div>
-        <div class="book-title">My Farm Friends</div>
-        <div class="book-af">A Children's Farm Journal of Adventures!</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR80</span>
+        <div class="book-cover"><img src="covers/Farm%20Journal%20children.png" alt="My Farm Friends cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Children's</div>
+          <div class="book-title">My Farm Friends</div>
+          <div class="book-af">A Children's Farm Journal of Adventures!</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR80</span>
+        </div>
       </div>
       <div class="book-card" style="cursor:pointer;" onclick="window.open('https://payhip.com/b/aENrs','_blank')">
-        <div class="book-num">📓 Notebook</div>
-        <div class="book-title">A Donkey Care Notebook</div>
-        <div class="book-af">Track, record and care for your donkeys</div>
-        <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR60</span>
+        <div class="book-cover"><img src="covers/Donkey%20care%20notebook.png" alt="A Donkey Care Notebook cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">Notebook</div>
+          <div class="book-title">A Donkey Care Notebook</div>
+          <div class="book-af">Track, record and care for your donkeys</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available · ZAR60</span>
+        </div>
       </div>
     </div>
 
@@ -364,39 +415,88 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--wd);color:var(--t
     </div>
   </div>
 
+  <!-- AMAZON-ONLY PAPERBACKS -->
+  <div style="max-width:1000px;margin:0 auto 50px;">
+    <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gw);margin-bottom:20px;text-align:center;">📕 Paperback Only — Available on Amazon</div>
+    <div class="book-grid">
+      <div class="book-card" style="cursor:pointer;" onclick="window.open('https://www.amazon.com/dp/B0H7MSDB8R','_blank')">
+        <div class="book-cover"><img src="covers/Donkey%20coloring%20book.png" alt="Donkey Coloring Book cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">🖍️ Coloring Book</div>
+          <div class="book-title">Donkey Coloring Book</div>
+          <div class="book-af">Long Ears & Big Hearts — 30+ Designs</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available on Amazon</span>
+        </div>
+      </div>
+      <div class="book-card" style="cursor:pointer;" onclick="window.open('https://www.amazon.com/dp/B0H6MWGB18','_blank')">
+        <div class="book-cover"><img src="covers/Horse%20coloring%20book.png" alt="Horse Coloring Book cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">🖍️ Coloring Book</div>
+          <div class="book-title">Horse Coloring Book</div>
+          <div class="book-af">Long Ears & Big Hearts — 30+ Designs</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available on Amazon</span>
+        </div>
+      </div>
+      <div class="book-card" style="cursor:pointer;" onclick="window.open('https://www.amazon.com/dp/B0H5WLSTGY','_blank')">
+        <div class="book-cover"><img src="covers/Donkey%20tales.jpg" alt="The Donkey Tales cover" loading="lazy"></div>
+        <div class="book-card-body">
+          <div class="book-num">😂 Humor</div>
+          <div class="book-title">The Donkey Tales</div>
+          <div class="book-af">Four hooves. Two humans. One farm. Infinite love.</div>
+          <span class="book-status" style="background:rgba(82,183,136,.2);color:#88d4b0;border:1px solid rgba(82,183,136,.3);">✅ Available on Amazon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- COMING SOON -->
   <div style="max-width:1000px;margin:0 auto;">
     <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,192,96,.45);margin-bottom:20px;text-align:center;">🌿 SA Natural Wisdom Series — Coming Soon</div>
     <div class="book-grid">
       <div class="book-card">
-        <div class="book-num">Book 1</div>
-        <div class="book-title">South African Healing Plants</div>
-        <div class="book-af">Suid-Afrikaanse Genesingsplante</div>
-        <span class="book-status status-wip">✍️ In Progress</span>
+        <div class="book-cover-placeholder">🌿</div>
+        <div class="book-card-body">
+          <div class="book-num">Book 1</div>
+          <div class="book-title">South African Healing Plants</div>
+          <div class="book-af">Suid-Afrikaanse Genesingsplante</div>
+          <span class="book-status status-wip">✍️ In Progress</span>
+        </div>
       </div>
       <div class="book-card">
-        <div class="book-num">Book 2</div>
-        <div class="book-title">The SA Herb Garden</div>
-        <div class="book-af">Die SA Kruietuin</div>
-        <span class="book-status status-soon">🕐 Coming Soon</span>
+        <div class="book-cover-placeholder">🌿</div>
+        <div class="book-card-body">
+          <div class="book-num">Book 2</div>
+          <div class="book-title">The SA Herb Garden</div>
+          <div class="book-af">Die SA Kruietuin</div>
+          <span class="book-status status-soon">🕐 Coming Soon</span>
+        </div>
       </div>
       <div class="book-card">
-        <div class="book-num">Book 3</div>
-        <div class="book-title">Healing Plants for Animals</div>
-        <div class="book-af">Genesingsplante vir Diere</div>
-        <span class="book-status status-soon">🕐 Coming Soon</span>
+        <div class="book-cover-placeholder">🌿</div>
+        <div class="book-card-body">
+          <div class="book-num">Book 3</div>
+          <div class="book-title">Healing Plants for Animals</div>
+          <div class="book-af">Genesingsplante vir Diere</div>
+          <span class="book-status status-soon">🕐 Coming Soon</span>
+        </div>
       </div>
       <div class="book-card">
-        <div class="book-num">Book 4</div>
-        <div class="book-title">Trees That Heal</div>
-        <div class="book-af">Bome wat Genees</div>
-        <span class="book-status status-soon">🕐 Coming Soon</span>
+        <div class="book-cover-placeholder">🌳</div>
+        <div class="book-card-body">
+          <div class="book-num">Book 4</div>
+          <div class="book-title">Trees That Heal</div>
+          <div class="book-af">Bome wat Genees</div>
+          <span class="book-status status-soon">🕐 Coming Soon</span>
+        </div>
       </div>
       <div class="book-card">
-        <div class="book-num">Book 5</div>
-        <div class="book-title">Toxic & Dangerous Plants of SA</div>
-        <div class="book-af">Giftige Plante van SA</div>
-        <span class="book-status status-soon">🕐 Coming Soon</span>
+        <div class="book-cover-placeholder">☠️</div>
+        <div class="book-card-body">
+          <div class="book-num">Book 5</div>
+          <div class="book-title">Toxic & Dangerous Plants of SA</div>
+          <div class="book-af">Giftige Plante van SA</div>
+          <span class="book-status status-soon">🕐 Coming Soon</span>
+        </div>
       </div>
     </div>
   </div>
