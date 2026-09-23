@@ -302,7 +302,8 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--wd);color:var(--t
 <article class="shop-card" data-cat="children"><div class="shop-cover"><img src="covers/Donkey%20coloring%20book.png" alt="Donkey Coloring Book cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">Paperback, Amazon</div><h3 class="shop-title">Donkey Coloring Book</h3><div class="price-tag">Amazon</div><p class="shop-blurb">Long ears to fill in, for children who would rather colour than be read to.</p><a class="nav-btn  shop-btn" href="https://www.amazon.com/dp/B0H7MSDB8R" target="_blank" rel="noopener">View on Amazon</a></div></article>
 <article class="shop-card" data-cat="children"><div class="shop-cover"><img src="covers/Horse%20coloring%20book.png" alt="Horse Coloring Book cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">Paperback, Amazon</div><h3 class="shop-title">Horse Coloring Book</h3><div class="price-tag">Amazon</div><p class="shop-blurb">The same, with manes.</p><a class="nav-btn  shop-btn" href="https://www.amazon.com/dp/B0H6MWGB18" target="_blank" rel="noopener">View on Amazon</a></div></article>
 <article class="shop-card" data-cat="children"><div class="shop-cover"><img src="covers/Farm%20Journal%20children.png" alt="My Farm Friends cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">A children’s journal</div><h3 class="shop-title">My Farm Friends</h3><div class="price-tag">$3.99</div><p class="shop-blurb">For a child to record the animals they meet, name and grow attached to.</p><a class="nav-btn  shop-btn" href="https://payhip.com/b/Uvsdz" target="_blank" rel="noopener">Buy</a></div></article>
-<article class="shop-card" data-cat="home"><div class="shop-cover"><img src="covers/Recipe%20Book.jpg" alt="Inibos Creations Recipe Book cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">Heritage Collection</div><h3 class="shop-title">Inibos Creations Recipe Book</h3><div class="price-tag">$7.99</div><p class="shop-blurb">Made with love, shared with joy. The recipes that get asked for again.</p><div class="shop-actions"><a class="nav-btn gold-btn shop-btn" href="https://www.amazon.com/dp/B0HKRBRHJH" target="_blank" rel="noopener">Buy on Amazon</a><a class="shop-alt" href="https://payhip.com/b/cMd6g" target="_blank" rel="noopener">or buy direct from Inibos</a></div></div></article>
+<article class="shop-card" data-cat="home"><div class="shop-cover"><img src="covers/sa-recipes-cover.jpg" alt="200 Proper South African Recipes cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">Braai, Padkos, Poeding and Everything In Between</div><h3 class="shop-title">200 Proper South African Recipes</h3><div class="price-tag">$16.99 paperback</div><p class="shop-blurb">Two hundred recipes from a South African kitchen. Braai and potjie, padkos for the long road, salads for a hot Bushveld day, sauces and pickles and atchar, bread and pap and samp, and puddings that have been settling family arguments for three generations. Every recipe written the way it is actually cooked, with the bit that goes wrong told to you before it does.</p><div class="shop-actions"><a class="nav-btn gold-btn shop-btn" href="https://www.amazon.com/dp/B0HKRBRHJH" target="_blank" rel="noopener">Buy on Amazon</a></div></div></article>
+<article class="shop-card" data-cat="home"><div class="shop-cover"><img src="covers/Recipe%20Book.jpg" alt="Inibos Creations Recipe Book cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">Made with Love, Shared with Joy</div><h3 class="shop-title">Inibos Creations Recipe Book</h3><div class="price-tag">$7.99 PDF &middot; $19.99 paperback</div><p class="shop-blurb">Not a book of my recipes but a home for yours. A 105-page heirloom journal to write the family favourites into, with room for the story behind each dish. Illustrated in colour throughout, which is what the paperback price pays for.</p><div class="shop-actions"><a class="nav-btn gold-btn shop-btn" href="https://www.amazon.com/dp/B0HC4GFZDK" target="_blank" rel="noopener">Buy on Amazon</a><a class="shop-alt" href="https://payhip.com/b/cMd6g" target="_blank" rel="noopener">or buy direct from Inibos</a></div></div></article>
 <article class="shop-card" data-cat="home"><div class="shop-cover"><img src="covers/Farm%20Journal%20Adult.png" alt="My Farm Journal cover" loading="lazy"></div><div class="shop-body"><div class="shop-sub">For the grown-ups</div><h3 class="shop-title">My Farm Journal</h3><div class="price-tag">$4.99</div><p class="shop-blurb">Feeds, weather, births, losses and what the season actually did. A working record rather than a diary.</p><a class="nav-btn  shop-btn" href="https://payhip.com/b/msKH6" target="_blank" rel="noopener">Buy</a></div></article>
 <article class="shop-card" data-cat="soon"><div class="shop-cover shop-cover-none">🌱</div><div class="shop-body"><div class="shop-sub">Book 1 · SA Natural Wisdom Series</div><h3 class="shop-title">South African Healing Plants</h3><div class="price-soon">In progress</div><p class="shop-blurb">The plants database, worked up into a proper book.</p></div></article>
 <article class="shop-card" data-cat="soon"><div class="shop-cover shop-cover-none">🌱</div><div class="shop-body"><div class="shop-sub">Book 2</div><h3 class="shop-title">The SA Herb Garden</h3><div class="price-soon">Coming soon</div><p class="shop-blurb">Growing and using the herbs that actually cope with our climate.</p></div></article>
@@ -331,16 +332,27 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--wd);color:var(--t
 </footer>
 
 <script>
+function applyFilter(f){
+  document.querySelectorAll('.shop-tab').forEach(function(t){
+    t.classList.toggle('is-on', t.dataset.filter === f);
+  });
+  document.querySelectorAll('.shop-card').forEach(function(c){
+    c.classList.toggle('is-hidden', f !== 'all' && c.dataset.cat !== f);
+  });
+}
 document.querySelectorAll('.shop-tab').forEach(function(tab){
   tab.addEventListener('click', function(){
-    document.querySelectorAll('.shop-tab').forEach(function(t){ t.classList.remove('is-on'); });
-    tab.classList.add('is-on');
-    var f = tab.dataset.filter;
-    document.querySelectorAll('.shop-card').forEach(function(c){
-      c.classList.toggle('is-hidden', f !== 'all' && c.dataset.cat !== f);
-    });
+    applyFilter(tab.dataset.filter);
+    history.replaceState(null, '', tab.dataset.filter === 'all' ? location.pathname : '#' + tab.dataset.filter);
   });
 });
+// let a link open the shop straight onto one section, eg shop.html#free
+function fromHash(){
+  var f = (location.hash || '').replace('#','');
+  if (document.querySelector('.shop-tab[data-filter="' + f + '"]')) applyFilter(f);
+}
+fromHash();
+window.addEventListener('hashchange', fromHash);
 </script>
 
 </body>
